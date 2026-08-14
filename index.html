@@ -44,30 +44,15 @@
 </head>
 <body>
   <h1>📦 Compras internacionales — Stock NEVE</h1>
-  <div class="updated">Actualizado 14/08/2026 17:25 · <a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar comprador / llegada a Argentina / empaquetado / envío / observaciones (planilla en GitHub)</a></div>
+  <div class="updated">Actualizado 14/08/2026 17:34 · <a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar comprador / llegada a Argentina / empaquetado / envío / observaciones (planilla en GitHub)</a></div>
   
-  <h2>⚠ Ventas esperando que se compre el producto</h2>
-  <table id="tabla-alertas">
-    <tbody>
-      
-    <tr class="alert-row">
-      <td>Martin Duranona</td>
-      <td>Tissot Heritage Automatic Grey Dial T142.464.16.062.00 + Maison Crivelli Oud Maracuja<div class="nota">⚠ Nico anoto 'falta oud'. No se encontro compra iniciada de ninguno de los 2 productos en Gmail (solo hay mails de marketing/carrito abandonado de Teddy Baldassarre y Jomashop).</div></td>
-      <td colspan="2">Sin compra iniciada</td>
-      <td><span class="badge" style="background:#ef4444">Venta sin comprar</span></td>
-      <td colspan="2">#280 · $ 397.636</td>
-      <td colspan="2">-</td>
-    </tr>
-    </tbody>
-  </table>
-
   <h2 style="color:var(--muted)">Compras en curso (agrupadas por cliente)</h2>
   <div class="toolbar">
     <input id="search" type="text" placeholder="Buscar por producto, comprador, proveedor, orden, tracking...">
     <select id="filtroProveedor"><option value="">Todos los proveedores</option><option value="Beauty House">Beauty House</option>
 <option value="Jomashop">Jomashop</option>
-<option value="UPS (Olfactory Factory)">UPS (Olfactory Factory)</option>
-<option value="UPS (Teddy Baldassarre Watches)">UPS (Teddy Baldassarre Watches)</option>
+<option value="Olfactory Factory">Olfactory Factory</option>
+<option value="Teddy Baldassarre">Teddy Baldassarre</option>
 <option value="Venba">Venba</option>
 <option value="WatchMaxx">WatchMaxx</option>
 <option value="eBay (georgymelly)">eBay (georgymelly)</option>
@@ -158,6 +143,30 @@
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
+    <tr data-proveedor="Olfactory Factory" data-estado="arribado_warehouse" data-comprador="Martin Duranona" data-search="martin duranona maison crivelli oud maracuja 100ml olfactory factory olf222524 1zh914y70338382535">
+      <td>Martin Duranona</td>
+      <td>Maison Crivelli Oud Maracuja 100ml<div class="sub">Comprado: 05/08/2026</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Venta dividida en 2 compras: este Maison Crivelli Oud Maracuja + reloj Heritage (Teddy Baldassarre, ver ups-teddybaldassarre-483742)</div></td>
+      <td>Olfactory Factory</td>
+      <td>$ 397.636</td>
+      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
+      <td>OLF222524<br><span class="tracking">1ZH914Y70338382535</span></td>
+      <td><span class="venta confirmado">Confirmado · #280 Martin Duranona</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16196ecc75d2" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="Teddy Baldassarre" data-estado="deberia_haber_llegado_ar" data-comprador="Martin Duranona" data-search="martin duranona heritage 1938 cosc anthracite 39mm - anthracite on leather strap (reloj) teddy baldassarre #110415 1zr58f114293483742">
+      <td>Martin Duranona</td>
+      <td>Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap (reloj)<div class="sub">Comprado: 05/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div><div class="nota">⚠ Venta dividida en 2 compras: este reloj Heritage + Maison Crivelli Oud Maracuja (Olfactory Factory, ver ups-olfactoryfactory-338382535)</div></td>
+      <td>Teddy Baldassarre</td>
+      <td>$ 397.636</td>
+      <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
+      <td>#110415<br><span class="tracking">1ZR58F114293483742</span></td>
+      <td><span class="venta confirmado">Confirmado · #280 Martin Duranona</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fe210a0f5cccaa" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
     <tr data-proveedor="Beauty House" data-estado="arribado_warehouse" data-comprador="Roberto Andres Noriega" data-search="roberto andres noriega clive christian xxi art deco amberwood parfum for everyone 50ml beauty house bh100197291 1zy77v780300139913">
       <td>Roberto Andres Noriega</td>
       <td>Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Reembolsado por la tienda el 6/8 pero igual llego al warehouse el 11/8 - revisar</div><div class="nota">⚠ Venta marcada 'Tarda proveedor' por Nico</div></td>
@@ -191,18 +200,6 @@
       <td>M40EMB18<br><span class="tracking">-</span></td>
       <td><span class="venta sinmatch">Sin match / reposicion</span></td>
       <td><a href="https://mail.google.com/mail/u/0/#all/19ffd744b77a2207" target="_blank">Ver mail</a></td>
-      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
-    </tr>
-
-    <tr data-proveedor="UPS (Olfactory Factory)" data-estado="arribado_warehouse" data-comprador="Reposicion de stock" data-search="reposicion de stock no identificado en el mail ups (olfactory factory) - 1zh914y70338382535">
-      <td>Reposicion de stock</td>
-      <td>No identificado en el mail<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div></td>
-      <td>UPS (Olfactory Factory)</td>
-      <td>-</td>
-      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
-      <td>-<br><span class="tracking">1ZH914Y70338382535</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
-      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16196ecc75d2" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
@@ -242,25 +239,25 @@
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr data-proveedor="UPS (Teddy Baldassarre Watches)" data-estado="deberia_haber_llegado_ar" data-comprador="Reposicion de stock" data-search="reposicion de stock no identificado en el mail ups (teddy baldassarre watches) - 1zr58f114293483742">
+    <tr data-proveedor="Olfactory Factory" data-estado="deberia_haber_llegado_ar" data-comprador="Reposicion de stock" data-search="reposicion de stock maison crivelli hibiscus mahajad extrait (sample 1.5ml) olfactory factory olf220344 1zh914y70321532396">
       <td>Reposicion de stock</td>
-      <td>No identificado en el mail<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
-      <td>UPS (Teddy Baldassarre Watches)</td>
+      <td>Maison Crivelli Hibiscus Mahajad Extrait (sample 1.5ml)<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Olfactory Factory</td>
       <td>-</td>
       <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
-      <td>-<br><span class="tracking">1ZR58F114293483742</span></td>
+      <td>OLF220344<br><span class="tracking">1ZH914Y70321532396</span></td>
       <td><span class="venta sinmatch">Sin match / reposicion</span></td>
-      <td><a href="https://mail.google.com/mail/u/0/#all/19fe210a0f5cccaa" target="_blank">Ver mail</a></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fd8a206963ec79" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr data-proveedor="UPS (Olfactory Factory)" data-estado="deberia_haber_llegado_ar" data-comprador="Reposicion de stock" data-search="reposicion de stock no identificado en el mail ups (olfactory factory) - 1zh914y70321532396">
+    <tr data-proveedor="Olfactory Factory" data-estado="deberia_haber_llegado_ar" data-comprador="Reposicion de stock" data-search="reposicion de stock maison crivelli oud maracuja 100ml olfactory factory olf220344 1zh914y70321532396">
       <td>Reposicion de stock</td>
-      <td>No identificado en el mail<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
-      <td>UPS (Olfactory Factory)</td>
+      <td>Maison Crivelli Oud Maracuja 100ml<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Olfactory Factory</td>
       <td>-</td>
       <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
-      <td>-<br><span class="tracking">1ZH914Y70321532396</span></td>
+      <td>OLF220344<br><span class="tracking">1ZH914Y70321532396</span></td>
       <td><span class="venta sinmatch">Sin match / reposicion</span></td>
       <td><a href="https://mail.google.com/mail/u/0/#all/19fd8a206963ec79" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
