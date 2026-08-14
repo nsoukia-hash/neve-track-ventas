@@ -14,7 +14,9 @@
     background: var(--bg); color: var(--text); padding: 24px;
   }
   h1 { font-size: 20px; margin: 0 0 4px; }
+  h2 { font-size: 15px; margin: 28px 0 10px; color: #fca5a5; }
   .updated { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+  .updated a { color: #60a5fa; }
   .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
   .toolbar input, .toolbar select {
     background: var(--card); color: var(--text); border: 1px solid var(--border);
@@ -25,6 +27,7 @@
   th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
   th { background: #16213a; color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: .04em; }
   tr:hover td { background: #223047; }
+  tr.alert-row td { background: #2a1414; }
   .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; color: #0b1220; font-weight: 600; white-space: nowrap; }
   .venta { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; }
   .venta.confirmado { background: #14532d; color: #86efac; }
@@ -32,6 +35,7 @@
   .venta.sinmatch { background: #334155; color: var(--muted); }
   .sub { color: var(--muted); font-size: 11px; margin-top: 4px; }
   .nota { color: #fbbf24; font-size: 11px; margin-top: 4px; }
+  .obs { color: #7dd3fc; font-size: 11px; margin-top: 4px; }
   .tracking { color: var(--muted); font-size: 11px; }
   a { color: #60a5fa; text-decoration: none; }
   a:hover { text-decoration: underline; }
@@ -40,7 +44,24 @@
 </head>
 <body>
   <h1>📦 Compras internacionales — Stock NEVE</h1>
-  <div class="updated">Actualizado 14/08/2026 17:02 · <a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar llegada a Argentina / empaquetado / envío (planilla en GitHub)</a></div>
+  <div class="updated">Actualizado 14/08/2026 17:16 · <a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar comprador / llegada a Argentina / empaquetado / envío / observaciones (planilla en GitHub)</a></div>
+  
+  <h2>⚠ Ventas esperando que se compre el producto</h2>
+  <table id="tabla-alertas">
+    <tbody>
+      
+    <tr class="alert-row">
+      <td>Martin Duranona</td>
+      <td>Tissot Heritage Automatic Grey Dial T142.464.16.062.00 + Maison Crivelli Oud Maracuja<div class="nota">⚠ Nico anoto 'falta oud'. No se encontro compra iniciada de ninguno de los 2 productos en Gmail (solo hay mails de marketing/carrito abandonado de Teddy Baldassarre y Jomashop).</div></td>
+      <td colspan="2">Sin compra iniciada</td>
+      <td><span class="badge" style="background:#ef4444">Venta sin comprar</span></td>
+      <td colspan="2">#280 · $ 397.636</td>
+      <td colspan="2">-</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2 style="color:var(--muted)">Compras en curso (agrupadas por cliente)</h2>
   <div class="toolbar">
     <input id="search" type="text" placeholder="Buscar por producto, comprador, proveedor, orden, tracking...">
     <select id="filtroProveedor"><option value="">Todos los proveedores</option><option value="Beauty House">Beauty House</option>
@@ -77,105 +98,21 @@
     </thead>
     <tbody>
       
-    <tr data-proveedor="WatchMaxx" data-estado="pagado" data-search="reposicion de stock mido ocean star 200 m026.430.11.041.00 watchmaxx #643423 -">
-      <td>Reposicion de stock</td>
-      <td>Mido Ocean Star 200 M026.430.11.041.00</td>
+    <tr data-proveedor="WatchMaxx" data-estado="pagado" data-comprador="Francesco Delli" data-search="francesco delli hamilton khaki field expedition auto h70225540 watchmaxx #640112 -">
+      <td>Francesco Delli</td>
+      <td>Hamilton Khaki Field Expedition Auto H70225540<div class="sub">Comprado: 27/07/2026</div><div class="sub">ETA proveedor: 2026-08-13 a 2026-09-04</div><div class="nota">⚠ Venta marcada 'Va a tardar' por Nico</div></td>
       <td>WatchMaxx</td>
-      <td>-</td>
-      <td><span class="badge" style="background:#60a5fa">Pagado</span></td>
-      <td>#643423<br><span class="tracking">-</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
-      <td><a href="https://mail.google.com/mail/u/0/#all/19ffd762c4f947be" target="_blank">Ver mail</a></td>
-      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
-    </tr>
-
-    <tr data-proveedor="Jomashop" data-estado="pagado" data-search="reposicion de stock tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop m40emb18 -">
-      <td>Reposicion de stock</td>
-      <td>Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00</td>
-      <td>Jomashop</td>
-      <td>-</td>
-      <td><span class="badge" style="background:#60a5fa">Pagado</span></td>
-      <td>M40EMB18<br><span class="tracking">-</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
-      <td><a href="https://mail.google.com/mail/u/0/#all/19ffd744b77a2207" target="_blank">Ver mail</a></td>
-      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
-    </tr>
-
-    <tr data-proveedor="WatchMaxx" data-estado="pagado" data-search="reposicion de stock hamilton khaki field expedition auto h70225540 watchmaxx #640112 -">
-      <td>Reposicion de stock</td>
-      <td>Hamilton Khaki Field Expedition Auto H70225540</td>
-      <td>WatchMaxx</td>
-      <td>-</td>
+      <td>$ 20.121</td>
       <td><span class="badge" style="background:#60a5fa">Pagado</span></td>
       <td>#640112<br><span class="tracking">-</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><span class="venta confirmado">Confirmado · #268 Francesco Delli</span></td>
       <td><a href="https://mail.google.com/mail/u/0/#all/19fa42fc817b8e8e" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr data-proveedor="Jomashop" data-estado="enviado_warehouse" data-search="maria viscay tissot lovely summer quartz silver dial ladies watch t058.109.36.031.01 jomashop m40duk89 9400150206079005465506">
-      <td>Maria Viscay</td>
-      <td>Tissot Lovely Summer Quartz Silver Dial Ladies Watch T058.109.36.031.01</td>
-      <td>Jomashop</td>
-      <td>$ 86.384</td>
-      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span></td>
-      <td>M40DUK89<br><span class="tracking">9400150206079005465506</span></td>
-      <td><span class="venta confirmado">Confirmado · #232 Maria Viscay</span></td>
-      <td><a href="https://mail.google.com/mail/u/0/#all/19ff171456a61e3f" target="_blank">Ver mail</a></td>
-      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
-    </tr>
-
-    <tr data-proveedor="Jomashop" data-estado="enviado_warehouse" data-search="reposicion de stock seiko chronograph quartz blue dial ssb477p1 + orient classic automatic green dial ra-ac0023e30b jomashop m40egkt4 9434650206079004079911">
-      <td>Reposicion de stock</td>
-      <td>Seiko Chronograph Quartz Blue Dial SSB477P1 + Orient Classic Automatic Green Dial RA-AC0023E30B</td>
-      <td>Jomashop</td>
-      <td>-</td>
-      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span></td>
-      <td>M40EGKT4<br><span class="tracking">9434650206079004079911</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
-      <td><a href="https://mail.google.com/mail/u/0/#all/19fd7a9905d2a612" target="_blank">Ver mail</a></td>
-      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
-    </tr>
-
-    <tr data-proveedor="eBay (georgymelly)" data-estado="arribado_warehouse" data-search="reposicion de stock the artist no.2 edp by maison alhambra 100ml ebay (georgymelly) #16-15011-58343 -">
-      <td>Reposicion de stock</td>
-      <td>The Artist No.2 EDP by Maison Alhambra 100ml<div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div></td>
-      <td>eBay (georgymelly)</td>
-      <td>-</td>
-      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
-      <td>#16-15011-58343<br><span class="tracking">-</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
-      <td><a href="https://mail.google.com/mail/u/0/#all/19ffb93cb145770f" target="_blank">Ver mail</a></td>
-      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
-    </tr>
-
-    <tr data-proveedor="Beauty House" data-estado="arribado_warehouse" data-search="reposicion de stock clive christian xxi art deco amberwood parfum for everyone 50ml beauty house bh100197291 1zy77v780300139913">
-      <td>Reposicion de stock</td>
-      <td>Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml<div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Reembolsado por la tienda el 6/8 pero igual llego al warehouse el 11/8 - revisar</div></td>
-      <td>Beauty House</td>
-      <td>-</td>
-      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
-      <td>BH100197291<br><span class="tracking">1ZY77V780300139913</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
-      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16106742ef47" target="_blank">Ver mail</a></td>
-      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
-    </tr>
-
-    <tr data-proveedor="UPS (Olfactory Factory)" data-estado="arribado_warehouse" data-search="reposicion de stock no identificado en el mail ups (olfactory factory) - 1zh914y70338382535">
-      <td>Reposicion de stock</td>
-      <td>No identificado en el mail<div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div></td>
-      <td>UPS (Olfactory Factory)</td>
-      <td>-</td>
-      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
-      <td>-<br><span class="tracking">1ZH914Y70338382535</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
-      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16196ecc75d2" target="_blank">Ver mail</a></td>
-      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
-    </tr>
-
-    <tr data-proveedor="Venba" data-estado="deberia_haber_llegado_ar" data-search="giuliana rosales maison martin margiela replica jazz club edt 100ml + maison crivelli musc nurasana extrait (sample) venba #v228739 875377633030">
+    <tr data-proveedor="Venba" data-estado="deberia_haber_llegado_ar" data-comprador="Giuliana Rosales" data-search="giuliana rosales maison martin margiela replica jazz club edt 100ml venba #v228739 875377633030">
       <td>Giuliana Rosales</td>
-      <td>Maison Martin Margiela Replica Jazz Club EDT 100ml + Maison Crivelli Musc Nurasana Extrait (sample)<div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Maison Martin Margiela Replica Jazz Club EDT 100ml<div class="sub">Comprado: 04/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div><div class="nota">⚠ Venta ya 'Enviado' desde el 5/4 - esta compra fue reposicion de stock</div></td>
       <td>Venba</td>
       <td>$ 140.614</td>
       <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
@@ -185,9 +122,117 @@
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr data-proveedor="eBay (hardjapan)" data-estado="deberia_haber_llegado_ar" data-search="reposicion de stock casio lineage lcw-m300d-1ajf tough solar multiband 6 ebay (hardjapan) #21-14945-32487 -">
+    <tr data-proveedor="Jomashop" data-estado="enviado_warehouse" data-comprador="Ignacio Arevalo" data-search="ignacio arevalo seiko chronograph quartz blue dial ssb477p1 jomashop m40egkt4 9434650206079004079911">
+      <td>Ignacio Arevalo</td>
+      <td>Seiko Chronograph Quartz Blue Dial SSB477P1<div class="sub">Comprado: 01/08/2026</div></td>
+      <td>Jomashop</td>
+      <td>$ 160.476</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span></td>
+      <td>M40EGKT4<br><span class="tracking">9434650206079004079911</span></td>
+      <td><span class="venta confirmado">Confirmado · #279 Ignacio Arevalo</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fd7a9905d2a612" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="eBay (georgymelly)" data-estado="arribado_warehouse" data-comprador="Leonardo Sonagl" data-search="leonardo sonagl the artist no.2 edp by maison alhambra 100ml ebay (georgymelly) #16-15011-58343 -">
+      <td>Leonardo Sonagl</td>
+      <td>The Artist No.2 EDP by Maison Alhambra 100ml<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Venta pide 2 productos ("The Artist No.2" + "French Avenue NICHE THE NIGHT"); todavia falta comprar French Avenue NICHE THE NIGHT</div></td>
+      <td>eBay (georgymelly)</td>
+      <td>$ 111.031</td>
+      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
+      <td>#16-15011-58343<br><span class="tracking">-</span></td>
+      <td><span class="venta confirmado">Confirmado · #281 Leonardo Sonagl</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ffb93cb145770f" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="Jomashop" data-estado="enviado_warehouse" data-comprador="Luis Rafael Cassin" data-search="luis rafael cassin orient classic automatic green dial ra-ac0023e30b jomashop m40egkt4 9434650206079004079911">
+      <td>Luis Rafael Cassin</td>
+      <td>Orient Classic Automatic Green Dial RA-AC0023E30B<div class="sub">Comprado: 01/08/2026</div></td>
+      <td>Jomashop</td>
+      <td>$ 166.992</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span></td>
+      <td>M40EGKT4<br><span class="tracking">9434650206079004079911</span></td>
+      <td><span class="venta confirmado">Confirmado · #278 Luis Rafael Cassin</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fd7a9905d2a612" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="Jomashop" data-estado="enviado_warehouse" data-comprador="Maria Viscay" data-search="maria viscay tissot lovely summer quartz silver dial ladies watch t058.109.36.031.01 jomashop m40duk89 9400150206079005465506">
+      <td>Maria Viscay</td>
+      <td>Tissot Lovely Summer Quartz Silver Dial Ladies Watch T058.109.36.031.01<div class="sub">Comprado: 29/06/2026</div></td>
+      <td>Jomashop</td>
+      <td>$ 86.384</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span></td>
+      <td>M40DUK89<br><span class="tracking">9400150206079005465506</span></td>
+      <td><span class="venta confirmado">Confirmado · #232 Maria Viscay</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ff171456a61e3f" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="Beauty House" data-estado="arribado_warehouse" data-comprador="Roberto Andres Noriega" data-search="roberto andres noriega clive christian xxi art deco amberwood parfum for everyone 50ml beauty house bh100197291 1zy77v780300139913">
+      <td>Roberto Andres Noriega</td>
+      <td>Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Reembolsado por la tienda el 6/8 pero igual llego al warehouse el 11/8 - revisar</div><div class="nota">⚠ Venta marcada 'Tarda proveedor' por Nico</div></td>
+      <td>Beauty House</td>
+      <td>$ 194.478</td>
+      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
+      <td>BH100197291<br><span class="tracking">1ZY77V780300139913</span></td>
+      <td><span class="venta confirmado">Confirmado · #270 Roberto Andres Noriega</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16106742ef47" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="WatchMaxx" data-estado="pagado" data-comprador="Reposicion de stock" data-search="reposicion de stock mido ocean star 200 m026.430.11.041.00 watchmaxx #643423 -">
       <td>Reposicion de stock</td>
-      <td>Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6<div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Mido Ocean Star 200 M026.430.11.041.00<div class="sub">Comprado: 13/08/2026</div><div class="sub">ETA proveedor: 2026-08-17 a 2026-08-24</div></td>
+      <td>WatchMaxx</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#60a5fa">Pagado</span></td>
+      <td>#643423<br><span class="tracking">-</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ffd762c4f947be" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="Jomashop" data-estado="pagado" data-comprador="Reposicion de stock" data-search="reposicion de stock tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop m40emb18 -">
+      <td>Reposicion de stock</td>
+      <td>Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00<div class="sub">Comprado: 13/08/2026</div></td>
+      <td>Jomashop</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#60a5fa">Pagado</span></td>
+      <td>M40EMB18<br><span class="tracking">-</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ffd744b77a2207" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="UPS (Olfactory Factory)" data-estado="arribado_warehouse" data-comprador="Reposicion de stock" data-search="reposicion de stock no identificado en el mail ups (olfactory factory) - 1zh914y70338382535">
+      <td>Reposicion de stock</td>
+      <td>No identificado en el mail<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div></td>
+      <td>UPS (Olfactory Factory)</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
+      <td>-<br><span class="tracking">1ZH914Y70338382535</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16196ecc75d2" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="Venba" data-estado="deberia_haber_llegado_ar" data-comprador="Reposicion de stock" data-search="reposicion de stock maison crivelli musc nurasana extrait (sample) venba #v228739 875377633030">
+      <td>Reposicion de stock</td>
+      <td>Maison Crivelli Musc Nurasana Extrait (sample)<div class="sub">Comprado: 04/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Venba</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
+      <td>#V228739<br><span class="tracking">875377633030</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fe476175ac5b23" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr data-proveedor="eBay (hardjapan)" data-estado="deberia_haber_llegado_ar" data-comprador="Reposicion de stock" data-search="reposicion de stock casio lineage lcw-m300d-1ajf tough solar multiband 6 ebay (hardjapan) #21-14945-32487 -">
+      <td>Reposicion de stock</td>
+      <td>Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
       <td>eBay (hardjapan)</td>
       <td>-</td>
       <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
@@ -197,9 +242,9 @@
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr data-proveedor="UPS (Teddy Baldassarre Watches)" data-estado="deberia_haber_llegado_ar" data-search="reposicion de stock no identificado en el mail ups (teddy baldassarre watches) - 1zr58f114293483742">
+    <tr data-proveedor="UPS (Teddy Baldassarre Watches)" data-estado="deberia_haber_llegado_ar" data-comprador="Reposicion de stock" data-search="reposicion de stock no identificado en el mail ups (teddy baldassarre watches) - 1zr58f114293483742">
       <td>Reposicion de stock</td>
-      <td>No identificado en el mail<div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>No identificado en el mail<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
       <td>UPS (Teddy Baldassarre Watches)</td>
       <td>-</td>
       <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
@@ -209,9 +254,9 @@
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr data-proveedor="UPS (Olfactory Factory)" data-estado="deberia_haber_llegado_ar" data-search="reposicion de stock no identificado en el mail ups (olfactory factory) - 1zh914y70321532396">
+    <tr data-proveedor="UPS (Olfactory Factory)" data-estado="deberia_haber_llegado_ar" data-comprador="Reposicion de stock" data-search="reposicion de stock no identificado en el mail ups (olfactory factory) - 1zh914y70321532396">
       <td>Reposicion de stock</td>
-      <td>No identificado en el mail<div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>No identificado en el mail<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
       <td>UPS (Olfactory Factory)</td>
       <td>-</td>
       <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
