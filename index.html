@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compras internacionales — Stock NEVE</title>
+<style>
+  :root {
+    --bg: #0f172a; --card: #1e293b; --text: #e2e8f0; --muted: #94a3b8; --border: #334155;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text); padding: 24px;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .updated { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+  .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .toolbar input, .toolbar select {
+    background: var(--card); color: var(--text); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 12px; font-size: 14px;
+  }
+  .toolbar input { flex: 1; min-width: 200px; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 10px; overflow: hidden; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: top; }
+  th { background: #16213a; color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: .04em; }
+  tr:hover td { background: #223047; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; color: #0b1220; font-weight: 600; white-space: nowrap; }
+  .venta { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; }
+  .venta.confirmado { background: #14532d; color: #86efac; }
+  .venta.posible { background: #713f12; color: #fde68a; }
+  .venta.sinmatch { background: #334155; color: var(--muted); }
+  .sub { color: var(--muted); font-size: 11px; margin-top: 4px; }
+  .nota { color: #fbbf24; font-size: 11px; margin-top: 4px; }
+  .tracking { color: var(--muted); font-size: 11px; }
+  a { color: #60a5fa; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .empty { text-align: center; color: var(--muted); padding: 30px; }
+</style>
+</head>
+<body>
+  <h1>📦 Compras internacionales — Stock NEVE</h1>
+  <div class="updated">Actualizado 14/08/2026 16:39</div>
+  <div class="toolbar">
+    <input id="search" type="text" placeholder="Buscar por producto, comprador, proveedor, orden, tracking...">
+    <select id="filtroProveedor"><option value="">Todos los proveedores</option><option value="Beauty House">Beauty House</option>
+<option value="Jomashop">Jomashop</option>
+<option value="UPS (Olfactory Factory)">UPS (Olfactory Factory)</option>
+<option value="UPS (Teddy Baldassarre Watches)">UPS (Teddy Baldassarre Watches)</option>
+<option value="Venba">Venba</option>
+<option value="WatchMaxx">WatchMaxx</option>
+<option value="eBay (georgymelly)">eBay (georgymelly)</option>
+<option value="eBay (hardjapan)">eBay (hardjapan)</option></select>
+    <select id="filtroEstado"><option value="">Todos los estados</option><option value="pedido_confirmado">Pedido confirmado</option>
+<option value="pagado">Pagado</option>
+<option value="enviado_warehouse">Enviado a warehouse</option>
+<option value="arribado_warehouse">Arribo al warehouse</option>
+<option value="en_vuelo">En vuelo</option>
+<option value="deberia_haber_llegado_ar">Deberia haber llegado a AR</option>
+<option value="llegado_argentina">Llego a Argentina</option>
+<option value="empaquetado">Empaquetado</option>
+<option value="enviado_final">Enviado al cliente</option></select>
+  </div>
+  <table id="tabla">
+    <thead>
+      <tr>
+        <th>Comprador</th>
+        <th>Producto</th>
+        <th>Proveedor</th>
+        <th>Ganancia</th>
+        <th>Estado</th>
+        <th>Orden / Tracking</th>
+        <th>Venta NEVE</th>
+        <th>Mail</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    <tr data-proveedor="WatchMaxx" data-estado="pagado" data-search="reposicion de stock mido ocean star 200 m026.430.11.041.00 watchmaxx #643423 -">
+      <td>Reposicion de stock</td>
+      <td>Mido Ocean Star 200 M026.430.11.041.00</td>
+      <td>WatchMaxx</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#60a5fa">Pagado</span></td>
+      <td>#643423<br><span class="tracking">-</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ffd762c4f947be" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="Jomashop" data-estado="pagado" data-search="reposicion de stock tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop m40emb18 -">
+      <td>Reposicion de stock</td>
+      <td>Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00</td>
+      <td>Jomashop</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#60a5fa">Pagado</span></td>
+      <td>M40EMB18<br><span class="tracking">-</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ffd744b77a2207" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="WatchMaxx" data-estado="pagado" data-search="reposicion de stock hamilton khaki field expedition auto h70225540 watchmaxx #640112 -">
+      <td>Reposicion de stock</td>
+      <td>Hamilton Khaki Field Expedition Auto H70225540</td>
+      <td>WatchMaxx</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#60a5fa">Pagado</span></td>
+      <td>#640112<br><span class="tracking">-</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fa42fc817b8e8e" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="Jomashop" data-estado="enviado_warehouse" data-search="maria viscay tissot lovely summer quartz silver dial ladies watch t058.109.36.031.01 jomashop m40duk89 9400150206079005465506">
+      <td>Maria Viscay</td>
+      <td>Tissot Lovely Summer Quartz Silver Dial Ladies Watch T058.109.36.031.01</td>
+      <td>Jomashop</td>
+      <td>$ 86.384</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span></td>
+      <td>M40DUK89<br><span class="tracking">9400150206079005465506</span></td>
+      <td><span class="venta confirmado">Confirmado · #232 Maria Viscay</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ff171456a61e3f" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="Jomashop" data-estado="enviado_warehouse" data-search="reposicion de stock seiko chronograph quartz blue dial ssb477p1 + orient classic automatic green dial ra-ac0023e30b jomashop m40egkt4 9434650206079004079911">
+      <td>Reposicion de stock</td>
+      <td>Seiko Chronograph Quartz Blue Dial SSB477P1 + Orient Classic Automatic Green Dial RA-AC0023E30B</td>
+      <td>Jomashop</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span></td>
+      <td>M40EGKT4<br><span class="tracking">9434650206079004079911</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fd7a9905d2a612" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="eBay (georgymelly)" data-estado="arribado_warehouse" data-search="reposicion de stock the artist no.2 edp by maison alhambra 100ml ebay (georgymelly) #16-15011-58343 -">
+      <td>Reposicion de stock</td>
+      <td>The Artist No.2 EDP by Maison Alhambra 100ml<div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div></td>
+      <td>eBay (georgymelly)</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
+      <td>#16-15011-58343<br><span class="tracking">-</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ffb93cb145770f" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="Beauty House" data-estado="arribado_warehouse" data-search="reposicion de stock clive christian xxi art deco amberwood parfum for everyone 50ml beauty house bh100197291 1zy77v780300139913">
+      <td>Reposicion de stock</td>
+      <td>Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml<div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Reembolsado por la tienda el 6/8 pero igual llego al warehouse el 11/8 - revisar</div></td>
+      <td>Beauty House</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
+      <td>BH100197291<br><span class="tracking">1ZY77V780300139913</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16106742ef47" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="UPS (Olfactory Factory)" data-estado="arribado_warehouse" data-search="reposicion de stock no identificado en el mail ups (olfactory factory) - 1zh914y70338382535">
+      <td>Reposicion de stock</td>
+      <td>No identificado en el mail<div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div></td>
+      <td>UPS (Olfactory Factory)</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
+      <td>-<br><span class="tracking">1ZH914Y70338382535</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16196ecc75d2" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="Venba" data-estado="deberia_haber_llegado_ar" data-search="giuliana rosales maison martin margiela replica jazz club edt 100ml + maison crivelli musc nurasana extrait (sample) venba #v228739 875377633030">
+      <td>Giuliana Rosales</td>
+      <td>Maison Martin Margiela Replica Jazz Club EDT 100ml + Maison Crivelli Musc Nurasana Extrait (sample)<div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Venba</td>
+      <td>$ 140.614</td>
+      <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
+      <td>#V228739<br><span class="tracking">875377633030</span></td>
+      <td><span class="venta confirmado">Confirmado · #138 Giuliana Rosales</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fe476175ac5b23" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="eBay (hardjapan)" data-estado="deberia_haber_llegado_ar" data-search="reposicion de stock casio lineage lcw-m300d-1ajf tough solar multiband 6 ebay (hardjapan) #21-14945-32487 -">
+      <td>Reposicion de stock</td>
+      <td>Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6<div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>eBay (hardjapan)</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
+      <td>#21-14945-32487<br><span class="tracking">-</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fec770399d8e51" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="UPS (Teddy Baldassarre Watches)" data-estado="deberia_haber_llegado_ar" data-search="reposicion de stock no identificado en el mail ups (teddy baldassarre watches) - 1zr58f114293483742">
+      <td>Reposicion de stock</td>
+      <td>No identificado en el mail<div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>UPS (Teddy Baldassarre Watches)</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
+      <td>-<br><span class="tracking">1ZR58F114293483742</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fe210a0f5cccaa" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-proveedor="UPS (Olfactory Factory)" data-estado="deberia_haber_llegado_ar" data-search="reposicion de stock no identificado en el mail ups (olfactory factory) - 1zh914y70321532396">
+      <td>Reposicion de stock</td>
+      <td>No identificado en el mail<div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>UPS (Olfactory Factory)</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span></td>
+      <td>-<br><span class="tracking">1ZH914Y70321532396</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fd8a206963ec79" target="_blank">Ver mail</a></td>
+    </tr>
+    </tbody>
+  </table>
+  <div id="empty" class="empty" style="display:none">Sin resultados</div>
+
+<script>
+const search = document.getElementById('search');
+const filtroProveedor = document.getElementById('filtroProveedor');
+const filtroEstado = document.getElementById('filtroEstado');
+const rows = Array.from(document.querySelectorAll('#tabla tbody tr'));
+const empty = document.getElementById('empty');
+
+function applyFilters() {
+  const q = search.value.toLowerCase();
+  const prov = filtroProveedor.value;
+  const est = filtroEstado.value;
+  let visible = 0;
+  rows.forEach(r => {
+    const matchesSearch = !q || r.dataset.search.includes(q);
+    const matchesProv = !prov || r.dataset.proveedor === prov;
+    const matchesEst = !est || r.dataset.estado === est;
+    const show = matchesSearch && matchesProv && matchesEst;
+    r.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  empty.style.display = visible === 0 ? 'block' : 'none';
+}
+search.addEventListener('input', applyFilters);
+filtroProveedor.addEventListener('change', applyFilters);
+filtroEstado.addEventListener('change', applyFilters);
+</script>
+</body>
+</html>
+
