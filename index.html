@@ -50,8 +50,23 @@
 </head>
 <body>
   <h1>📦 Compras internacionales — Stock NEVE</h1>
-  <div class="updated">Actualizado 24/08/2026 11:28 · <a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar comprador / llegada a Argentina / empaquetado / envío / observaciones (planilla en GitHub)</a></div>
+  <div class="updated">Actualizado 24/08/2026 17:21 · <a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar comprador / llegada a Argentina / empaquetado / envío / observaciones (planilla en GitHub)</a></div>
   
+  <h2>⚠ Ventas esperando que se compre el producto</h2>
+  <table id="tabla-alertas">
+    <tbody>
+      
+    <tr class="alert-row">
+      <td>Luis Contreras</td>
+      <td>Parfums de Marly Layton+ Gift 5ml<div class="nota">⚠ Sin compra identificada en Gmail todavia.</div></td>
+      <td colspan="2">Sin compra iniciada</td>
+      <td><span class="badge" style="background:#ef4444">Venta sin comprar</span></td>
+      <td colspan="2">290 · -</td>
+      <td colspan="2">-</td>
+    </tr>
+    </tbody>
+  </table>
+
   <h2 style="color:var(--muted)">Compras en curso (agrupadas por cliente, mas recientes primero)</h2>
   <div class="toolbar">
     <input id="search" type="text" placeholder="Buscar por producto, comprador, proveedor, orden, tracking...">
@@ -92,45 +107,57 @@
     </thead>
     <tbody>
       
-    <tr data-proveedor="Perfume Empire" data-estado="arribado_warehouse" data-comprador="Reposicion de stock" data-search="reposicion de stock my way (rechargeable) by giorgio armani for her edp 3.0oz perfume empire pe272746 1lsdcr10017tcwm">
-      <td>Reposicion de stock</td>
-      <td>My Way (Rechargeable) by Giorgio Armani for her EDP 3.0oz<div class="sub">Comprado: 20/08/2026</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div><div class="nota">⚠ Sin match en Lista de Ventas — reposición de stock.</div></td>
+    <tr data-proveedor="Perfume Empire" data-estado="arribado_warehouse" data-comprador="Maria Lujan Llargues" data-search="maria lujan llargues my way (rechargeable) by giorgio armani for her edp 3.0oz perfume empire pe272746 1lsdcr10017tcwm">
+      <td>Maria Lujan Llargues</td>
+      <td>My Way (Rechargeable) by Giorgio Armani for her EDP 3.0oz<div class="sub">Comprado: 20/08/2026</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
       <td>Perfume Empire</td>
-      <td>-</td>
+      <td>$ 20.424</td>
       <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
       <td>PE272746<br><span class="tracking">1LSDCR10017TCWM</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><span class="venta confirmado">Confirmado · #289 Maria Lujan Llargues</span></td>
       <td><a href="https://mail.google.com/mail/u/0/#all/1a0206fc7b283fb8" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr data-proveedor="Jomashop" data-estado="enviado_warehouse" data-comprador="Reposicion de stock" data-search="reposicion de stock nishane hacivat extrait de parfum 3.4oz jomashop m40er5pk 9436250206079010426761">
-      <td>Reposicion de stock</td>
-      <td>Nishane Hacivat Extrait de Parfum 3.4oz<div class="sub">Comprado: 19/08/2026</div><div class="nota">⚠ Sin match en Lista de Ventas — reposición de stock.</div></td>
+    <tr data-proveedor="Jomashop" data-estado="enviado_warehouse" data-comprador="Lucas Vallejos" data-search="lucas vallejos nishane hacivat extrait de parfum 3.4oz jomashop m40er5pk 9436250206079010426761">
+      <td>Lucas Vallejos</td>
+      <td>Nishane Hacivat Extrait de Parfum 3.4oz<div class="sub">Comprado: 19/08/2026</div></td>
       <td>Jomashop</td>
-      <td>-</td>
+      <td>$ 62.569</td>
       <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span></td>
       <td>M40ER5PK<br><span class="tracking">9436250206079010426761</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><span class="venta confirmado">Confirmado · #288 Lucas Vallejos</span></td>
       <td><a href="https://mail.google.com/mail/u/0/#all/1a01fc606bac393f" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr data-proveedor="Jomashop" data-estado="pedido_confirmado" data-comprador="Reposicion de stock" data-search="reposicion de stock amouage reflection men edp 3.4oz x2 jomashop m40er2su -">
-      <td>Reposicion de stock</td>
-      <td>Amouage Reflection Men EDP 3.4oz x2<div class="sub">Comprado: 19/08/2026</div><div class="nota">⚠ Sin match en Lista de Ventas — reposición de stock. Availability decía "Usually Ships In 3-5 Weeks", puede demorar el envío del proveedor.</div></td>
+    <tr data-proveedor="Jomashop" data-estado="pedido_confirmado" data-comprador="Martin Arrieta" data-search="martin arrieta amouage reflection men edp 3.4oz (1 de 2) jomashop m40er2su -">
+      <td>Martin Arrieta</td>
+      <td>Amouage Reflection Men EDP 3.4oz (1 de 2)<div class="sub">Comprado: 19/08/2026</div><div class="nota">⚠ Availability decía "Usually Ships In 3-5 Weeks", puede demorar el envío del proveedor.</div></td>
       <td>Jomashop</td>
-      <td>-</td>
+      <td>$ 71.401</td>
       <td><span class="badge" style="background:#94a3b8">Pedido confirmado</span></td>
       <td>M40ER2SU<br><span class="tracking">-</span></td>
-      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><span class="venta confirmado">Confirmado · #286 Martin Arrieta</span></td>
       <td><a href="https://mail.google.com/mail/u/0/#all/1a01bae88f8d977d" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr class="fila-grupo" data-proveedor="Jomashop" data-estado="arribado_warehouse" data-comprador="Leonardo Smachetti" data-search="leonardo smachetti mido ocean star 39 automatic grey gradient dial watch m026.907.11.061.00 tissot prx powermatic 80 automatic black dial unisex watch t137.207.11.051.00 jomashop" onclick="toggleGrupo('g3', this)">
+    <tr data-proveedor="Jomashop" data-estado="pedido_confirmado" data-comprador="Ilze Krievina" data-search="ilze krievina amouage reflection men edp 3.4oz (2 de 2) jomashop m40er2su -">
+      <td>Ilze Krievina</td>
+      <td>Amouage Reflection Men EDP 3.4oz (2 de 2)<div class="sub">Comprado: 19/08/2026</div><div class="nota">⚠ Availability decía "Usually Ships In 3-5 Weeks", puede demorar el envío del proveedor.</div></td>
+      <td>Jomashop</td>
+      <td>$ 71.401</td>
+      <td><span class="badge" style="background:#94a3b8">Pedido confirmado</span></td>
+      <td>M40ER2SU<br><span class="tracking">-</span></td>
+      <td><span class="venta confirmado">Confirmado · #287 Ilze Krievina</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a01bae88f8d977d" target="_blank">Ver mail</a></td>
+      <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
+    </tr>
+
+    <tr class="fila-grupo" data-proveedor="Jomashop" data-estado="arribado_warehouse" data-comprador="Leonardo Smachetti" data-search="leonardo smachetti mido ocean star 39 automatic grey gradient dial watch m026.907.11.061.00 tissot prx powermatic 80 automatic black dial unisex watch t137.207.11.051.00 jomashop" onclick="toggleGrupo('g4', this)">
       <td>Leonardo Smachetti</td>
-      <td><span class="toggle" id="toggle-g3">▾</span> Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00 + Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00 <span class="sub">(2 productos)</span></td>
+      <td><span class="toggle" id="toggle-g4">▾</span> Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00 + Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00 <span class="sub">(2 productos)</span></td>
       <td>Jomashop</td>
       <td>$ 807.552</td>
       <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
@@ -139,7 +166,7 @@
       <td>-</td>
       <td>-</td>
     </tr>
-    <tr class="detalle-item" data-group="g3" style="display:none" data-proveedor="Jomashop" data-estado="arribado_warehouse" data-comprador="Leonardo Smachetti" data-search="leonardo smachetti mido ocean star 39 automatic grey gradient dial watch m026.907.11.061.00 tissot prx powermatic 80 automatic black dial unisex watch t137.207.11.051.00 jomashop">
+    <tr class="detalle-item" data-group="g4" style="display:none" data-proveedor="Jomashop" data-estado="arribado_warehouse" data-comprador="Leonardo Smachetti" data-search="leonardo smachetti mido ocean star 39 automatic grey gradient dial watch m026.907.11.061.00 tissot prx powermatic 80 automatic black dial unisex watch t137.207.11.051.00 jomashop">
       <td></td>
       <td>↳ Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00<div class="sub">Comprado: 14/08/2026</div><div class="sub">ETA proveedor: 2026-08-20</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
       <td>Jomashop</td>
@@ -150,7 +177,7 @@
       <td><a href="https://mail.google.com/mail/u/0/#all/1a0204661101b4ff" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
-    <tr class="detalle-item" data-group="g3" style="display:none" data-proveedor="Jomashop" data-estado="arribado_warehouse" data-comprador="Leonardo Smachetti" data-search="leonardo smachetti mido ocean star 39 automatic grey gradient dial watch m026.907.11.061.00 tissot prx powermatic 80 automatic black dial unisex watch t137.207.11.051.00 jomashop">
+    <tr class="detalle-item" data-group="g4" style="display:none" data-proveedor="Jomashop" data-estado="arribado_warehouse" data-comprador="Leonardo Smachetti" data-search="leonardo smachetti mido ocean star 39 automatic grey gradient dial watch m026.907.11.061.00 tissot prx powermatic 80 automatic black dial unisex watch t137.207.11.051.00 jomashop">
       <td></td>
       <td>↳ Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00<div class="sub">Comprado: 14/08/2026</div><div class="sub">ETA proveedor: 2026-08-20</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
       <td>Jomashop</td>
@@ -162,9 +189,9 @@
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr class="fila-grupo" data-proveedor="Jomashop|WatchMaxx" data-estado="arribado_warehouse" data-comprador="Jorge Sanchez" data-search="jorge sanchez mido ocean star 200 m026.430.11.041.00 tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop watchmaxx" onclick="toggleGrupo('g4', this)">
+    <tr class="fila-grupo" data-proveedor="Jomashop|WatchMaxx" data-estado="arribado_warehouse" data-comprador="Jorge Sanchez" data-search="jorge sanchez mido ocean star 200 m026.430.11.041.00 tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop watchmaxx" onclick="toggleGrupo('g5', this)">
       <td>Jorge Sanchez</td>
-      <td><span class="toggle" id="toggle-g4">▾</span> Mido Ocean Star 200 M026.430.11.041.00 + Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00 <span class="sub">(2 productos)</span></td>
+      <td><span class="toggle" id="toggle-g5">▾</span> Mido Ocean Star 200 M026.430.11.041.00 + Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00 <span class="sub">(2 productos)</span></td>
       <td>Jomashop, WatchMaxx</td>
       <td>$ 751.512</td>
       <td><span class="badge" style="background:#22c55e">Arribo al warehouse</span></td>
@@ -173,7 +200,7 @@
       <td>-</td>
       <td>-</td>
     </tr>
-    <tr class="detalle-item" data-group="g4" style="display:none" data-proveedor="WatchMaxx" data-estado="arribado_warehouse" data-comprador="Jorge Sanchez" data-search="jorge sanchez mido ocean star 200 m026.430.11.041.00 tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop watchmaxx">
+    <tr class="detalle-item" data-group="g5" style="display:none" data-proveedor="WatchMaxx" data-estado="arribado_warehouse" data-comprador="Jorge Sanchez" data-search="jorge sanchez mido ocean star 200 m026.430.11.041.00 tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop watchmaxx">
       <td></td>
       <td>↳ Mido Ocean Star 200 M026.430.11.041.00<div class="sub">Comprado: 13/08/2026</div><div class="sub">ETA proveedor: 2026-08-17 a 2026-08-24</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
       <td>WatchMaxx</td>
@@ -184,7 +211,7 @@
       <td><a href="https://mail.google.com/mail/u/0/#all/1a016095678fbb93" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
-    <tr class="detalle-item" data-group="g4" style="display:none" data-proveedor="Jomashop" data-estado="arribado_warehouse" data-comprador="Jorge Sanchez" data-search="jorge sanchez mido ocean star 200 m026.430.11.041.00 tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop watchmaxx">
+    <tr class="detalle-item" data-group="g5" style="display:none" data-proveedor="Jomashop" data-estado="arribado_warehouse" data-comprador="Jorge Sanchez" data-search="jorge sanchez mido ocean star 200 m026.430.11.041.00 tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop watchmaxx">
       <td></td>
       <td>↳ Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00<div class="sub">Comprado: 13/08/2026</div><div class="sub">ETA proveedor: 2026-08-19</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
       <td>Jomashop</td>
@@ -289,9 +316,9 @@
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr class="fila-grupo" data-proveedor="Olfactory Factory|Venba" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) maison crivelli hibiscus mahajad extrait (sample 1.5ml) maison crivelli oud maracuja 100ml olfactory factory venba" onclick="toggleGrupo('g10', this)">
+    <tr class="fila-grupo" data-proveedor="Olfactory Factory|Venba" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) maison crivelli hibiscus mahajad extrait (sample 1.5ml) maison crivelli oud maracuja 100ml olfactory factory venba" onclick="toggleGrupo('g11', this)">
       <td>Maria Silvia Diaz</td>
-      <td><span class="toggle" id="toggle-g10">▾</span> Maison Crivelli Musc Nurasana Extrait + Maison Crivelli Hibiscus Mahajad Extrait + Maison Crivelli Oud Maracuja 100ml <span class="sub">(3 productos)</span></td>
+      <td><span class="toggle" id="toggle-g11">▾</span> Maison Crivelli Musc Nurasana Extrait + Maison Crivelli Hibiscus Mahajad Extrait + Maison Crivelli Oud Maracuja 100ml <span class="sub">(3 productos)</span></td>
       <td>Olfactory Factory, Venba</td>
       <td>$ 610.662</td>
       <td><span class="badge" style="background:#059669">Enviado al cliente</span></td>
@@ -300,7 +327,7 @@
       <td>-</td>
       <td>-</td>
     </tr>
-    <tr class="detalle-item" data-group="g10" style="display:none" data-proveedor="Venba" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) maison crivelli hibiscus mahajad extrait (sample 1.5ml) maison crivelli oud maracuja 100ml olfactory factory venba">
+    <tr class="detalle-item" data-group="g11" style="display:none" data-proveedor="Venba" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) maison crivelli hibiscus mahajad extrait (sample 1.5ml) maison crivelli oud maracuja 100ml olfactory factory venba">
       <td></td>
       <td>↳ Maison Crivelli Musc Nurasana Extrait (sample)<div class="sub">Comprado: 04/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div><div class="nota">⚠ Sample incluido en la venta #276 (viaja en el pedido de Venba junto al Jazz Club de #283)</div></td>
       <td>Venba</td>
@@ -311,7 +338,7 @@
       <td><a href="https://mail.google.com/mail/u/0/#all/19fe476175ac5b23" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
-    <tr class="detalle-item" data-group="g10" style="display:none" data-proveedor="Olfactory Factory" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) maison crivelli hibiscus mahajad extrait (sample 1.5ml) maison crivelli oud maracuja 100ml olfactory factory venba">
+    <tr class="detalle-item" data-group="g11" style="display:none" data-proveedor="Olfactory Factory" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) maison crivelli hibiscus mahajad extrait (sample 1.5ml) maison crivelli oud maracuja 100ml olfactory factory venba">
       <td></td>
       <td>↳ Maison Crivelli Hibiscus Mahajad Extrait (sample 1.5ml)<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
       <td>Olfactory Factory</td>
@@ -322,7 +349,7 @@
       <td><a href="https://mail.google.com/mail/u/0/#all/19fd8a206963ec79" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
-    <tr class="detalle-item" data-group="g10" style="display:none" data-proveedor="Olfactory Factory" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) maison crivelli hibiscus mahajad extrait (sample 1.5ml) maison crivelli oud maracuja 100ml olfactory factory venba">
+    <tr class="detalle-item" data-group="g11" style="display:none" data-proveedor="Olfactory Factory" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) maison crivelli hibiscus mahajad extrait (sample 1.5ml) maison crivelli oud maracuja 100ml olfactory factory venba">
       <td></td>
       <td>↳ Maison Crivelli Oud Maracuja 100ml<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div><div class="nota">⚠ Hay 2 compras de Oud Maracuja: esta (OLF220344, arribo 6/8) va a #276; la posterior (OLF222524, arribo 11/8) va a #280 Martin Duranona</div></td>
       <td>Olfactory Factory</td>
@@ -334,9 +361,9 @@
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
 
-    <tr class="fila-grupo" data-proveedor="Olfactory Factory|Teddy Baldassarre" data-estado="enviado_final" data-comprador="Martin Duranona" data-search="martin duranona heritage 1938 cosc anthracite 39mm - anthracite on leather strap (reloj) maison crivelli oud maracuja 100ml olfactory factory teddy baldassarre" onclick="toggleGrupo('g14', this)">
+    <tr class="fila-grupo" data-proveedor="Olfactory Factory|Teddy Baldassarre" data-estado="enviado_final" data-comprador="Martin Duranona" data-search="martin duranona heritage 1938 cosc anthracite 39mm - anthracite on leather strap (reloj) maison crivelli oud maracuja 100ml olfactory factory teddy baldassarre" onclick="toggleGrupo('g15', this)">
       <td>Martin Duranona</td>
-      <td><span class="toggle" id="toggle-g14">▾</span> Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap + Maison Crivelli Oud Maracuja 100ml <span class="sub">(2 productos)</span></td>
+      <td><span class="toggle" id="toggle-g15">▾</span> Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap + Maison Crivelli Oud Maracuja 100ml <span class="sub">(2 productos)</span></td>
       <td>Olfactory Factory, Teddy Baldassarre</td>
       <td>$ 795.273</td>
       <td><span class="badge" style="background:#059669">Enviado al cliente</span></td>
@@ -345,7 +372,7 @@
       <td>-</td>
       <td>-</td>
     </tr>
-    <tr class="detalle-item" data-group="g14" style="display:none" data-proveedor="Teddy Baldassarre" data-estado="enviado_final" data-comprador="Martin Duranona" data-search="martin duranona heritage 1938 cosc anthracite 39mm - anthracite on leather strap (reloj) maison crivelli oud maracuja 100ml olfactory factory teddy baldassarre">
+    <tr class="detalle-item" data-group="g15" style="display:none" data-proveedor="Teddy Baldassarre" data-estado="enviado_final" data-comprador="Martin Duranona" data-search="martin duranona heritage 1938 cosc anthracite 39mm - anthracite on leather strap (reloj) maison crivelli oud maracuja 100ml olfactory factory teddy baldassarre">
       <td></td>
       <td>↳ Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap (reloj)<div class="sub">Comprado: 05/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div><div class="nota">⚠ Venta dividida en 2 compras: este reloj Heritage + Maison Crivelli Oud Maracuja (Olfactory Factory, ver ups-olfactoryfactory-338382535)</div></td>
       <td>Teddy Baldassarre</td>
@@ -356,7 +383,7 @@
       <td><a href="https://mail.google.com/mail/u/0/#all/19fe210a0f5cccaa" target="_blank">Ver mail</a></td>
       <td><a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">Editar ✎</a></td>
     </tr>
-    <tr class="detalle-item" data-group="g14" style="display:none" data-proveedor="Olfactory Factory" data-estado="enviado_final" data-comprador="Martin Duranona" data-search="martin duranona heritage 1938 cosc anthracite 39mm - anthracite on leather strap (reloj) maison crivelli oud maracuja 100ml olfactory factory teddy baldassarre">
+    <tr class="detalle-item" data-group="g15" style="display:none" data-proveedor="Olfactory Factory" data-estado="enviado_final" data-comprador="Martin Duranona" data-search="martin duranona heritage 1938 cosc anthracite 39mm - anthracite on leather strap (reloj) maison crivelli oud maracuja 100ml olfactory factory teddy baldassarre">
       <td></td>
       <td>↳ Maison Crivelli Oud Maracuja 100ml<div class="sub">Comprado: 05/08/2026</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Venta dividida en 2 compras: este Maison Crivelli Oud Maracuja + reloj Heritage (Teddy Baldassarre, ver ups-teddybaldassarre-483742)</div></td>
       <td>Olfactory Factory</td>
