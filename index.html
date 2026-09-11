@@ -6,380 +6,363 @@
 <title>Compras internacionales — Stock NEVE</title>
 <style>
   :root{
-    --bg:#0e1014; --card:#171a21; --card2:#1d212a; --line:#2a2f3a;
-    --txt:#e8eaf0; --dim:#9aa3b2; --accent:#c8a24a;
-    --ok:#3fb27f; --warn:#e0a83c; --info:#4e8fd4; --bad:#d4685a;
+    --bg:#0f1115; --panel:#171a21; --panel2:#1d212a; --line:#2a2f3a;
+    --txt:#e6e9ef; --mut:#9aa3b2; --dim:#6f7888;
+    --ok:#3fb950; --warn:#d29922; --bad:#f85149; --info:#58a6ff; --purple:#a371f7;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);
-       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-       font-size:15px;line-height:1.5}
-  .wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
-  h1{font-size:26px;margin:0 0 4px;letter-spacing:.2px}
-  h1 span{color:var(--accent)}
-  .sub{color:var(--dim);font-size:13px;margin-bottom:20px}
-  .banner{background:#3a2a18;border:1px solid #6b4e22;border-left:4px solid var(--warn);
-          border-radius:8px;padding:14px 16px;margin-bottom:22px;font-size:13.5px}
-  .banner b{color:var(--warn)}
-  .stats{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:8px;
-        padding:10px 14px;min-width:120px}
+  body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .wrap{max-width:1200px;margin:0 auto;padding:24px 18px 64px}
+  header h1{margin:0 0 4px;font-size:24px;letter-spacing:-.3px}
+  header .sub{color:var(--mut);font-size:13px}
+  .banner{margin:18px 0;padding:12px 14px;border-radius:8px;border:1px solid #3a2f14;background:#241d0c;color:#e9c46a;font-size:13px}
+  .banner b{color:#f0d48a}
+  .stats{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 8px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:130px}
   .stat .n{font-size:22px;font-weight:600}
-  .stat .l{font-size:11.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px}
-  h2{font-size:15px;text-transform:uppercase;letter-spacing:1px;color:var(--dim);
-     margin:30px 0 12px;font-weight:600}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;
-        padding:16px 18px;margin-bottom:12px}
-  .chead{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:10px}
-  .who{font-size:17px;font-weight:600}
-  .nro{color:var(--accent);font-size:13px;font-weight:600}
-  .prod{font-size:14.5px;margin:2px 0 8px}
-  .meta{color:var(--dim);font-size:12.5px;display:flex;flex-wrap:wrap;gap:14px;margin-top:8px}
-  .meta span b{color:#c3cad6;font-weight:500}
-  .pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;
-        font-weight:600;letter-spacing:.3px;white-space:nowrap}
-  .p-ped{background:#2a2f3a;color:#b9c2d0}
-  .p-env{background:#1e3550;color:#8fc0f0}
-  .p-arr{background:#1e3d33;color:#7fd8ae}
-  .p-vue{background:#3d3218;color:#e8c46a}
-  .p-lle{background:#4a2a18;color:#f0a878}
-  .p-cli{background:#243d24;color:#8fd48f}
-  .steps{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
-  .step{font-size:10.5px;padding:3px 8px;border-radius:4px;background:#22262f;color:#6c7484}
-  .step.on{background:#2c3442;color:#c3cad6}
-  .step.cur{background:var(--accent);color:#1a1307;font-weight:600}
-  .note{margin-top:10px;font-size:12.5px;color:#e0a83c;background:#2a2313;
-        border-radius:6px;padding:7px 10px}
-  table{width:100%;border-collapse:collapse;background:var(--card);
-        border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.5px}
-  th{text-align:left;padding:10px 14px;background:var(--card2);color:var(--dim);
-     font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-  td{padding:10px 14px;border-top:1px solid var(--line);vertical-align:top}
-  .foot{margin-top:36px;color:#6c7484;font-size:12px;border-top:1px solid var(--line);padding-top:16px}
-  details summary{cursor:pointer;color:var(--dim);font-size:13px;padding:8px 0}
+  .stat .l{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  h2{font-size:15px;text-transform:uppercase;letter-spacing:.8px;color:var(--mut);margin:30px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+  .grp{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}
+  .grp>.hd{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--panel2)}
+  .grp .who{font-weight:600;font-size:15px}
+  .grp .who small{font-weight:400;color:var(--mut);margin-left:8px;font-size:12px}
+  .item{padding:14px 16px;border-top:1px solid var(--line)}
+  .item .top{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline}
+  .prod{font-weight:500}
+  .meta{color:var(--dim);font-size:12px;margin-top:3px}
+  .meta span{margin-right:14px;white-space:nowrap}
+  .pipe{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
+  .st{font-size:10.5px;padding:3px 8px;border-radius:11px;border:1px solid var(--line);color:var(--dim);background:#12151b;white-space:nowrap}
+  .st.on{color:#cfe3ff;border-color:#2f4f7a;background:#152238}
+  .st.cur{color:#0b0e13;background:var(--info);border-color:var(--info);font-weight:600}
+  .st.cur.late{background:var(--warn);border-color:var(--warn)}
+  .st.cur.done{background:var(--ok);border-color:var(--ok)}
+  .nota{margin-top:9px;font-size:12px;color:var(--mut);background:#12151b;border-left:3px solid var(--line);padding:7px 10px;border-radius:0 5px 5px 0}
+  .nota.alert{border-left-color:var(--bad);color:#ffb4ae;background:#1d1315}
+  .nota.warn{border-left-color:var(--warn);color:#e9c46a;background:#1d1a0f}
+  .tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle}
+  .tag.new{background:#123a1c;color:#56d364;border:1px solid #235c2e}
+  .tag.chg{background:#3a2f0c;color:#e3b341;border:1px solid #5c4a12}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0}
+  details>summary{cursor:pointer;padding:13px 16px;font-weight:600;color:var(--mut);list-style:none}
+  details>summary::-webkit-details-marker{display:none}
+  details>summary:before{content:"▸ ";color:var(--dim)}
+  details[open]>summary:before{content:"▾ "}
+  details .inner{padding:0 16px 12px}
+  footer{margin-top:40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+  a{color:var(--info)}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <h1>Compras internacionales — <span>Stock NEVE</span></h1>
-  <div class="sub">Actualizado: viernes 11 de septiembre de 2026 · Warehouse Miami: 1340 NW 114th St, Miami, FL 33167</div>
+<header>
+  <h1>Compras internacionales — Stock NEVE</h1>
+  <div class="sub">Actualizado: viernes 11 de septiembre de 2026 · NEVE Luxury (neve.com.ar) · warehouse Miami 1340 NW 114th St, FL 33167</div>
+</header>
 
-  <div class="banner">
-    <b>⚠ Versión de respaldo.</b> Este dashboard se generó sin acceso al repo
-    <code>neve-track-ventas-data</code> (el entorno Linux estaba caído), así que está armado
-    únicamente con lo relevado en Gmail y la Lista de Ventas del 10/09.
-    <b>No incluye los overrides manuales de <code>compras_manual.csv</code></b>
-    (columnas <i>comprador</i>, <i>llegó a Argentina</i>, <i>empaquetado</i>, <i>envío</i>, <i>observaciones</i>).
-    Los estados que dependían de esas columnas aparecen como pendientes aunque ya los hayas marcado.
-    Conviene volver a correr la skill completa cuando el entorno funcione para que haga el merge real.
+<div class="banner">
+  <b>Corrida sin sandbox.</b> El entorno Linux está caído (bug de Windows del 8/9), así que este dashboard se generó y se subió por el navegador.
+  <b>Sí</b> incluye los overrides manuales de <code>compras_manual.csv</code> (leídos del repo privado).
+  Los archivos de datos (<code>compras_auto.json</code>, <code>compras_manual.csv</code>, <code>ventas_sin_compra.json</code>) <b>no</b> se actualizaron en esta corrida:
+  los va a regenerar la próxima corrida con Bash sano.
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="n">6</div><div class="l">Compras nuevas</div></div>
+  <div class="stat"><div class="n">6</div><div class="l">Debería haber llegado a AR</div></div>
+  <div class="stat"><div class="n">15</div><div class="l">Items activos</div></div>
+  <div class="stat"><div class="n">2</div><div class="l">Ventas sin compra</div></div>
+  <div class="stat"><div class="n">3</div><div class="l">Avisos abiertos</div></div>
+</div>
+
+<h2>En curso — por comprador</h2>
+
+<!-- 1 -->
+<div class="grp">
+  <div class="hd"><div class="who">Maximiliano Sendra <small>venta #306 · 10/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Tissot Gentleman Powermatic 80 Silicium Green Dial T127.407.11.091.01</div></div>
+    <div class="meta"><span>Jomashop · orden M40F1U2K</span><span>compra 10/09</span><span>UPS 1Z7R3F940390163546</span><span>USD 710,48</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
+    </div>
+    <div class="nota">10/09: orden confirmada y cobrada a Visa -3139 ($664 + tax, cupón GOOGLE20). Mismo día despachada por UPS.</div>
   </div>
+</div>
 
-  <div class="stats">
-    <div class="stat"><div class="n">10</div><div class="l">Envíos activos</div></div>
-    <div class="stat"><div class="n">6</div><div class="l">En camino a Miami</div></div>
-    <div class="stat"><div class="n">1</div><div class="l">En warehouse</div></div>
-    <div class="stat"><div class="n">3</div><div class="l">Deberían estar en AR</div></div>
-    <div class="stat"><div class="n">3</div><div class="l">Ventas sin compra</div></div>
+<!-- 2 -->
+<div class="grp">
+  <div class="hd"><div class="who">Leandro Ruiz <small>venta #305 · 10/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Maison Alhambra Exclusif Tabac EDP 100ml</div></div>
+    <div class="meta"><span>eBay (elitesneaks901) · orden 03-15161-82309</span><span>compra 10/09</span><span>USD 151,93</span><span>ETA proveedor 14–17/09</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st cur">Pagado</span><span class="st">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
+    </div>
+    <div class="nota">10/09: pedido confirmado y cobrado a la tarjeta -0154. Llegó un mail de "Actualización del pedido" 20 minutos después, con la misma ETA: todavía no hay confirmación de despacho del transportista.</div>
   </div>
+</div>
 
-  <h2>Deberían haber llegado a Argentina</h2>
-
-  <div class="card">
-    <div class="chead">
-      <span class="who">Francesco Delli</span>
-      <span class="nro">#268</span>
-      <span class="pill p-lle">Debería haber llegado a AR</span>
+<!-- 3 -->
+<div class="grp">
+  <div class="hd"><div class="who">Juan Sebastián Melara Longo <small>venta #301 · 09/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm</div></div>
+    <div class="meta"><span>eBay (dilcham43) · orden 23-15120-76756</span><span>compra 09/09</span><span>UPS</span><span>USD 318,86</span><span>ETA 14/09</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="prod">Hamilton Khaki Field Expedition Auto H70225540</div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step on">Enviado a warehouse</span><span class="step on">Arribó a Miami</span>
-      <span class="step on">En vuelo</span><span class="step cur">Debería estar en AR</span>
-      <span class="step">Llegó a AR</span><span class="step">Empaquetado</span><span class="step">Enviado al cliente</span>
-    </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> WatchMaxx</span>
-      <span><b>Orden:</b> 647905 → 646631</span>
-      <span><b>Compra:</b> 01/09/26</span>
-      <span><b>Costo:</b> US$ 848,00</span>
-      <span><b>Arribó Miami:</b> 05/09/26</span>
-      <span><b>Vuelo:</b> 08/09 → llegada est. 10/09 23:00</span>
-    </div>
-    <div class="note">Reemplaza la orden 640112 (27/07), que quedó en backorder y se le venció el pago. Se recompró el 01/09 a US$ 848 en lugar de US$ 765.</div>
+    <div class="nota">11/09 00:51: UPS recibió el paquete. Entrega prevista al warehouse el lunes 14/09.</div>
   </div>
+</div>
 
-  <div class="card">
-    <div class="chead">
-      <span class="who">Fausto José Gorosito</span>
-      <span class="nro">#303</span>
-      <span class="pill p-cli">Enviado al cliente</span>
+<!-- 4 -->
+<div class="grp">
+  <div class="hd"><div class="who">Ignacio <small>venta #304 · 09/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Longines Master Collection Automatic 38.5mm L2.628.4.51.6</div></div>
+    <div class="meta"><span>WatchMaxx · orden #647905</span><span>compra 09/09</span><span>UPS 1Z76E25RA893206730</span><span>USD 1.224,00</span><span>ETA 10–18/09</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="prod">Tissot Le Locle Powermatic 80 Automatic T006.407.16.033.00</div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step on">Enviado a warehouse</span><span class="step on">Arribó a Miami</span>
-      <span class="step on">En vuelo</span><span class="step on">Debería estar en AR</span>
-      <span class="step on">Llegó a AR</span><span class="step on">Empaquetado</span><span class="step cur">Enviado al cliente</span>
-    </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> Jomashop</span>
-      <span><b>Orden:</b> M40EVRF4</span>
-      <span><b>Arribó Miami:</b> 03/09/26</span>
-      <span><b>Vuelo:</b> 08/09 → llegada est. 10/09 23:00</span>
-      <span><b>Estado de la venta:</b> Enviado</span>
-    </div>
-    <div class="note">La Lista de Ventas ya marca la venta como "Enviado", así que el item se muestra como despachado sin esperar la confirmación manual.</div>
+    <div class="nota">09/09: comprado 14:50 y despachado el mismo día (2 horas después). La Lista de Ventas anota el cliente solo como "Ignacio", sin apellido.</div>
   </div>
+</div>
 
-  <div class="card">
-    <div class="chead">
-      <span class="who">Mariano Fittipaldi</span>
-      <span class="nro">#294</span>
-      <span class="pill p-lle">Debería haber llegado a AR</span>
-    </div>
-    <div class="prod">Seiko 5 Sports Automatic Black Dial SRPK29K1 (38mm)</div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step on">Enviado a warehouse</span><span class="step on">Arribó a Miami</span>
-      <span class="step on">En vuelo</span><span class="step cur">Debería estar en AR</span>
-      <span class="step">Llegó a AR</span><span class="step">Empaquetado</span><span class="step">Enviado al cliente</span>
-    </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> eBay</span>
-      <span><b>Compra:</b> 01/09/26</span>
-      <span><b>Enviado:</b> 01/09/26 (FedEx)</span>
-      <span><b>Arribó Miami:</b> 03/09/26</span>
-      <span><b>Vuelo:</b> 08/09 → llegada est. 10/09 23:00</span>
+<!-- 5 -->
+<div class="grp">
+  <div class="hd"><div class="who">Gabriel Ferrer <small>venta #299 · 08/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Montale Arabians Tonka EDP 100ml</div></div>
+    <div class="meta"><span>Venba · orden #V240228</span><span>compra 08/09</span><span>FedEx Ground</span><span>USD 79,98</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
   </div>
-
-  <h2>En el warehouse de Miami</h2>
-
-  <div class="card">
-    <div class="chead">
-      <span class="who">Jorge Sánchez</span>
-      <span class="nro">#302</span>
-      <span class="pill p-arr">Arribó al warehouse</span>
+  <div class="item">
+    <div class="top"><div class="prod">Mystery Samples Set (5 samples)</div></div>
+    <div class="meta"><span>Venba · orden #V240228</span><span>compra 08/09</span><span>USD 12,99</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="prod">Nivada Grenchen F77 MK2 SST Beige Lume Black With Date 69010A77</div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step on">Enviado a warehouse</span><span class="step cur">Arribó a Miami</span>
-      <span class="step">En vuelo</span><span class="step">Debería estar en AR</span>
-      <span class="step">Llegó a AR</span><span class="step">Empaquetado</span><span class="step">Enviado al cliente</span>
-    </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> Belmont Watches</span>
-      <span><b>Orden:</b> #3113</span>
-      <span><b>Tracking:</b> FedEx 876716925838</span>
-      <span><b>Compra:</b> 03/09/26</span>
-      <span><b>Costo:</b> US$ 1.360,00</span>
-      <span><b>Arribó Miami:</b> 08/09/26</span>
-      <span><b>Vuelo est.:</b> 15/09 → llegada est. 17/09 23:00</span>
-    </div>
-    <div class="note">Llegó un martes (después del lunes 14:00), así que se sube al consolidado de la semana siguiente.</div>
+    <div class="nota">Cubre el "Mystery Box" que pide la venta #299. La orden #V240228 viaja junta con el Ella K Musc K de Erika Ilgner (#300). ETA proveedor 15–18/09.</div>
   </div>
+</div>
 
-  <h2>En camino al warehouse</h2>
-
-  <div class="card">
-    <div class="chead">
-      <span class="who">Maximiliano Sendra</span>
-      <span class="nro">#306</span>
-      <span class="pill p-env">Enviado a warehouse</span>
+<!-- 6 -->
+<div class="grp">
+  <div class="hd"><div class="who">Erika Ilgner <small>venta #300 · 08/09/26 · Pedido/Comprado · Transferencia</small></div><div><span class="tag new">NUEVO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Ella K Musc K EDP 3.4 oz / 100 ml</div></div>
+    <div class="meta"><span>Venba · orden #V240228</span><span>compra 08/09</span><span>FedEx Ground</span><span>USD 189,99</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="prod">Tissot Gentleman Powermatic 80 Silicium Green Dial T127.407.11.091.01</div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step cur">Enviado a warehouse</span><span class="step">Arribó a Miami</span>
-      <span class="step">En vuelo</span><span class="step">Debería estar en AR</span>
-      <span class="step">Llegó a AR</span><span class="step">Empaquetado</span><span class="step">Enviado al cliente</span>
-    </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> Jomashop</span>
-      <span><b>Orden:</b> M40F1U2K</span>
-      <span><b>Tracking:</b> UPS 1Z7R3F940390163546</span>
-      <span><b>Compra:</b> 10/09/26</span>
-      <span><b>Costo:</b> US$ 710,48</span>
-    </div>
+    <div class="nota">La venta figura como "Elle K Musk K 100ml" (escrito fonético); es el mismo producto.</div>
   </div>
+</div>
 
-  <div class="card">
-    <div class="chead">
-      <span class="who">Leandro Ruiz</span>
-      <span class="nro">#305</span>
-      <span class="pill p-env">Enviado a warehouse</span>
+<!-- 7 -->
+<div class="grp">
+  <div class="hd"><div class="who">Alejandro Arcana <small>venta #298 · 07/09/26 · Pedido/Comprado</small></div><div><span class="tag chg">ENVIADO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic</div></div>
+    <div class="meta"><span>eBay (addicted2shades) · orden 08-15139-51108</span><span>compra 07/09</span><span>USPS</span><span>USD 701,87</span><span>ETA 10–12/09</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="prod">Maison Alhambra Exclusif Tabac EDP 100ml</div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step cur">Enviado a warehouse</span><span class="step">Arribó a Miami</span>
-      <span class="step">En vuelo</span><span class="step">Debería estar en AR</span>
-      <span class="step">Llegó a AR</span><span class="step">Empaquetado</span><span class="step">Enviado al cliente</span>
+    <div class="nota">08/09: USPS recibió el paquete (antes figuraba solo como pagado). Todavía sin confirmación de entrega al warehouse.</div>
+  </div>
+</div>
+
+<!-- 8 -->
+<div class="grp">
+  <div class="hd"><div class="who">Jorge Sánchez <small>ventas #302 y #284</small></div><div><span class="tag new">NUEVO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Nivada Grenchen F77 MK2 SST Beige Lume Black Date Dial 69010A77</div></div>
+    <div class="meta"><span>Belmont Watches · orden #3113</span><span>venta #302 · 02/09 · Pedido/Comprado</span><span>compra 03/09</span><span>FedEx 876716925838</span><span>USD 1.360,00</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st cur">Arribó Miami (08/09)</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> eBay (elitesneaks901)</span>
-      <span><b>Orden:</b> 03-15161-82309</span>
-      <span><b>Compra:</b> 10/09/26</span>
-      <span><b>Costo:</b> US$ 151,93</span>
-      <span><b>Enviado:</b> 11/09/26 (UPS)</span>
-      <span><b>Entrega est.:</b> 14/09 – 17/09</span>
+    <div class="nota">Ciclo completo en Belmont Watches: confirmado 03/09 → en camino 03/09 → out for delivery 08/09 → entregado 08/09. Como arribó el martes (después del corte del lunes 14:00), sube al vuelo del <b>martes 15/09</b> y debería estar en Argentina el <b>jueves 17/09 ~23:00</b>.</div>
+  </div>
+  <div class="item">
+    <div class="top"><div class="prod">Mido Ocean Star 200 M026.430.11.041.00</div></div>
+    <div class="meta"><span>WatchMaxx · orden #643423</span><span>venta #284</span><span>compra 13/08</span><span>UPS 1Z76E25RA892066296</span><span>arribo Miami 18/08</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo</span><span class="st cur late">Debería haber llegado a AR (27/08)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
   </div>
+  <div class="item">
+    <div class="top"><div class="prod">Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00</div></div>
+    <div class="meta"><span>Jomashop · orden M40EMB18</span><span>venta #284</span><span>compra 13/08</span><span>UPS 1Z7R3F940392638708</span><span>arribo Miami 17/08</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo</span><span class="st cur late">Debería haber llegado a AR (27/08)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
+    </div>
+    <div class="nota warn">Los dos relojes de la venta #284 figuran como llegados a Argentina el 27/08 según la regla del vuelo, pero en <code>compras_manual.csv</code> siguen marcados <b>llego_argentina = NO</b>. Confirmar recepción.</div>
+  </div>
+</div>
 
-  <div class="card">
-    <div class="chead">
-      <span class="who">Ignacio</span>
-      <span class="nro">#304</span>
-      <span class="pill p-env">Enviado a warehouse</span>
+<!-- 9 -->
+<div class="grp">
+  <div class="hd"><div class="who">Francesco Delli <small>venta #268 · 27/07/26 · Pedido/Comprado</small></div><div><span class="tag chg">CAMBIO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Hamilton Khaki Field Expedition Auto H70225540</div></div>
+    <div class="meta"><span>WatchMaxx · orden #646631 (reemplazo de #640112)</span><span>compra 01/09</span><span>UPS 1Z76E25RA896513447</span><span>arribo Miami 05/09</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo (08/09)</span><span class="st cur late">Debería haber llegado a AR (10/09)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="prod">Longines Master Collection Automatic 38.5mm L2.628.4.51.6</div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step cur">Enviado a warehouse</span><span class="step">Arribó a Miami</span>
-      <span class="step">En vuelo</span><span class="step">Debería estar en AR</span>
-      <span class="step">Llegó a AR</span><span class="step">Empaquetado</span><span class="step">Enviado al cliente</span>
-    </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> WatchMaxx</span>
-      <span><b>Orden:</b> 647905</span>
-      <span><b>Tracking:</b> UPS 1Z76E25RA893206730</span>
-      <span><b>Compra:</b> 09/09/26</span>
-      <span><b>Costo:</b> US$ 1.224,00</span>
-      <span><b>Entrega est.:</b> 10/09 – 18/09</span>
+    <div class="nota">Historia larga: la orden original #640112 expiró sin cobrar y hubo que recomprar el 01/09 a $848 (vs $765). WatchMaxx acordó reintegrar los $83 de diferencia vía Takenos. Entregado al warehouse el 05/09; con el corte semanal, voló el martes 08/09 y debería estar en Argentina desde el jueves 10/09.</div>
+  </div>
+</div>
+
+<!-- 10 -->
+<div class="grp">
+  <div class="hd"><div class="who">Mariano Fittipaldi <small>venta #294 · 29/08/26 · Pedido/Comprado</small></div><div><span class="tag chg">CAMBIO</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Seiko 5 Sports 38mm Black Dial Stainless Steel SRPK29</div></div>
+    <div class="meta"><span>eBay (watchowner/EDJ LUXE) · orden 23-15086-02249</span><span>compra 01/09</span><span>FedEx</span><span>USD 374,50</span><span>arribo Miami 03/09</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo (08/09)</span><span class="st cur late">Debería haber llegado a AR (10/09)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
   </div>
+</div>
 
-  <div class="card">
-    <div class="chead">
-      <span class="who">Juan Sebastián Melara Longo</span>
-      <span class="nro">#301</span>
-      <span class="pill p-env">Enviado a warehouse</span>
+<!-- 11 -->
+<div class="grp">
+  <div class="hd"><div class="who">Lucas Vallejos <small>venta #288 · 19/08/26 · Enviado</small></div><div><span class="tag chg">ALERTA</span></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Nishane Hacivat Extrait de Parfum 3.4oz</div></div>
+    <div class="meta"><span>Jomashop · orden M40ER5PK</span><span>compra 19/08</span><span>USPS 9436250206079010426761</span><span>despachado 20/08</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur late">Enviado a warehouse (20/08)</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="prod">Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm</div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step cur">Enviado a warehouse</span><span class="step">Arribó a Miami</span>
-      <span class="step">En vuelo</span><span class="step">Debería estar en AR</span>
-      <span class="step">Llegó a AR</span><span class="step">Empaquetado</span><span class="step">Enviado al cliente</span>
-    </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> eBay (dilcham43)</span>
-      <span><b>Orden:</b> 23-15120-76756</span>
-      <span><b>Compra:</b> 09/09/26</span>
-      <span><b>Costo:</b> US$ 318,86</span>
-      <span><b>Entrega est.:</b> 14/09 – 16/09</span>
+    <div class="nota alert"><b>Paquete probablemente extraviado.</b> 22 días sin ningún movimiento de USPS desde el despacho del 20/08. El 09/09 Nico abrió un reclamo de búsqueda en USPS — Search ID <b>#MRC 26 2674 3578</b>. La venta #288 ya figura "Enviado" (se resolvió con stock existente), pero el paquete sigue sin aparecer: corresponde reclamar reembolso a Jomashop si USPS lo da por perdido.</div>
+  </div>
+</div>
+
+<!-- 12 -->
+<div class="grp">
+  <div class="hd"><div class="who">Leonardo Smachetti <small>venta #285 · Pedido/Comprado</small></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Mido Ocean Star 39 Automatic Grey Gradient Dial M026.907.11.061.00</div></div>
+    <div class="meta"><span>Jomashop · orden M40EMTHS</span><span>compra 14/08</span><span>UPS 1Z7R3F940392993226</span><span>arribo Miami 20/08</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo</span><span class="st cur late">Debería haber llegado a AR (27/08)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
   </div>
-
-  <div class="card">
-    <div class="chead">
-      <span class="who">Gabriel Ferrer · Erika Ilgner</span>
-      <span class="nro">#299 · #300</span>
-      <span class="pill p-env">Enviado a warehouse</span>
+  <div class="item">
+    <div class="top"><div class="prod">Tissot PRX Powermatic 80 Automatic Black Dial Unisex T137.207.11.051.00</div></div>
+    <div class="meta"><span>Jomashop · orden M40EMTHS</span><span>compra 14/08</span><span>arribo Miami 20/08</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo</span><span class="st cur late">Debería haber llegado a AR (27/08)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="prod">
-      <b>3 productos en un mismo envío:</b><br>
-      · Montale Arabians Tonka EDP 100ml — US$ 79,98 → <span class="nro">#299</span> Gabriel Ferrer<br>
-      · Ella K Musc K EDP 100ml — US$ 189,99 → <span class="nro">#300</span> Erika Ilgner<br>
-      · Mystery Samples Set (5 samples) — US$ 12,99 → sin venta asociada
-    </div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step cur">Enviado a warehouse</span><span class="step">Arribó a Miami</span>
-      <span class="step">En vuelo</span><span class="step">Debería estar en AR</span>
-      <span class="step">Llegó a AR</span><span class="step">Empaquetado</span><span class="step">Enviado al cliente</span>
-    </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> Venba Fragrance</span>
-      <span><b>Orden:</b> V240228</span>
-      <span><b>Compra:</b> 08/09/26</span>
-      <span><b>Total:</b> US$ 282,96</span>
-      <span><b>Enviado:</b> 10/09/26 (FedEx)</span>
-      <span><b>Entrega est.:</b> 15/09 – 18/09</span>
-    </div>
-    <div class="note">La venta #299 de Gabriel Ferrer pide además una Mystery Box — verificar si el "Mystery Samples Set" de este pedido la cubre.</div>
+    <div class="nota warn">Ambos siguen en <b>llego_argentina = NO</b> en la planilla manual pese a que la llegada estimada fue hace más de 2 semanas. Confirmar.</div>
   </div>
+</div>
 
-  <div class="card">
-    <div class="chead">
-      <span class="who">Alejandro Arcana</span>
-      <span class="nro">#298</span>
-      <span class="pill p-env">Enviado a warehouse</span>
+<!-- 13 -->
+<div class="grp">
+  <div class="hd"><div class="who">Leonardo Sonaglia <small>venta #281 · Empaquetado</small></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">The Artist No.2 EDP by Maison Alhambra 100ml</div></div>
+    <div class="meta"><span>eBay (georgymelly) · orden #16-15011-58343</span><span>arribo Miami 13/08</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo</span><span class="st cur late">Debería haber llegado a AR (20/08)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
-    <div class="prod">Seiko Prospex SPB117J1 Alpinist Black Dial Automatic 39mm</div>
-    <div class="steps">
-      <span class="step on">Pedido</span><span class="step on">Pagado</span>
-      <span class="step cur">Enviado a warehouse</span><span class="step">Arribó a Miami</span>
-      <span class="step">En vuelo</span><span class="step">Debería estar en AR</span>
-      <span class="step">Llegó a AR</span><span class="step">Empaquetado</span><span class="step">Enviado al cliente</span>
-    </div>
-    <div class="meta">
-      <span><b>Proveedor:</b> eBay (addicted2shades / Westchester Watch Co.)</span>
-      <span><b>Orden:</b> 08-15139-51108</span>
-      <span><b>Compra:</b> 07/09/26</span>
-      <span><b>Costo:</b> US$ 701,87</span>
-      <span><b>Enviado:</b> 08/09/26 (USPS)</span>
-      <span><b>Entrega est.:</b> 10/09 – 12/09</span>
-    </div>
-    <div class="note">Match asignado a la venta #298 (07/09, Pedido/Comprado) y no a la #265 de Uber Forgione, que ya figura como "Enviado".</div>
+    <div class="nota">El segundo producto de la venta (French Avenue NICHE THE NIGHT 60ml) <b>ya no está pendiente de compra internacional</b>: se compró en Argentina vía Tienda Nube ("el mundo en aromas", pedido #764, 18–19/08).</div>
   </div>
+</div>
 
-  <h2>Ventas sin compra identificada</h2>
+<!-- 14 -->
+<div class="grp">
+  <div class="hd"><div class="who">Reposición de stock <small>sin venta asociada</small></div></div>
+  <div class="item">
+    <div class="top"><div class="prod">Seiko Prospex Automatic SRPF03 Black Date Dial Silver Steel Bracelet</div></div>
+    <div class="meta"><span>eBay (sasy420) · orden #06-14972-13513</span><span>compra 30/07</span><span>USPS 9400150206217799492456</span><span>arribo Miami 03/08</span></div>
+    <div class="pipe">
+      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo</span><span class="st cur late">Debería haber llegado a AR (06/08)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
+    </div>
+    <div class="nota">Revisado en segunda pasada contra todas las ventas #225+: no matchea ninguna pendiente. Es reposición de stock.</div>
+  </div>
+</div>
 
+<h2>Ventas sin compra identificada</h2>
+<div class="grp">
   <table>
-    <tr>
-      <th>Nro</th><th>Cliente</th><th>Producto</th><th>Fecha</th><th>Nota</th>
-    </tr>
-    <tr>
-      <td class="nro">#295</td><td>Adrián Espínola</td>
-      <td>Louis Vuitton Imagination 100ml</td><td>30/08/26</td>
-      <td>Sin compra en Gmail. La búsqueda dirigida a 30 días no encontró nada — parece un canal distinto a los proveedores habituales.</td>
-    </tr>
-    <tr>
-      <td class="nro">#297</td><td>Matías Lumbreras</td>
-      <td>Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</td><td>05/09/26</td>
-      <td>Mismo caso que #295. Mystery Box de regalo (precio 0).</td>
-    </tr>
-    <tr>
-      <td class="nro">#232</td><td>María Viscay</td>
-      <td>Tissot Lovely Summer + Strap Blue</td><td>29/06/26</td>
-      <td>La compra sí existe: Jomashop M40DUK89, entregada en Miami el 15/08/26. La venta sigue en "Pedido/Comprado" — probablemente haya que actualizarle el estado.</td>
-    </tr>
+    <thead><tr><th>Nro</th><th>Cliente</th><th>Producto</th><th>Fecha venta</th><th>Nota</th></tr></thead>
+    <tbody>
+      <tr><td>#295</td><td>Adrián Espínola</td><td>Louis Vuitton Imagination 100ml</td><td>30/08/26</td><td>12 días sin compra. Búsqueda dirigida por "Imagination" / "Louis Vuitton" en los últimos 30 días: sin resultados de proveedor.</td></tr>
+      <tr><td>#297</td><td>Matías Lumbreras</td><td>Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</td><td>05/09/26</td><td>Misma fragancia que #295. Conviene comprar las dos juntas.</td></tr>
+    </tbody>
   </table>
+</div>
 
-  <h2>Pendientes y avisos</h2>
-
-  <table>
-    <tr><th>Tema</th><th>Detalle</th></tr>
-    <tr>
-      <td>Jomashop — cancelación</td>
-      <td>Pedido de cancelación abierto el 08/09 sin número de orden. Mikaela (Jomashop) lo pidió el 09/09 y el hilo quedó sin respuesta.</td>
-    </tr>
-    <tr>
-      <td>WatchMaxx 640112</td>
-      <td>Backorder del Hamilton H70225540 con el pago vencido. Resuelto: se recompró como orden 646631 el 01/09 (US$ 848 vs US$ 765) y ya está entregado.</td>
-    </tr>
-    <tr>
-      <td>Remitentes nuevos</td>
-      <td>Ninguno. Todos los mails de esta corrida vienen de proveedores ya contemplados.</td>
-    </tr>
-  </table>
-
-  <details>
-    <summary>Cómo se calcula el vuelo Miami → Argentina</summary>
-    <p style="color:#9aa3b2;font-size:13px">
-      Consolidado semanal fijo: lo que llega al warehouse antes del <b>lunes a las 14:00</b> sube al vuelo
-      del <b>martes</b> y aterriza en Argentina el <b>jueves ~23:00</b> de esa misma semana.
-      Lo que llega después del lunes 14:00 pasa al consolidado de la semana siguiente.
-    </p>
-  </details>
-
-  <div class="foot">
-    Compras internacionales — Stock NEVE · neve.com.ar<br>
-    Generado el 11/09/2026 en modo respaldo, sin merge contra <code>compras_auto.json</code> ni <code>compras_manual.csv</code>.
+<h2>Avisos y pendientes</h2>
+<div class="grp">
+  <div class="item">
+    <div class="prod">1 · Paquete perdido en USPS — Nishane Hacivat</div>
+    <div class="nota alert">Tracking 9436250206079010426761 sin movimiento desde el 20/08. Reclamo USPS abierto el 09/09 (Search ID #MRC 26 2674 3578). Si USPS lo da por perdido, reclamar a Jomashop (orden M40ER5PK).</div>
   </div>
+  <div class="item">
+    <div class="prod">2 · Cancelación pendiente en Jomashop</div>
+    <div class="nota warn">08/09 Nico pidió cancelar una orden por el formulario de servicio al cliente; el 09/09 Jomashop (Mikaela T.) respondió pidiendo el número de orden que empieza con "M". El hilo sigue sin respuesta y sin número de orden identificado, así que no se pudo asociar a ninguna compra del dashboard.</div>
+  </div>
+  <div class="item">
+    <div class="prod">3 · Beauty House — posible doble cobro</div>
+    <div class="nota alert">Sigue abierto: la tienda reembolsó el pedido BH100197291 el 06/08 pero el paquete llegó igual al warehouse el 11/08, y después pidió pago adicional por Zelle. <b>No pagar</b> sin verificar.</div>
+  </div>
+  <div class="item">
+    <div class="prod">Notas de esta corrida</div>
+    <div class="nota">
+      · <b>Match nuevo encontrado en la segunda pasada:</b> el Tissot Le Locle T006.407.16.033.00 (Jomashop M40EVRF4, comprado 29/08) figuraba como "reposición de stock" y en realidad corresponde a la venta <b>#303 Fausto José Gorosito</b> (29/08/26), que apareció en la versión nueva de la planilla. Queda archivado porque la venta ya está "Enviado".<br>
+      · No se detectaron remitentes de compra internacional nuevos fuera de la lista de la skill. Único candidato a sumar: <code>auto-reply@usps.gov</code>, que es el que trajo el reclamo por el paquete perdido (no es un vendedor, pero aporta estado de tracking).<br>
+      · El eBay "PEDIDO ENTREGADO: SkinCeuticals Gentle..." del 03/09 es una compra ajena al stock NEVE (skincare); no se incluyó.<br>
+      · La Lista de Ventas se leyó por el fallback de Grep sobre el volcado de Drive (sin openpyxl, por el sandbox caído). Las filas #296 a #299 tienen comillas escapadas y se reconstruyeron con una segunda pasada; conviene revalidarlas en la próxima corrida con Bash sano.
+    </div>
+  </div>
+</div>
+
+<h2>Archivados — finalizados</h2>
+<details>
+  <summary>16 items resueltos (venta ya "Enviado" en la Lista de Ventas)</summary>
+  <div class="inner">
+  <table>
+    <thead><tr><th>Producto</th><th>Proveedor / orden</th><th>Venta</th><th>Cliente</th><th>Arribo Miami</th></tr></thead>
+    <tbody>
+      <tr><td>Tissot Le Locle Powermatic 80 T006.407.16.033.00</td><td>Jomashop M40EVRF4</td><td>#303</td><td>Fausto José Gorosito</td><td>03/09</td></tr>
+      <tr><td>Amouage Reflection Men 100ml (1 de 2)</td><td>MaxAroma OR1016658</td><td>#286</td><td>Martín Arrieta</td><td>01/09</td></tr>
+      <tr><td>Amouage Reflection Men 100ml (2 de 2)</td><td>MaxAroma OR1016658</td><td>#287</td><td>Ilze Krievina</td><td>01/09</td></tr>
+      <tr><td>Xerjoff V Erba Pura EDP 100ml ×2</td><td>Jomashop M40EUBHY</td><td>#292</td><td>Hernán Rossi</td><td>31/08</td></tr>
+      <tr><td>Amouage Decision 100ml</td><td>Xtrait Perfumery #2613</td><td>#293</td><td>Jorge Zúñiga</td><td>29/08</td></tr>
+      <tr><td>Tom Ford Oud Minerale EDP 50ml</td><td>eBay 23-15050-77882</td><td>#291</td><td>Juanjo Jayat</td><td>28/08</td></tr>
+      <tr><td>Parfums de Marly Layton EDP 125ml + samples</td><td>Venba #V234930</td><td>#290</td><td>Luis Contreras</td><td>01/09</td></tr>
+      <tr><td>Giorgio Armani My Way Rechargeable 3.0oz</td><td>Perfume Empire PE272746</td><td>#289</td><td>María Luján Llargues</td><td>23/08</td></tr>
+      <tr><td>Seiko Chronograph Quartz Blue Dial SSB477P1</td><td>Jomashop M40EGKT4</td><td>#279</td><td>Ignacio Arévalo</td><td>10/08</td></tr>
+      <tr><td>Orient Classic Automatic Green Dial RA-AC0023E30B</td><td>Jomashop M40EGKT4</td><td>#278</td><td>Luis Rafael Cassin</td><td>10/08</td></tr>
+      <tr><td>Margiela Replica Jazz Club EDT 100ml</td><td>Venba #V228739</td><td>#283</td><td>Ignacio Maestu</td><td>08/08</td></tr>
+      <tr><td>Maison Crivelli Musc Nurasana Extrait (sample)</td><td>Venba #V228739</td><td>#276</td><td>María Silvia Díaz</td><td>08/08</td></tr>
+      <tr><td>Maison Crivelli Hibiscus Mahajad Extrait (sample)</td><td>Olfactory Factory OLF220344</td><td>#276</td><td>María Silvia Díaz</td><td>06/08</td></tr>
+      <tr><td>Maison Crivelli Oud Maracuja 100ml</td><td>Olfactory Factory OLF220344</td><td>#276</td><td>María Silvia Díaz</td><td>06/08</td></tr>
+      <tr><td>Maison Crivelli Oud Maracuja 100ml</td><td>Olfactory Factory OLF222524</td><td>#280</td><td>Martín Durañona</td><td>11/08</td></tr>
+      <tr><td>Heritage 1938 COSC Anthracite 39mm</td><td>Teddy Baldassarre #110415</td><td>#280</td><td>Martín Durañona</td><td>08/08</td></tr>
+      <tr><td>Casio Lineage LCW-M300D-1AJF</td><td>eBay #21-14945-32487</td><td>#273</td><td>Santiago Bonicatto</td><td>10/08</td></tr>
+      <tr><td>Seiko Chronograph Quartz Champagne SSB383P1</td><td>eBay #12-14966-74088</td><td>#277</td><td>Nicolás Ambrosini</td><td>04/08</td></tr>
+      <tr><td>Clive Christian XXI Art Deco Amberwood 50ml</td><td>Beauty House BH100197291</td><td>#270</td><td>Roberto Andrés Noriega</td><td>11/08</td></tr>
+      <tr><td>Tissot Lovely Summer T058.109.36.031.01</td><td>Jomashop M40DUK89</td><td>#232</td><td>María Viscay</td><td>15/08</td></tr>
+    </tbody>
+  </table>
+  </div>
+</details>
+
+<footer>
+  Regla de consolidación: lo que arriba al warehouse de Miami antes del <b>lunes 14:00</b> sube al vuelo del <b>martes</b> y llega a Argentina el <b>jueves ~23:00</b>; después del corte, pasa a la semana siguiente.<br>
+  Los estados "Llegó a Argentina", "Empaquetado" y "Enviado al cliente" se cargan a mano en <code>compras_manual.csv</code>; el resto se deduce de Gmail y de la Lista de Ventas NEVE.
+</footer>
 
 </div>
 </body>
