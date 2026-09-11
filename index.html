@@ -43,6 +43,24 @@
   .tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle}
   .tag.new{background:#123a1c;color:#56d364;border:1px solid #235c2e}
   .tag.chg{background:#3a2f0c;color:#e3b341;border:1px solid #5c4a12}
+  /* --- bloque Demorados --- */
+  .alertbox{border-radius:10px;border:1px solid #5c2225;background:#1a1013;margin-bottom:14px;overflow:hidden}
+  .alertbox>.hd{padding:13px 16px;background:#241417;border-bottom:1px solid #5c2225;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .alertbox>.hd h2{margin:0;border:0;padding:0;color:#ff9a92;font-size:15px;letter-spacing:.6px}
+  .alertbox .cnt{font-size:11px;color:var(--mut);margin-left:auto}
+  .sub-hd{padding:9px 16px;background:#15191f;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.7px;border-top:1px solid var(--line)}
+  .dl{display:flex;gap:12px;padding:11px 16px;border-top:1px solid #2b1d20;align-items:flex-start}
+  .dl .days{flex:0 0 88px;text-align:center;border-radius:7px;padding:6px 4px;font-weight:700;font-size:17px;line-height:1.1}
+  .dl .days small{display:block;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;opacity:.85;margin-top:2px}
+  .dl.red .days{background:#3d1418;color:#ff8b83;border:1px solid #6e2228}
+  .dl.amber .days{background:#33280a;color:#e3b341;border:1px solid #5c4a12}
+  .dl .body{flex:1;min-width:0}
+  .dl .body .p{font-weight:500}
+  .dl .body .who2{color:var(--mut);font-size:12px;margin-top:2px}
+  .dl .body .why{font-size:12px;margin-top:5px;color:#d8b7b4}
+  .dl.amber .body .why{color:#d9c489}
+  .legend{padding:10px 16px;border-top:1px solid #2b1d20;color:var(--dim);font-size:11.5px;background:#15100f}
+  .clean{padding:16px;color:var(--ok);font-size:13px}
   table{width:100%;border-collapse:collapse;font-size:13px}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
   th{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
@@ -72,11 +90,110 @@
 </div>
 
 <div class="stats">
+  <div class="stat"><div class="n" style="color:#ff8b83">7</div><div class="l">Demorados</div></div>
   <div class="stat"><div class="n">6</div><div class="l">Compras nuevas</div></div>
   <div class="stat"><div class="n">6</div><div class="l">Debería haber llegado a AR</div></div>
   <div class="stat"><div class="n">15</div><div class="l">Items activos</div></div>
-  <div class="stat"><div class="n">2</div><div class="l">Ventas sin compra</div></div>
   <div class="stat"><div class="n">3</div><div class="l">Avisos abiertos</div></div>
+</div>
+
+<!-- ====== DEMORADOS — SIEMPRE ARRIBA ====== -->
+<div class="alertbox">
+  <div class="hd">
+    <h2>⚠ DEMORADOS — NO ESTÁN SALIENDO</h2>
+    <span class="cnt">7 en tránsito · 2 compras en mano a seguir · 0 ventas sin comprar</span>
+  </div>
+
+  <div class="sub-hd">Trabados en tránsito internacional</div>
+
+  <div class="dl red">
+    <div class="days">36<small>días tarde</small></div>
+    <div class="body">
+      <div class="p">Seiko Prospex Automatic SRPF03 Black Date Dial</div>
+      <div class="who2">Reposición de stock · eBay (sasy420) #06-14972-13513 · arribó Miami 03/08</div>
+      <div class="why">Voló el 04/08 y debería estar en Argentina desde el 06/08, pero sigue en <b>llego_argentina = NO</b>. Es el más viejo sin resolver de todo el tablero.</div>
+    </div>
+  </div>
+
+  <div class="dl red">
+    <div class="days">22<small>días tarde</small></div>
+    <div class="body">
+      <div class="p">Nishane Hacivat Extrait de Parfum 3.4oz</div>
+      <div class="who2">#288 Lucas Vallejos · Jomashop M40ER5PK · USPS 9436250206079010426761</div>
+      <div class="why"><b>Paquete probablemente perdido.</b> Cero movimiento de USPS desde el despacho del 20/08. Reclamo abierto el 09/09 (Search ID #MRC 26 2674 3578). Si USPS lo da por perdido → reclamar reembolso a Jomashop.</div>
+    </div>
+  </div>
+
+  <div class="dl red">
+    <div class="days">22<small>días tarde</small></div>
+    <div class="body">
+      <div class="p">The Artist No.2 EDP by Maison Alhambra 100ml</div>
+      <div class="who2">#281 Leonardo Sonaglia · eBay (georgymelly) #16-15011-58343 · arribó Miami 13/08</div>
+      <div class="why">Llegada estimada a Argentina 20/08. La venta figura "Empaquetado" pero el item nunca se marcó como llegado.</div>
+    </div>
+  </div>
+
+  <div class="dl red">
+    <div class="days">15<small>días tarde</small></div>
+    <div class="body">
+      <div class="p">Mido Ocean Star 200 M026.430.11.041.00</div>
+      <div class="who2">#284 Jorge Sánchez · WatchMaxx #643423 · arribó Miami 18/08</div>
+      <div class="why">Llegada estimada 27/08. Sigue en llego_argentina = NO.</div>
+    </div>
+  </div>
+
+  <div class="dl red">
+    <div class="days">15<small>días tarde</small></div>
+    <div class="body">
+      <div class="p">Tissot PRX Powermatic 80 Black Dial T137.407.11.051.00</div>
+      <div class="who2">#284 Jorge Sánchez · Jomashop M40EMB18 · arribó Miami 17/08</div>
+      <div class="why">Llegada estimada 27/08. Es el segundo reloj de la misma venta #284: los dos están trabados.</div>
+    </div>
+  </div>
+
+  <div class="dl red">
+    <div class="days">15<small>días tarde</small></div>
+    <div class="body">
+      <div class="p">Mido Ocean Star 39 Automatic Grey Gradient M026.907.11.061.00</div>
+      <div class="who2">#285 Leonardo Smachetti · Jomashop M40EMTHS · arribó Miami 20/08</div>
+      <div class="why">Llegada estimada 27/08. Sigue en llego_argentina = NO.</div>
+    </div>
+  </div>
+
+  <div class="dl red">
+    <div class="days">15<small>días tarde</small></div>
+    <div class="body">
+      <div class="p">Tissot PRX Powermatic 80 Unisex T137.207.11.051.00</div>
+      <div class="who2">#285 Leonardo Smachetti · Jomashop M40EMTHS · arribó Miami 20/08</div>
+      <div class="why">Llegada estimada 27/08. Viaja en la misma orden que el Mido de arriba: la venta #285 completa está frenada.</div>
+    </div>
+  </div>
+
+  <div class="sub-hd">Compras en mano (Meli) — confirmar que estén en camino</div>
+
+  <div class="dl red">
+    <div class="days">12<small>días</small></div>
+    <div class="body">
+      <div class="p">Louis Vuitton Imagination 100ml</div>
+      <div class="who2">#295 Adrián Espínola · venta 30/08 · vía Meli (trae en mano)</div>
+      <div class="why"><b>Preguntarle a Meli.</b> Marcado como ya comprado pero todavía sin recibir, y pasaron 12 días desde la venta.</div>
+    </div>
+  </div>
+
+  <div class="dl amber">
+    <div class="days">6<small>días</small></div>
+    <div class="body">
+      <div class="p">Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</div>
+      <div class="who2">#297 Matías Lumbreras · venta 05/09 · vía Meli (trae en mano)</div>
+      <div class="why">Mismo perfume que #295 — si le preguntás a Meli, preguntale por los dos juntos.</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    Umbral escalonado: <b style="color:#e3b341">amarillo a los 5 días</b> de atraso sobre lo esperado, <b style="color:#ff8b83">rojo a los 10</b>.
+    Cuenta como atraso: proveedor que no despacha, tracking sin movimiento, y vuelo a Argentina vencido sin marcar <code>llego_argentina</code>.
+    Las compras en mano se siguen desde <code>ventas_compra_externa.csv</code>.
+  </div>
 </div>
 
 <h2>En curso — por comprador</h2>
@@ -293,13 +410,24 @@
 
 <h2>Ventas sin compra identificada</h2>
 <div class="grp">
+  <div class="clean">✓ Ninguna. Todas las ventas #225+ en "Pedido/Comprado" tienen su compra identificada en Gmail, salvo las dos de Louis Vuitton, que van por Meli y están arriba en Demorados.</div>
+</div>
+
+<h2>Compras en mano (fuera de Gmail)</h2>
+<div class="grp">
   <table>
-    <thead><tr><th>Nro</th><th>Cliente</th><th>Producto</th><th>Fecha venta</th><th>Nota</th></tr></thead>
+    <thead><tr><th>Nro</th><th>Cliente</th><th>Producto</th><th>Venta</th><th>Vía</th><th>¿Comprado?</th><th>¿Recibido?</th></tr></thead>
     <tbody>
-      <tr><td>#295</td><td>Adrián Espínola</td><td>Louis Vuitton Imagination 100ml</td><td>30/08/26</td><td>12 días sin compra. Búsqueda dirigida por "Imagination" / "Louis Vuitton" en los últimos 30 días: sin resultados de proveedor.</td></tr>
-      <tr><td>#297</td><td>Matías Lumbreras</td><td>Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</td><td>05/09/26</td><td>Misma fragancia que #295. Conviene comprar las dos juntas.</td></tr>
+      <tr><td>#295</td><td>Adrián Espínola</td><td>Louis Vuitton Imagination 100ml</td><td>30/08/26</td><td>Meli</td><td style="color:#3fb950">SÍ</td><td style="color:#f85149">NO — 12 días</td></tr>
+      <tr><td>#297</td><td>Matías Lumbreras</td><td>Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</td><td>05/09/26</td><td>Meli</td><td style="color:#3fb950">SÍ</td><td style="color:#d29922">NO — 6 días</td></tr>
     </tbody>
   </table>
+  <div class="legend" style="border-top:1px solid var(--line);background:#12151b">
+    Estas ventas no generan mail de proveedor, así que nunca van a aparecer solas en el relevamiento de Gmail.
+    Se llevan a mano en <code>ventas_compra_externa.csv</code> del repo de datos: poné <code>comprado = SI</code> cuando se lo encargás a Meli
+    y <code>recibido = SI</code> cuando lo tenés en la mano. Mientras sigan en <code>recibido = NO</code>, a los 5 días aparecen en amarillo arriba
+    y a los 10 en rojo con el recordatorio de preguntarle.
+  </div>
 </div>
 
 <h2>Avisos y pendientes</h2>
