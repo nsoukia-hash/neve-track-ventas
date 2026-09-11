@@ -595,6 +595,17 @@ function baseLevel(id){
 }
 function level(id){ return (id in ov) ? ov[id] : baseLevel(id); }
 
+// Reconciliacion: cuando la corrida diaria regenera el dashboard, el CSV ya trae
+// los cambios que Nico commiteo. Si el pendiente guardado coincide con lo que ahora
+// dice el CSV, ya no es un pendiente -> se borra solo y la barra desaparece.
+(function(){
+  var limpio = false, k;
+  for(k in ov){
+    if(!(k in baseByIdx) || ov[k] === baseLevel(k)){ delete ov[k]; limpio = true; }
+  }
+  if(limpio) save(ov);
+})();
+
 var items = [].slice.call(document.querySelectorAll(".item[data-item]"));
 
 // guardamos las clases originales de cada chip para poder volver atras
