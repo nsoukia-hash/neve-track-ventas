@@ -602,7 +602,7 @@ items.forEach(function(it){
   var pipe = it.querySelector(".pipe"); if(!pipe) return;
   var chips = [].slice.call(pipe.querySelectorAll(".st"));
   if(chips.length < 4) return;
-  chips.forEach(function(c){ c.setAttribute("data-orig", c.className); });
+  chips.forEach(function(c){ c.setAttribute("data-orig", c.className); c.setAttribute("data-origtext", c.textContent); });
   var start = chips.length - 3;
   for(var k=0;k<3;k++){
     (function(kk){
@@ -629,6 +629,9 @@ function paintItem(it){
   var start = chips.length - 3;
   var lv = level(id);
   var changed = (id in ov);
+  // el chip de "llegó" es el mismo que muestra "Debería haber llegado a AR":
+  // cuando Nico lo marca, el texto tiene que pasar a confirmar la llegada
+  chips[start].textContent = (lv >= 1) ? "Llegó a Argentina" : chips[start].getAttribute("data-origtext");
   if(lv === 0){
     chips.forEach(function(c){ c.className = c.getAttribute("data-orig"); });
     for(var k=0;k<3;k++) chips[start+k].classList.add("clk");
