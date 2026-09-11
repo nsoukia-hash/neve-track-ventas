@@ -61,6 +61,29 @@
   .dl.amber .body .why{color:#d9c489}
   .legend{padding:10px 16px;border-top:1px solid #2b1d20;color:var(--dim);font-size:11.5px;background:#15100f}
   .clean{padding:16px;color:var(--ok);font-size:13px}
+  /* --- chips clickeables + barra de guardado --- */
+  .st.clk{cursor:pointer;user-select:none;border-style:dashed}
+  .st.clk:hover{border-color:var(--ok);color:#a5e3ad}
+  .st.clk.cur.done:hover,.st.clk.on:hover{opacity:.85}
+  .st.edited{box-shadow:0 0 0 2px rgba(63,185,80,.45)}
+  .hint{font-size:11px;color:var(--dim);margin-top:6px;font-style:italic}
+  #bar{position:sticky;top:0;z-index:50;margin:0 0 16px;border-radius:10px;border:1px solid #235c2e;
+       background:#0e1f14;padding:11px 14px;display:none;align-items:center;gap:10px;flex-wrap:wrap;
+       box-shadow:0 6px 20px rgba(0,0,0,.45)}
+  #bar.show{display:flex}
+  #bar .msg{font-size:13px;color:#7ee787;flex:1;min-width:180px}
+  #bar .msg b{color:#b9f6c3}
+  .btn{border:1px solid var(--line);background:var(--panel2);color:var(--txt);font:inherit;font-size:12.5px;
+       padding:7px 13px;border-radius:7px;cursor:pointer;white-space:nowrap}
+  .btn:hover{border-color:var(--mut)}
+  .btn.go{background:#238636;border-color:#2ea043;color:#fff;font-weight:600}
+  .btn.go:hover{background:#2ea043}
+  .btn.ghost{background:transparent;color:var(--mut)}
+  #csvbox{display:none;width:100%;margin-top:10px;background:#0b0e13;color:var(--txt);border:1px solid var(--line);
+          border-radius:7px;padding:10px;font:11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;height:170px;resize:vertical}
+  #csvbox.show{display:block}
+  .howto{width:100%;font-size:11.5px;color:var(--mut);margin-top:8px;line-height:1.6}
+  .howto b{color:#b9f6c3}
   table{width:100%;border-collapse:collapse;font-size:13px}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
   th{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
@@ -87,6 +110,15 @@
   <b>Sí</b> incluye los overrides manuales de <code>compras_manual.csv</code> (leídos del repo privado).
   Los archivos de datos (<code>compras_auto.json</code>, <code>compras_manual.csv</code>, <code>ventas_sin_compra.json</code>) <b>no</b> se actualizaron en esta corrida:
   los va a regenerar la próxima corrida con Bash sano.
+</div>
+
+<div id="bar">
+  <div class="msg"></div>
+  <button class="btn go" id="b-csv">Copiar CSV actualizado</button>
+  <button class="btn" id="b-gh">Abrir en GitHub</button>
+  <button class="btn ghost" id="b-reset">Descartar</button>
+  <textarea id="csvbox" spellcheck="false"></textarea>
+  <div class="howto" id="howto"></div>
 </div>
 
 <div class="stats">
@@ -201,7 +233,7 @@
 <!-- 1 -->
 <div class="grp">
   <div class="hd"><div class="who">Maximiliano Sendra <small>venta #306 · 10/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="jomashop-M40F1U2K">
     <div class="top"><div class="prod">Tissot Gentleman Powermatic 80 Silicium Green Dial T127.407.11.091.01</div></div>
     <div class="meta"><span>Jomashop · orden M40F1U2K</span><span>compra 10/09</span><span>UPS 1Z7R3F940390163546</span><span>USD 710,48</span></div>
     <div class="pipe">
@@ -214,7 +246,7 @@
 <!-- 2 -->
 <div class="grp">
   <div class="hd"><div class="who">Leandro Ruiz <small>venta #305 · 10/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="ebay-03-15161-82309">
     <div class="top"><div class="prod">Maison Alhambra Exclusif Tabac EDP 100ml</div></div>
     <div class="meta"><span>eBay (elitesneaks901) · orden 03-15161-82309</span><span>compra 10/09</span><span>USD 151,93</span><span>ETA proveedor 14–17/09</span></div>
     <div class="pipe">
@@ -227,7 +259,7 @@
 <!-- 3 -->
 <div class="grp">
   <div class="hd"><div class="who">Juan Sebastián Melara Longo <small>venta #301 · 09/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="ebay-23-15120-76756">
     <div class="top"><div class="prod">Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm</div></div>
     <div class="meta"><span>eBay (dilcham43) · orden 23-15120-76756</span><span>compra 09/09</span><span>UPS</span><span>USD 318,86</span><span>ETA 14/09</span></div>
     <div class="pipe">
@@ -240,7 +272,7 @@
 <!-- 4 -->
 <div class="grp">
   <div class="hd"><div class="who">Ignacio <small>venta #304 · 09/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="watchmaxx-647905">
     <div class="top"><div class="prod">Longines Master Collection Automatic 38.5mm L2.628.4.51.6</div></div>
     <div class="meta"><span>WatchMaxx · orden #647905</span><span>compra 09/09</span><span>UPS 1Z76E25RA893206730</span><span>USD 1.224,00</span><span>ETA 10–18/09</span></div>
     <div class="pipe">
@@ -253,14 +285,14 @@
 <!-- 5 -->
 <div class="grp">
   <div class="hd"><div class="who">Gabriel Ferrer <small>venta #299 · 08/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="venba-V240228__item1">
     <div class="top"><div class="prod">Montale Arabians Tonka EDP 100ml</div></div>
     <div class="meta"><span>Venba · orden #V240228</span><span>compra 08/09</span><span>FedEx Ground</span><span>USD 79,98</span></div>
     <div class="pipe">
       <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
   </div>
-  <div class="item">
+  <div class="item" data-item="venba-V240228__item3">
     <div class="top"><div class="prod">Mystery Samples Set (5 samples)</div></div>
     <div class="meta"><span>Venba · orden #V240228</span><span>compra 08/09</span><span>USD 12,99</span></div>
     <div class="pipe">
@@ -273,7 +305,7 @@
 <!-- 6 -->
 <div class="grp">
   <div class="hd"><div class="who">Erika Ilgner <small>venta #300 · 08/09/26 · Pedido/Comprado · Transferencia</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="venba-V240228__item2">
     <div class="top"><div class="prod">Ella K Musc K EDP 3.4 oz / 100 ml</div></div>
     <div class="meta"><span>Venba · orden #V240228</span><span>compra 08/09</span><span>FedEx Ground</span><span>USD 189,99</span></div>
     <div class="pipe">
@@ -286,7 +318,7 @@
 <!-- 7 -->
 <div class="grp">
   <div class="hd"><div class="who">Alejandro Arcana <small>venta #298 · 07/09/26 · Pedido/Comprado</small></div><div><span class="tag chg">ENVIADO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="ebay-08-15139-51108">
     <div class="top"><div class="prod">Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic</div></div>
     <div class="meta"><span>eBay (addicted2shades) · orden 08-15139-51108</span><span>compra 07/09</span><span>USPS</span><span>USD 701,87</span><span>ETA 10–12/09</span></div>
     <div class="pipe">
@@ -299,7 +331,7 @@
 <!-- 8 -->
 <div class="grp">
   <div class="hd"><div class="who">Jorge Sánchez <small>ventas #302 y #284</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="belmontwatches-3113">
     <div class="top"><div class="prod">Nivada Grenchen F77 MK2 SST Beige Lume Black Date Dial 69010A77</div></div>
     <div class="meta"><span>Belmont Watches · orden #3113</span><span>venta #302 · 02/09 · Pedido/Comprado</span><span>compra 03/09</span><span>FedEx 876716925838</span><span>USD 1.360,00</span></div>
     <div class="pipe">
@@ -307,14 +339,14 @@
     </div>
     <div class="nota">Ciclo completo en Belmont Watches: confirmado 03/09 → en camino 03/09 → out for delivery 08/09 → entregado 08/09. Como arribó el martes (después del corte del lunes 14:00), sube al vuelo del <b>martes 15/09</b> y debería estar en Argentina el <b>jueves 17/09 ~23:00</b>.</div>
   </div>
-  <div class="item">
+  <div class="item" data-item="watchmaxx-643423">
     <div class="top"><div class="prod">Mido Ocean Star 200 M026.430.11.041.00</div></div>
     <div class="meta"><span>WatchMaxx · orden #643423</span><span>venta #284</span><span>compra 13/08</span><span>UPS 1Z76E25RA892066296</span><span>arribo Miami 18/08</span></div>
     <div class="pipe">
       <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo</span><span class="st cur late">Debería haber llegado a AR (27/08)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
   </div>
-  <div class="item">
+  <div class="item" data-item="jomashop-M40EMB18">
     <div class="top"><div class="prod">Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00</div></div>
     <div class="meta"><span>Jomashop · orden M40EMB18</span><span>venta #284</span><span>compra 13/08</span><span>UPS 1Z7R3F940392638708</span><span>arribo Miami 17/08</span></div>
     <div class="pipe">
@@ -327,7 +359,7 @@
 <!-- 9 -->
 <div class="grp">
   <div class="hd"><div class="who">Francesco Delli <small>venta #268 · 27/07/26 · Pedido/Comprado</small></div><div><span class="tag chg">CAMBIO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="watchmaxx-640112">
     <div class="top"><div class="prod">Hamilton Khaki Field Expedition Auto H70225540</div></div>
     <div class="meta"><span>WatchMaxx · orden #646631 (reemplazo de #640112)</span><span>compra 01/09</span><span>UPS 1Z76E25RA896513447</span><span>arribo Miami 05/09</span></div>
     <div class="pipe">
@@ -340,7 +372,7 @@
 <!-- 10 -->
 <div class="grp">
   <div class="hd"><div class="who">Mariano Fittipaldi <small>venta #294 · 29/08/26 · Pedido/Comprado</small></div><div><span class="tag chg">CAMBIO</span></div></div>
-  <div class="item">
+  <div class="item" data-item="ebay-23-15086-02249">
     <div class="top"><div class="prod">Seiko 5 Sports 38mm Black Dial Stainless Steel SRPK29</div></div>
     <div class="meta"><span>eBay (watchowner/EDJ LUXE) · orden 23-15086-02249</span><span>compra 01/09</span><span>FedEx</span><span>USD 374,50</span><span>arribo Miami 03/09</span></div>
     <div class="pipe">
@@ -352,7 +384,7 @@
 <!-- 11 -->
 <div class="grp">
   <div class="hd"><div class="who">Lucas Vallejos <small>venta #288 · 19/08/26 · Enviado</small></div><div><span class="tag chg">ALERTA</span></div></div>
-  <div class="item">
+  <div class="item" data-item="jomashop-M40ER5PK">
     <div class="top"><div class="prod">Nishane Hacivat Extrait de Parfum 3.4oz</div></div>
     <div class="meta"><span>Jomashop · orden M40ER5PK</span><span>compra 19/08</span><span>USPS 9436250206079010426761</span><span>despachado 20/08</span></div>
     <div class="pipe">
@@ -365,14 +397,14 @@
 <!-- 12 -->
 <div class="grp">
   <div class="hd"><div class="who">Leonardo Smachetti <small>venta #285 · Pedido/Comprado</small></div></div>
-  <div class="item">
+  <div class="item" data-item="jomashop-M40EMTHS__item1">
     <div class="top"><div class="prod">Mido Ocean Star 39 Automatic Grey Gradient Dial M026.907.11.061.00</div></div>
     <div class="meta"><span>Jomashop · orden M40EMTHS</span><span>compra 14/08</span><span>UPS 1Z7R3F940392993226</span><span>arribo Miami 20/08</span></div>
     <div class="pipe">
       <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo</span><span class="st cur late">Debería haber llegado a AR (27/08)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
     </div>
   </div>
-  <div class="item">
+  <div class="item" data-item="jomashop-M40EMTHS__item2">
     <div class="top"><div class="prod">Tissot PRX Powermatic 80 Automatic Black Dial Unisex T137.207.11.051.00</div></div>
     <div class="meta"><span>Jomashop · orden M40EMTHS</span><span>compra 14/08</span><span>arribo Miami 20/08</span></div>
     <div class="pipe">
@@ -385,7 +417,7 @@
 <!-- 13 -->
 <div class="grp">
   <div class="hd"><div class="who">Leonardo Sonaglia <small>venta #281 · Empaquetado</small></div></div>
-  <div class="item">
+  <div class="item" data-item="ebay-16-15011-58343">
     <div class="top"><div class="prod">The Artist No.2 EDP by Maison Alhambra 100ml</div></div>
     <div class="meta"><span>eBay (georgymelly) · orden #16-15011-58343</span><span>arribo Miami 13/08</span></div>
     <div class="pipe">
@@ -398,7 +430,7 @@
 <!-- 14 -->
 <div class="grp">
   <div class="hd"><div class="who">Reposición de stock <small>sin venta asociada</small></div></div>
-  <div class="item">
+  <div class="item" data-item="ebay-06-14972-13513">
     <div class="top"><div class="prod">Seiko Prospex Automatic SRPF03 Black Date Dial Silver Steel Bracelet</div></div>
     <div class="meta"><span>eBay (sasy420) · orden #06-14972-13513</span><span>compra 30/07</span><span>USPS 9400150206217799492456</span><span>arribo Miami 03/08</span></div>
     <div class="pipe">
@@ -493,5 +525,181 @@
 </footer>
 
 </div>
+
+<script>
+(function(){
+"use strict";
+
+// ---- compras_manual.csv tal como está hoy en el repo, + las filas nuevas de esta corrida ----
+var HEADER = "id,comprador,producto,llego_argentina,empaquetado,envio_argentina,enviado,observaciones";
+var BASE = [
+ ["watchmaxx-643423","","Mido Ocean Star 200 M026.430.11.041.00","NO","NO","","NO",""],
+ ["jomashop-M40EMB18","","Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00","NO","NO","","NO",""],
+ ["jomashop-M40DUK89","","Tissot Lovely Summer Quartz Silver Dial Ladies Watch T058.109.36.031.01","SI","NO","","NO",""],
+ ["jomashop-M40EGKT4__item1","","Seiko Chronograph Quartz Blue Dial SSB477P1","NO","NO","","NO",""],
+ ["jomashop-M40EGKT4__item2","","Orient Classic Automatic Green Dial RA-AC0023E30B","NO","NO","","NO",""],
+ ["watchmaxx-640112","","Hamilton Khaki Field Expedition Auto H70225540","NO","NO","","NO",""],
+ ["venba-V228739__item1","","Maison Martin Margiela Replica Jazz Club EDT 100ml","SI","SI","","NO",""],
+ ["venba-V228739__item2","","Maison Crivelli Musc Nurasana Extrait (sample)","SI","SI","","NO",""],
+ ["ebay-16-15011-58343","","The Artist No.2 EDP by Maison Alhambra 100ml","NO","NO","","NO",""],
+ ["ebay-21-14945-32487","","Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6","NO","SI","","NO",""],
+ ["beautyhouse-BH100197291","","Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml","SI","SI","","NO",""],
+ ["ups-teddybaldassarre-483742","","Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap (reloj)","SI","SI","","NO",""],
+ ["ups-olfactoryfactory-321532396__item1","","Maison Crivelli Hibiscus Mahajad Extrait (sample 1.5ml)","SI","SI","","SI",""],
+ ["ups-olfactoryfactory-321532396__item2","","Maison Crivelli Oud Maracuja 100ml","SI","NO","","NO",""],
+ ["ups-olfactoryfactory-338382535","","Maison Crivelli Oud Maracuja 100ml","NO","NO","","NO",""],
+ ["jomashop-M40EMTHS__item1","","Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00","NO","NO","","NO",""],
+ ["jomashop-M40EMTHS__item2","","Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00","NO","NO","","NO",""],
+ ["ebay-12-14966-74088","","Seiko Men's Chronograph Quartz Champagne Dial Watch SSB383P1","SI","SI","","NO",""],
+ ["ebay-06-14972-13513","","Seiko Prospex Automatic SRPF03 Black Date Dial Silver Steel Bracelet Watch","NO","NO","","NO",""],
+ ["jomashop-M40ER5PK","","Nishane Hacivat Extrait de Parfum 3.4oz","NO","NO","","NO",""],
+ ["perfumeempire-PE272746","","My Way (Rechargeable) by Giorgio Armani for her EDP 3.0oz","SI","SI","","NO",""],
+ ["ebay-23-15050-77882","","Tom Ford Oud Minerale for Unisex Eau de Parfum Spray 1.7oz/50ml","SI","SI","","NO",""],
+ ["venba-V234930","","Parfums De Marly Layton EDP 125ml + Mystery Samples Set","NO","NO","","NO",""],
+ ["jomashop-M40EUBHY","","Xerjoff V Erba Pura EDP 3.4oz (100ml) - QTY 2","SI","SI","","NO",""],
+ ["xtraitperfumery-2613","","Amouage Decision 100mL","SI","SI","","NO",""],
+ ["jomashop-M40EVRF4","","Tissot Le Locle Powermatic 80 Automatic Men's Watch T006.407.16.033.00","SI","SI","NO","NO",""],
+ ["maxaroma-OR1016658__item1","","Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (1 de 2)","SI","SI","","NO",""],
+ ["maxaroma-OR1016658__item2","","Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (2 de 2)","SI","SI","","NO",""],
+ ["ebay-23-15086-02249","","Seiko 5 Sports 38mm Black Dial Stainless Steel Watch SRPK29","NO","NO","","NO",""],
+ ["ebay-08-15139-51108","","Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic Watch","NO","NO","","NO",""],
+ // filas nuevas de la corrida del 11/09 (todavia no estaban en el repo)
+ ["jomashop-M40F1U2K","","Tissot Gentleman Powermatic 80 Silicium Automatic Green Dial T127.407.11.091.01","NO","NO","","NO",""],
+ ["ebay-03-15161-82309","","Maison Alhambra Exclusif Tabac EDP 100ml","NO","NO","","NO",""],
+ ["ebay-23-15120-76756","","Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm","NO","NO","","NO",""],
+ ["watchmaxx-647905","","Longines Master Collection Automatic 38.5mm L2.628.4.51.6","NO","NO","","NO",""],
+ ["venba-V240228__item1","","Montale Arabians Tonka EDP 100ml","NO","NO","","NO",""],
+ ["venba-V240228__item2","","Ella K Musc K EDP 3.4oz 100ml","NO","NO","","NO",""],
+ ["venba-V240228__item3","","Mystery Samples Set (5 samples)","NO","NO","","NO",""],
+ ["belmontwatches-3113","","Nivada Grenchen F77 MK2 SST Beige Lume Black With Date Dial 69010A77","NO","NO","","NO",""]
+];
+// columnas del CSV que toca cada chip: llego_argentina=3, empaquetado=4, enviado=6
+var COL = [3,4,6];
+var KEY = "neve_manual_v1";
+var GH_EDIT = "https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv";
+
+var baseByIdx = {}, i;
+for(i=0;i<BASE.length;i++) baseByIdx[BASE[i][0]] = i;
+
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; } }
+function save(o){ try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} }
+var ov = load();
+
+// nivel 0..3 (0=nada manual, 1=llego, 2=empaquetado, 3=enviado)
+function baseLevel(id){
+  var r = BASE[baseByIdx[id]]; if(!r) return 0;
+  if(r[6]==="SI") return 3;
+  if(r[4]==="SI") return 2;
+  if(r[3]==="SI") return 1;
+  return 0;
+}
+function level(id){ return (id in ov) ? ov[id] : baseLevel(id); }
+
+var items = [].slice.call(document.querySelectorAll(".item[data-item]"));
+
+// guardamos las clases originales de cada chip para poder volver atras
+items.forEach(function(it){
+  var pipe = it.querySelector(".pipe"); if(!pipe) return;
+  var chips = [].slice.call(pipe.querySelectorAll(".st"));
+  if(chips.length < 4) return;
+  chips.forEach(function(c){ c.setAttribute("data-orig", c.className); });
+  var start = chips.length - 3;
+  for(var k=0;k<3;k++){
+    (function(kk){
+      var chip = chips[start+kk];
+      chip.classList.add("clk");
+      chip.title = "Clic para marcar / desmarcar";
+      chip.addEventListener("click", function(){
+        var id = it.getAttribute("data-item");
+        var want = kk + 1;
+        var cur = level(id);
+        var next = (cur === want) ? want - 1 : want;   // volver a clickear el actual lo desmarca
+        if(next === baseLevel(id)) delete ov[id]; else ov[id] = next;
+        save(ov); paintItem(it); paintBar();
+      });
+    })(k);
+  }
+  paintItem(it);
+});
+
+function paintItem(it){
+  var id = it.getAttribute("data-item");
+  var pipe = it.querySelector(".pipe"); if(!pipe) return;
+  var chips = [].slice.call(pipe.querySelectorAll(".st"));
+  var start = chips.length - 3;
+  var lv = level(id);
+  var changed = (id in ov);
+  if(lv === 0){
+    chips.forEach(function(c){ c.className = c.getAttribute("data-orig"); });
+    for(var k=0;k<3;k++) chips[start+k].classList.add("clk");
+  } else {
+    var curIdx = start + lv - 1;
+    chips.forEach(function(c,idx){
+      c.className = "st" + (idx < curIdx ? " on" : (idx === curIdx ? " cur done" : ""));
+      if(idx >= start) c.classList.add("clk");
+    });
+  }
+  if(changed) chips[start + Math.max(lv,1) - 1].classList.add("edited");
+}
+
+function pending(){ return Object.keys(ov); }
+
+function buildCSV(){
+  var out = [HEADER];
+  for(var i=0;i<BASE.length;i++){
+    var r = BASE[i].slice();
+    var id = r[0];
+    if(id in ov){
+      var lv = ov[id];
+      r[COL[0]] = lv >= 1 ? "SI" : "NO";
+      r[COL[1]] = lv >= 2 ? "SI" : "NO";
+      r[COL[2]] = lv >= 3 ? "SI" : "NO";
+    }
+    out.push(r.map(function(v){
+      return (v.indexOf(",")>=0 || v.indexOf('"')>=0) ? '"'+v.replace(/"/g,'""')+'"' : v;
+    }).join(","));
+  }
+  return out.join("\n") + "\n";
+}
+
+var bar   = document.getElementById("bar");
+var msg   = bar.querySelector(".msg");
+var box   = document.getElementById("csvbox");
+var howto = document.getElementById("howto");
+
+function paintBar(){
+  var n = pending().length;
+  if(n === 0){ bar.classList.remove("show"); box.classList.remove("show"); howto.innerHTML=""; return; }
+  bar.classList.add("show");
+  msg.innerHTML = "<b>" + n + (n===1 ? " cambio" : " cambios") + " sin guardar.</b> " +
+    "Se ven solo en este navegador hasta que los mandes a GitHub.";
+}
+
+document.getElementById("b-csv").addEventListener("click", function(){
+  var csv = buildCSV();
+  box.value = csv; box.classList.add("show"); box.focus(); box.select();
+  var ok = false;
+  try{ ok = document.execCommand("copy"); }catch(e){}
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(csv).then(function(){}, function(){});
+    ok = true;
+  }
+  howto.innerHTML = (ok ? "<b>Copiado.</b> " : "<b>Copialo del recuadro de arriba</b> (Ctrl+A, Ctrl+C). ") +
+    'Ahora: <b>1)</b> tocá "Abrir en GitHub" · <b>2)</b> seleccioná todo lo que hay en el editor (Ctrl+A) y pegá encima (Ctrl+V) · ' +
+    '<b>3)</b> botón verde "Commit changes". Listo — la corrida de mañana ya lo toma.';
+});
+
+document.getElementById("b-gh").addEventListener("click", function(){
+  window.open(GH_EDIT, "_blank", "noopener");
+});
+
+document.getElementById("b-reset").addEventListener("click", function(){
+  if(!confirm("¿Descartar los cambios sin guardar y volver a como está en GitHub?")) return;
+  ov = {}; save(ov); items.forEach(paintItem); paintBar();
+});
+
+paintBar();
+})();
+</script>
 </body>
 </html>
