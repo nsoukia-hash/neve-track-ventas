@@ -5,578 +5,663 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Compras internacionales — Stock NEVE</title>
 <style>
-  :root{
-    --bg:#0f1115; --panel:#171a21; --panel2:#1d212a; --line:#2a2f3a;
-    --txt:#e6e9ef; --mut:#9aa3b2; --dim:#6f7888;
-    --ok:#3fb950; --warn:#d29922; --bad:#f85149; --info:#58a6ff;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-  .wrap{max-width:1200px;margin:0 auto;padding:24px 18px 64px}
-  header h1{margin:0 0 4px;font-size:24px;letter-spacing:-.3px}
-  header .sub{color:var(--mut);font-size:13px}
-  .banner{margin:18px 0;padding:12px 14px;border-radius:8px;border:1px solid #3a2f14;background:#241d0c;color:#e9c46a;font-size:13px}
-  .banner b{color:#f0d48a}
-  .stats{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 8px}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px;min-width:130px}
-  .stat .n{font-size:22px;font-weight:600}
-  .stat .l{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
-  h2{font-size:15px;text-transform:uppercase;letter-spacing:.8px;color:var(--mut);margin:30px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
-  .grp{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}
-  .grp>.hd{padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--panel2)}
-  .grp .who{font-weight:600;font-size:15px}
-  .grp .who small{font-weight:400;color:var(--mut);margin-left:8px;font-size:12px}
-  .item{padding:14px 16px;border-top:1px solid var(--line)}
-  .item .top{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:baseline}
-  .prod{font-weight:500}
-  .meta{color:var(--dim);font-size:12px;margin-top:3px}
-  .meta span{margin-right:14px;white-space:nowrap}
-  .pipe{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
-  .st{font-size:10.5px;padding:3px 8px;border-radius:11px;border:1px solid var(--line);color:var(--dim);background:#12151b;white-space:nowrap}
-  .st.on{color:#cfe3ff;border-color:#2f4f7a;background:#152238}
-  .st.cur{color:#0b0e13;background:var(--info);border-color:var(--info);font-weight:600}
-  .st.cur.late{background:var(--warn);border-color:var(--warn)}
-  .st.cur.done{background:var(--ok);border-color:var(--ok)}
-  .nota{margin-top:9px;font-size:12px;color:var(--mut);background:#12151b;border-left:3px solid var(--line);padding:7px 10px;border-radius:0 5px 5px 0}
-  .nota.alert{border-left-color:var(--bad);color:#ffb4ae;background:#1d1315}
-  .nota.warn{border-left-color:var(--warn);color:#e9c46a;background:#1d1a0f}
-  .tag{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;margin-left:6px;vertical-align:middle}
-  .tag.new{background:#123a1c;color:#56d364;border:1px solid #235c2e}
-  .tag.chg{background:#3a2f0c;color:#e3b341;border:1px solid #5c4a12}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
-  th{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
-  details{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0}
-  details>summary{cursor:pointer;padding:13px 16px;font-weight:600;color:var(--mut);list-style:none}
-  details>summary::-webkit-details-marker{display:none}
-  details>summary:before{content:"▸ ";color:var(--dim)}
-  details[open]>summary:before{content:"▾ "}
-  details .inner{padding:0 16px 12px}
-  footer{margin-top:40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
-  a{color:var(--info)}
-  /* --- bloque Demorados --- */
-  .alertbox{border-radius:10px;border:1px solid #5c2225;background:#1a1013;margin-bottom:14px;overflow:hidden}
-  .alertbox>.hd{padding:13px 16px;background:#241417;border-bottom:1px solid #5c2225;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-  .alertbox>.hd h2{margin:0;border:0;padding:0;color:#ff9a92;font-size:15px;letter-spacing:.6px}
-  .alertbox.clear{border-color:#235c2e;background:#0e1a12}
-  .alertbox.clear>.hd{background:#12241a;border-bottom-color:#235c2e}
-  .alertbox.clear>.hd h2{color:#7ee787}
-  .alertbox .cnt{font-size:11px;color:var(--mut);margin-left:auto}
-  .sub-hd{padding:9px 16px;background:#15191f;color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.7px;border-top:1px solid var(--line)}
-  .dl{display:flex;gap:12px;padding:11px 16px;border-top:1px solid #2b1d20;align-items:flex-start}
-  .dl .days{flex:0 0 88px;text-align:center;border-radius:7px;padding:6px 4px;font-weight:700;font-size:17px;line-height:1.1}
-  .dl .days small{display:block;font-size:9.5px;font-weight:500;text-transform:uppercase;letter-spacing:.4px;opacity:.85;margin-top:2px}
-  .dl.red .days{background:#3d1418;color:#ff8b83;border:1px solid #6e2228}
-  .dl.amber .days{background:#33280a;color:#e3b341;border:1px solid #5c4a12}
-  .dl .body{flex:1;min-width:0}
-  .dl .body .p{font-weight:500}
-  .dl .body .who2{color:var(--mut);font-size:12px;margin-top:2px}
-  .dl .body .why{font-size:12px;margin-top:5px;color:#d8b7b4}
-  .dl.amber .body .why{color:#d9c489}
-  .legend{padding:10px 16px;border-top:1px solid #2b1d20;color:var(--dim);font-size:11.5px;background:#15100f}
-  .clean{padding:16px;color:var(--ok);font-size:13px}
-  /* --- chips clickeables + barra de guardado --- */
-  .st.clk{cursor:pointer;user-select:none;border-style:dashed}
-  .st.clk:hover{border-color:var(--ok);color:#a5e3ad}
-  .st.edited{box-shadow:0 0 0 2px rgba(63,185,80,.45)}
-  #bar{position:sticky;top:0;z-index:50;margin:0 0 16px;border-radius:10px;border:1px solid #235c2e;
-       background:#0e1f14;padding:11px 14px;display:none;align-items:center;gap:10px;flex-wrap:wrap;
-       box-shadow:0 6px 20px rgba(0,0,0,.45)}
-  #bar.show{display:flex}
-  #bar .msg{font-size:13px;color:#7ee787;flex:1;min-width:180px}
-  #bar .msg b{color:#b9f6c3}
-  .btn{border:1px solid var(--line);background:var(--panel2);color:var(--txt);font:inherit;font-size:12.5px;
-       padding:7px 13px;border-radius:7px;cursor:pointer;white-space:nowrap}
-  .btn:hover{border-color:var(--mut)}
-  .btn.go{background:#238636;border-color:#2ea043;color:#fff;font-weight:600}
-  .btn.go:hover{background:#2ea043}
-  .btn.ghost{background:transparent;color:var(--mut)}
-  #csvbox{display:none;width:100%;margin-top:10px;background:#0b0e13;color:var(--txt);border:1px solid var(--line);
-          border-radius:7px;padding:10px;font:11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;height:170px;resize:vertical}
-  #csvbox.show{display:block}
-  .howto{width:100%;font-size:11.5px;color:var(--mut);margin-top:8px;line-height:1.6}
-  .howto b{color:#b9f6c3}
+:root{
+  --bg:#0f1115; --card:#171a21; --card2:#1d212a; --line:#282d38;
+  --txt:#e6e9ef; --dim:#98a0b0; --dim2:#6d7686;
+  --ok:#2ea043; --okbg:#0f2b17; --warn:#d29922; --warnbg:#2e2409;
+  --red:#f85149; --redbg:#33100f; --blue:#388bfd; --bluebg:#0d2240;
+  --purple:#a371f7;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:22px 18px 80px}
+h1{font-size:23px;margin:0 0 4px;letter-spacing:-.3px}
+.sub{color:var(--dim);font-size:13px;margin-bottom:20px}
+h2{font-size:16px;margin:30px 0 12px;letter-spacing:-.2px;display:flex;align-items:center;gap:9px}
+h2 .cnt{background:var(--card2);border:1px solid var(--line);color:var(--dim);font-size:11px;font-weight:600;padding:1px 8px;border-radius:20px}
+
+/* barra de guardado */
+#savebar{display:none;position:sticky;top:0;z-index:50;background:var(--warnbg);border:1px solid var(--warn);
+  border-radius:10px;padding:11px 13px;margin-bottom:16px;align-items:center;gap:10px;flex-wrap:wrap}
+#savebar.on{display:flex}
+#savebar .msg{flex:1;min-width:190px;font-size:13px;color:#f0cf7a}
+#savebar button{background:var(--warn);color:#191100;border:0;border-radius:7px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer}
+#savebar button.ghost{background:transparent;color:#f0cf7a;border:1px solid var(--warn)}
+#csvout{display:none;width:100%;height:150px;margin-top:9px;background:#0b0d11;color:var(--txt);
+  border:1px solid var(--line);border-radius:7px;padding:9px;font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:10px;margin-bottom:8px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.stat .n{font-size:22px;font-weight:700;letter-spacing:-.5px}
+.stat .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-top:1px}
+.stat.alert{border-color:var(--red);background:var(--redbg)} .stat.alert .n{color:var(--red)}
+.stat.clean{border-color:var(--ok);background:var(--okbg)} .stat.clean .n{color:var(--ok)}
+
+/* demorados */
+.dem{border-radius:11px;padding:13px 15px;margin-bottom:10px;border:1px solid}
+.dem.rojo{background:var(--redbg);border-color:var(--red)}
+.dem.amar{background:var(--warnbg);border-color:var(--warn)}
+.dem.verde{background:var(--okbg);border-color:var(--ok);color:#7ee2a0}
+.dem .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:3px}
+.dem .days{font-weight:700;font-size:14px}
+.dem.rojo .days{color:var(--red)} .dem.amar .days{color:var(--warn)}
+.dem .prod{font-weight:600}
+.dem .who{color:var(--dim);font-size:13px}
+.dem .why{font-size:13px;color:#c6cddb;margin-top:5px}
+.dem .why b{color:var(--txt)}
+
+/* grupos */
+.grp{background:var(--card);border:1px solid var(--line);border-radius:11px;margin-bottom:11px;overflow:hidden}
+.grp>summary,.grp .head{padding:12px 15px;display:flex;align-items:center;gap:11px;flex-wrap:wrap;cursor:default}
+.grp>summary{cursor:pointer;list-style:none}
+.grp>summary::-webkit-details-marker{display:none}
+.grp>summary::before{content:"▸";color:var(--dim2);font-size:12px;transition:transform .15s}
+.grp[open]>summary::before{transform:rotate(90deg)}
+.cli{font-weight:600}
+.nro{background:var(--bluebg);color:#79b8ff;border-radius:5px;padding:1px 7px;font-size:11px;font-weight:600}
+.nro.none{background:var(--card2);color:var(--dim2)}
+.meta{margin-left:auto;color:var(--dim2);font-size:12px}
+.item{padding:11px 15px 14px;border-top:1px solid var(--line)}
+.item .prod{font-weight:500;margin-bottom:3px}
+.item .prov{font-size:12px;color:var(--dim);margin-bottom:9px}
+.item .prov a{color:var(--blue);text-decoration:none}
+.item .nota{font-size:12px;color:var(--dim);background:var(--card2);border-left:2px solid var(--line);
+  padding:6px 9px;border-radius:0 6px 6px 0;margin-top:9px}
+
+/* pipeline */
+.pipe{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid var(--line);
+  background:var(--card2);color:var(--dim2);white-space:nowrap}
+.chip.done{background:var(--okbg);border-color:#1f6f33;color:#7ee2a0}
+.chip.now{background:var(--bluebg);border-color:#1f5ea8;color:#79b8ff;font-weight:600}
+.chip.late{background:var(--redbg);border-color:#8b2b28;color:#ff8a83;font-weight:600}
+.chip.man{cursor:pointer;border-style:dashed}
+.chip.man:hover{border-color:var(--purple);color:#c9a6ff}
+.chip.man.done{border-style:solid}
+.chip.dirty{box-shadow:0 0 0 2px rgba(163,113,247,.45)}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+tr:last-child td{border-bottom:0}
+details.arch{background:var(--card);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+details.arch>summary{padding:13px 15px;cursor:pointer;font-weight:600;font-size:14px;list-style:none}
+details.arch>summary::-webkit-details-marker{display:none}
+details.arch>summary::before{content:"▸ ";color:var(--dim2)}
+details.arch[open]>summary::before{content:"▾ "}
+details.arch .inner{border-top:1px solid var(--line);overflow-x:auto}
+.avisos li{margin-bottom:9px;font-size:13.5px;color:#c6cddb}
+.avisos li b{color:var(--txt)}
+.empty{background:var(--okbg);border:1px solid var(--ok);color:#7ee2a0;border-radius:11px;padding:13px 15px;font-size:13.5px}
+footer{margin-top:34px;color:var(--dim2);font-size:11.5px;border-top:1px solid var(--line);padding-top:13px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<header>
-  <h1>Compras internacionales — Stock NEVE</h1>
-  <div class="sub">Actualizado: viernes 11 de septiembre de 2026, 19:30 (corrida manual) · NEVE Luxury (neve.com.ar) · warehouse Miami 1340 NW 114th St, FL 33167</div>
-</header>
-
-<div id="bar">
-  <div class="msg"></div>
-  <button class="btn go" id="b-csv">Copiar CSV actualizado</button>
-  <button class="btn" id="b-gh">Abrir en GitHub</button>
-  <button class="btn ghost" id="b-reset">Descartar</button>
-  <textarea id="csvbox" spellcheck="false"></textarea>
-  <div class="howto" id="howto"></div>
+<div id="savebar">
+  <div class="msg" id="savemsg"></div>
+  <button onclick="copyCsv()">Copiar CSV actualizado</button>
+  <button class="ghost" onclick="window.open('https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv','_blank')">Abrir en GitHub</button>
+  <button class="ghost" onclick="discard()">Descartar</button>
+  <textarea id="csvout" readonly></textarea>
 </div>
 
-<div class="banner">
-  <b>Corrida manual, con tus marcas ya aplicadas.</b> Tomé el <code>compras_manual.csv</code> que commiteaste: seis productos que estaban demorados pasaron a "enviado al cliente" y salieron del bloque de arriba.
-  El entorno Linux sigue caído (bug de Windows del 8/9), así que el dashboard se generó y subió por el navegador.
-  La Lista de Ventas se leyó de <code>NEVE_Lista_de_Ventas.xlsx</code> en <i>Desktop › NEVE CUENTAS RI</i>, versión del 11/09 18:24 — es el único archivo con ese nombre en la carpeta y el más reciente.
-</div>
+<h1>Compras internacionales — Stock NEVE</h1>
+<div class="sub" id="stamp"></div>
 
-<div class="stats">
-  <div class="stat"><div class="n" style="color:#ff8b83">1</div><div class="l">Demorado</div></div>
-  <div class="stat"><div class="n" style="color:#e3b341">2</div><div class="l">En mano (Meli)</div></div>
-  <div class="stat"><div class="n">12</div><div class="l">Items activos</div></div>
-  <div class="stat"><div class="n" style="color:#56d364">6</div><div class="l">Resueltos hoy</div></div>
-  <div class="stat"><div class="n">3</div><div class="l">Avisos abiertos</div></div>
-</div>
+<div class="stats" id="stats"></div>
 
-<!-- ====== DEMORADOS — SIEMPRE ARRIBA ====== -->
-<div class="alertbox">
-  <div class="hd">
-    <h2>⚠ DEMORADOS — NO ESTÁN SALIENDO</h2>
-    <span class="cnt">1 en tránsito · 2 compras en mano a seguir · 0 ventas sin comprar</span>
-  </div>
+<h2>🚨 Demorados</h2>
+<div id="demorados"></div>
 
-  <div class="sub-hd">Trabados en tránsito internacional</div>
+<h2>En curso <span class="cnt" id="cnt-curso"></span></h2>
+<div id="curso"></div>
 
-  <div class="dl red">
-    <div class="days">22<small>días tarde</small></div>
-    <div class="body">
-      <div class="p">Nishane Hacivat Extrait de Parfum 3.4oz</div>
-      <div class="who2">#288 Lucas Vallejos · Jomashop M40ER5PK · USPS 9436250206079010426761</div>
-      <div class="why"><b>Paquete probablemente perdido — el único que queda trabado.</b> Cero movimiento de USPS desde el despacho del 20/08. Reclamo abierto el 09/09 (Search ID #MRC 26 2674 3578). Si USPS lo da por perdido, reclamar reembolso a Jomashop.</div>
-    </div>
-  </div>
+<h2>Ventas sin compra identificada <span class="cnt" id="cnt-sin"></span></h2>
+<div id="sincompra"></div>
 
-  <div class="sub-hd">Compras en mano (Meli) — confirmar que estén en camino</div>
-
-  <div class="dl red">
-    <div class="days">12<small>días</small></div>
-    <div class="body">
-      <div class="p">Louis Vuitton Imagination 100ml</div>
-      <div class="who2">#295 Adrián Espínola · venta 30/08 · vía Meli (trae en mano)</div>
-      <div class="why"><b>Preguntarle a Meli.</b> Marcado como ya comprado pero todavía sin recibir, y pasaron 12 días desde la venta.</div>
-    </div>
-  </div>
-
-  <div class="dl amber">
-    <div class="days">6<small>días</small></div>
-    <div class="body">
-      <div class="p">Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</div>
-      <div class="who2">#297 Matías Lumbreras · venta 05/09 · vía Meli (trae en mano)</div>
-      <div class="why">Mismo perfume que #295 — si le preguntás a Meli, preguntale por los dos juntos.</div>
-    </div>
-  </div>
-
-  <div class="legend">
-    Umbral escalonado: <b style="color:#e3b341">amarillo a los 5 días</b> de atraso sobre lo esperado, <b style="color:#ff8b83">rojo a los 10</b>.
-    El Hamilton (#268) y el Seiko SRPK29 (#294) tienen la llegada estimada el 10/09, o sea 1 día: todavía no cuentan como demorados.
-  </div>
-</div>
-
-<h2>En curso — por comprador</h2>
-
-<div class="grp">
-  <div class="hd"><div class="who">Maximiliano Sendra <small>venta #306 · 10/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item" data-item="jomashop-M40F1U2K">
-    <div class="top"><div class="prod">Tissot Gentleman Powermatic 80 Silicium Green Dial T127.407.11.091.01</div></div>
-    <div class="meta"><span>Jomashop · orden M40F1U2K</span><span>compra 10/09</span><span>UPS 1Z7R3F940390163546</span><span>USD 710,48</span><span>ETA 15/09</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">11/09 00:24: UPS levantó el paquete. Jomashop estima entrega al warehouse el <b>15/09</b>.</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Leandro Ruiz <small>venta #305 · 10/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item" data-item="ebay-03-15161-82309">
-    <div class="top"><div class="prod">Maison Alhambra Exclusif Tabac EDP 100ml</div></div>
-    <div class="meta"><span>eBay (elitesneaks901) · orden 03-15161-82309</span><span>compra 10/09</span><span>USD 151,93</span><span>ETA 14–17/09</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st cur">Pagado</span><span class="st">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">Cobrado a la tarjeta -0154. Todavía sin confirmación de despacho del transportista.</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Juan Sebastián Melara Longo <small>venta #301 · 09/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item" data-item="ebay-23-15120-76756">
-    <div class="top"><div class="prod">Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm</div></div>
-    <div class="meta"><span>eBay (dilcham43) · orden 23-15120-76756</span><span>compra 09/09</span><span>UPS</span><span>USD 318,86</span><span>ETA 14/09</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">11/09 00:51: UPS recibió el paquete. Entrega prevista al warehouse el lunes 14/09.</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Ignacio <small>venta #304 · 09/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item" data-item="watchmaxx-647905">
-    <div class="top"><div class="prod">Longines Master Collection Automatic 38.5mm L2.628.4.51.6</div></div>
-    <div class="meta"><span>WatchMaxx · orden #647905</span><span>compra 09/09</span><span>UPS 1Z76E25RA893206730</span><span>USD 1.224,00</span><span>ETA 10–18/09</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">Comprado 14:50 y despachado el mismo día. La Lista de Ventas anota el cliente solo como "Ignacio", sin apellido.</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Gabriel Ferrer <small>venta #299 · 08/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item" data-item="venba-V240228__item1">
-    <div class="top"><div class="prod">Montale Arabians Tonka EDP 100ml</div></div>
-    <div class="meta"><span>Venba · orden #V240228</span><span>compra 08/09</span><span>FedEx Ground</span><span>USD 79,98</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-  </div>
-  <div class="item" data-item="venba-V240228__item3">
-    <div class="top"><div class="prod">Mystery Samples Set (5 samples)</div></div>
-    <div class="meta"><span>Venba · orden #V240228</span><span>compra 08/09</span><span>USD 12,99</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">Cubre el "Mystery Box" de la venta #299. Despachado el 10/09; ETA del proveedor 15–18/09. Viaja junto al Ella K Musc K de Erika Ilgner (#300).</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Erika Ilgner <small>venta #300 · 08/09/26 · Pedido/Comprado · Transferencia</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item" data-item="venba-V240228__item2">
-    <div class="top"><div class="prod">Ella K Musc K EDP 3.4 oz / 100 ml</div></div>
-    <div class="meta"><span>Venba · orden #V240228</span><span>compra 08/09</span><span>FedEx Ground</span><span>USD 189,99</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">La venta figura como "Elle K Musk K 100ml" (escrito fonético); es el mismo producto.</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Alejandro Arcana <small>venta #298 · 07/09/26 · Pedido/Comprado</small></div></div>
-  <div class="item" data-item="ebay-08-15139-51108">
-    <div class="top"><div class="prod">Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic</div></div>
-    <div class="meta"><span>eBay (addicted2shades) · orden 08-15139-51108</span><span>compra 07/09</span><span>USPS</span><span>USD 701,87</span><span>ETA 10–12/09</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur">Enviado a warehouse</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">USPS lo recibió el 08/09. Todavía sin confirmación de entrega al warehouse — si el lunes sigue sin novedades, conviene mirarlo.</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Jorge Sánchez <small>venta #302 · 02/09/26 · Pedido/Comprado</small></div><div><span class="tag new">NUEVO</span></div></div>
-  <div class="item" data-item="belmontwatches-3113">
-    <div class="top"><div class="prod">Nivada Grenchen F77 MK2 SST Beige Lume Black Date Dial 69010A77</div></div>
-    <div class="meta"><span>Belmont Watches · orden #3113</span><span>compra 03/09</span><span>FedEx 876716925838</span><span>USD 1.360,00</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st cur">Arribó Miami (08/09)</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">Arribó el martes 08/09, después del corte del lunes 14:00: sube al vuelo del <b>martes 15/09</b> y debería estar en Argentina el <b>jueves 17/09 ~23:00</b>. Los otros dos relojes de Jorge (#284) ya los marcaste enviados.</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Francesco Delli <small>venta #268 · 27/07/26 · Pedido/Comprado</small></div></div>
-  <div class="item" data-item="watchmaxx-640112">
-    <div class="top"><div class="prod">Hamilton Khaki Field Expedition Auto H70225540</div></div>
-    <div class="meta"><span>WatchMaxx · orden #646631 (reemplazo de #640112)</span><span>compra 01/09</span><span>UPS 1Z76E25RA896513447</span><span>arribo Miami 05/09</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo (08/09)</span><span class="st cur late">Debería haber llegado a AR (10/09)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">La orden original #640112 expiró sin cobrar y hubo que recomprar el 01/09 a $848 (vs $765); WatchMaxx acordó reintegrar los $83 vía Takenos. Voló el martes 08/09: si ya lo tenés, marcalo acá.</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Mariano Fittipaldi <small>venta #294 · 29/08/26 · Pedido/Comprado</small></div></div>
-  <div class="item" data-item="ebay-23-15086-02249">
-    <div class="top"><div class="prod">Seiko 5 Sports 38mm Black Dial Stainless Steel SRPK29</div></div>
-    <div class="meta"><span>eBay (watchowner/EDJ LUXE) · orden 23-15086-02249</span><span>compra 01/09</span><span>FedEx</span><span>USD 374,50</span><span>arribo Miami 03/09</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st on">Enviado a warehouse</span><span class="st on">Arribó Miami</span><span class="st on">En vuelo (08/09)</span><span class="st cur late">Debería haber llegado a AR (10/09)</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota">Mismo vuelo que el Hamilton. Si los dos llegaron juntos, marcalos de una.</div>
-  </div>
-</div>
-
-<div class="grp">
-  <div class="hd"><div class="who">Lucas Vallejos <small>venta #288 · 19/08/26 · Enviado</small></div><div><span class="tag chg">ALERTA</span></div></div>
-  <div class="item" data-item="jomashop-M40ER5PK">
-    <div class="top"><div class="prod">Nishane Hacivat Extrait de Parfum 3.4oz</div></div>
-    <div class="meta"><span>Jomashop · orden M40ER5PK</span><span>compra 19/08</span><span>USPS 9436250206079010426761</span><span>despachado 20/08</span></div>
-    <div class="pipe">
-      <span class="st on">Pedido confirmado</span><span class="st on">Pagado</span><span class="st cur late">Enviado a warehouse (20/08)</span><span class="st">Arribó Miami</span><span class="st">En vuelo</span><span class="st">Llegó a AR</span><span class="st">Empaquetado</span><span class="st">Enviado al cliente</span>
-    </div>
-    <div class="nota alert"><b>Paquete probablemente extraviado.</b> 22 días sin movimiento de USPS. Reclamo abierto el 09/09 (Search ID #MRC 26 2674 3578). La venta ya figura "Enviado" porque la resolviste con stock, pero el paquete sigue sin aparecer: si USPS lo da por perdido, va reclamo de reembolso a Jomashop. Lo dejo visible a propósito aunque la venta esté cerrada.</div>
-  </div>
-</div>
-
-<h2>Ventas sin compra identificada</h2>
-<div class="grp">
-  <div class="clean">✓ Ninguna. Todas las ventas #225+ en "Pedido/Comprado" tienen su compra identificada en Gmail, salvo las dos de Louis Vuitton, que van por Meli y están arriba en Demorados.</div>
-</div>
-
-<h2>Compras en mano (fuera de Gmail)</h2>
-<div class="grp">
-  <table>
-    <thead><tr><th>Nro</th><th>Cliente</th><th>Producto</th><th>Venta</th><th>Vía</th><th>¿Comprado?</th><th>¿Recibido?</th></tr></thead>
-    <tbody>
-      <tr><td>#295</td><td>Adrián Espínola</td><td>Louis Vuitton Imagination 100ml</td><td>30/08/26</td><td>Meli</td><td style="color:#3fb950">SÍ</td><td style="color:#f85149">NO — 12 días</td></tr>
-      <tr><td>#297</td><td>Matías Lumbreras</td><td>Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</td><td>05/09/26</td><td>Meli</td><td style="color:#3fb950">SÍ</td><td style="color:#d29922">NO — 6 días</td></tr>
-    </tbody>
-  </table>
-  <div class="legend" style="border-top:1px solid var(--line);background:#12151b">
-    Estas ventas no generan mail de proveedor, así que nunca van a aparecer solas en el relevamiento de Gmail.
-    Se llevan a mano en <code>ventas_compra_externa.csv</code>: poné <code>recibido = SI</code> cuando lo tengas en la mano y salen de acá.
-  </div>
-</div>
+<h2>Compras en mano / fuera de Gmail <span class="cnt" id="cnt-ext"></span></h2>
+<div id="externas"></div>
 
 <h2>Avisos y pendientes</h2>
-<div class="grp">
-  <div class="item">
-    <div class="prod">1 · Paquete perdido en USPS — Nishane Hacivat</div>
-    <div class="nota alert">Tracking 9436250206079010426761 sin movimiento desde el 20/08. Reclamo USPS abierto el 09/09 (Search ID #MRC 26 2674 3578). Si lo dan por perdido, reclamar a Jomashop (orden M40ER5PK).</div>
-  </div>
-  <div class="item">
-    <div class="prod">2 · Cancelación pendiente en Jomashop</div>
-    <div class="nota warn">08/09 pediste cancelar una orden por el formulario de servicio al cliente; el 09/09 Jomashop (Mikaela T.) respondió pidiendo el número de orden que empieza con "M". El hilo sigue sin respuesta, así que no se pudo asociar a ninguna compra del dashboard.</div>
-  </div>
-  <div class="item">
-    <div class="prod">3 · Beauty House — posible doble cobro</div>
-    <div class="nota alert">Sigue abierto: la tienda reembolsó el pedido BH100197291 el 06/08 pero el paquete llegó igual al warehouse el 11/08, y después pidió pago adicional por Zelle. <b>No pagar</b> sin verificar.</div>
-  </div>
-  <div class="item">
-    <div class="prod">Notas de esta corrida</div>
-    <div class="nota">
-      · <b>Fuente de la Lista de Ventas:</b> <code>NEVE_Lista_de_Ventas.xlsx</code> en Google Drive, carpeta <i>Ordenadores › My Laptop › Desktop › NEVE CUENTAS RI</i> (la que espeja tu escritorio). Resolví el archivo buscando dentro de esa carpeta y quedándome con el .xlsx más reciente: hay uno solo con ese nombre, modificado el 11/09 a las 18:24. El otro xlsx de la carpeta es el de cuentas de eBay, que no se usa acá.<br>
-      · Sin novedades nuevas en Gmail desde la corrida anterior, salvo que Jomashop puso ETA <b>15/09</b> al Tissot Gentleman (#306).<br>
-      · No se detectaron remitentes de compra internacional nuevos.
-    </div>
-  </div>
-</div>
+<ul class="avisos" id="avisos"></ul>
 
-<h2>Archivados — finalizados</h2>
-<details>
-  <summary>26 items resueltos — 6 marcados por vos hoy</summary>
-  <div class="inner">
-  <table>
-    <thead><tr><th>Producto</th><th>Proveedor / orden</th><th>Venta</th><th>Cliente</th><th>Cierre</th></tr></thead>
-    <tbody>
-      <tr><td>Mido Ocean Star 200 M026.430.11.041.00</td><td>WatchMaxx #643423</td><td>#284</td><td>Jorge Sánchez</td><td>enviado al cliente (11/09)</td></tr>
-      <tr><td>Tissot PRX Powermatic 80 Black T137.407.11.051.00</td><td>Jomashop M40EMB18</td><td>#284</td><td>Jorge Sánchez</td><td>enviado al cliente (11/09)</td></tr>
-      <tr><td>Mido Ocean Star 39 Grey Gradient M026.907.11.061.00</td><td>Jomashop M40EMTHS</td><td>#285</td><td>Leonardo Smachetti</td><td>enviado al cliente (11/09)</td></tr>
-      <tr><td>Tissot PRX Powermatic 80 Unisex T137.207.11.051.00</td><td>Jomashop M40EMTHS</td><td>#285</td><td>Leonardo Smachetti</td><td>enviado al cliente (11/09)</td></tr>
-      <tr><td>The Artist No.2 EDP by Maison Alhambra 100ml</td><td>eBay #16-15011-58343</td><td>#281</td><td>Leonardo Sonaglia</td><td>enviado al cliente (11/09)</td></tr>
-      <tr><td>Seiko Prospex Automatic SRPF03</td><td>eBay #06-14972-13513</td><td>—</td><td>Reposición de stock</td><td>enviado al cliente (11/09)</td></tr>
-      <tr><td>Tissot Le Locle Powermatic 80 T006.407.16.033.00</td><td>Jomashop M40EVRF4</td><td>#303</td><td>Fausto José Gorosito</td><td>venta Enviado</td></tr>
-      <tr><td>Amouage Reflection Men 100ml (1 de 2)</td><td>MaxAroma OR1016658</td><td>#286</td><td>Martín Arrieta</td><td>venta Enviado</td></tr>
-      <tr><td>Amouage Reflection Men 100ml (2 de 2)</td><td>MaxAroma OR1016658</td><td>#287</td><td>Ilze Krievina</td><td>venta Enviado</td></tr>
-      <tr><td>Xerjoff V Erba Pura EDP 100ml ×2</td><td>Jomashop M40EUBHY</td><td>#292</td><td>Hernán Rossi</td><td>venta Enviado</td></tr>
-      <tr><td>Amouage Decision 100ml</td><td>Xtrait Perfumery #2613</td><td>#293</td><td>Jorge Zúñiga</td><td>venta Enviado</td></tr>
-      <tr><td>Tom Ford Oud Minerale EDP 50ml</td><td>eBay 23-15050-77882</td><td>#291</td><td>Juanjo Jayat</td><td>venta Enviado</td></tr>
-      <tr><td>Parfums de Marly Layton EDP 125ml + samples</td><td>Venba #V234930</td><td>#290</td><td>Luis Contreras</td><td>venta Enviado</td></tr>
-      <tr><td>Giorgio Armani My Way Rechargeable 3.0oz</td><td>Perfume Empire PE272746</td><td>#289</td><td>María Luján Llargues</td><td>venta Enviado</td></tr>
-      <tr><td>Seiko Chronograph Quartz Blue Dial SSB477P1</td><td>Jomashop M40EGKT4</td><td>#279</td><td>Ignacio Arévalo</td><td>venta Enviado</td></tr>
-      <tr><td>Orient Classic Automatic Green RA-AC0023E30B</td><td>Jomashop M40EGKT4</td><td>#278</td><td>Luis Rafael Cassin</td><td>venta Enviado</td></tr>
-      <tr><td>Margiela Replica Jazz Club EDT 100ml</td><td>Venba #V228739</td><td>#283</td><td>Ignacio Maestu</td><td>venta Enviado</td></tr>
-      <tr><td>Maison Crivelli Musc Nurasana Extrait (sample)</td><td>Venba #V228739</td><td>#276</td><td>María Silvia Díaz</td><td>venta Enviado</td></tr>
-      <tr><td>Maison Crivelli Hibiscus Mahajad Extrait (sample)</td><td>Olfactory Factory OLF220344</td><td>#276</td><td>María Silvia Díaz</td><td>enviado al cliente</td></tr>
-      <tr><td>Maison Crivelli Oud Maracuja 100ml</td><td>Olfactory Factory OLF220344</td><td>#276</td><td>María Silvia Díaz</td><td>venta Enviado</td></tr>
-      <tr><td>Maison Crivelli Oud Maracuja 100ml</td><td>Olfactory Factory OLF222524</td><td>#280</td><td>Martín Durañona</td><td>venta Enviado</td></tr>
-      <tr><td>Heritage 1938 COSC Anthracite 39mm</td><td>Teddy Baldassarre #110415</td><td>#280</td><td>Martín Durañona</td><td>venta Enviado</td></tr>
-      <tr><td>Casio Lineage LCW-M300D-1AJF</td><td>eBay #21-14945-32487</td><td>#273</td><td>Santiago Bonicatto</td><td>venta Enviado</td></tr>
-      <tr><td>Seiko Chronograph Quartz Champagne SSB383P1</td><td>eBay #12-14966-74088</td><td>#277</td><td>Nicolás Ambrosini</td><td>venta Enviado</td></tr>
-      <tr><td>Clive Christian XXI Art Deco Amberwood 50ml</td><td>Beauty House BH100197291</td><td>#270</td><td>Roberto Andrés Noriega</td><td>venta Enviado</td></tr>
-      <tr><td>Tissot Lovely Summer T058.109.36.031.01</td><td>Jomashop M40DUK89</td><td>#232</td><td>María Viscay</td><td>venta Enviado</td></tr>
-    </tbody>
-  </table>
-  </div>
+<h2>Archivados — finalizados <span class="cnt" id="cnt-arch"></span></h2>
+<details class="arch"><summary>Ver items resueltos</summary>
+  <div class="inner"><table id="archtable">
+    <thead><tr><th>Cliente</th><th>Venta</th><th>Producto</th><th>Proveedor</th><th>Compra</th><th>Estado</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
 </details>
 
-<footer>
-  Regla de consolidación: lo que arriba al warehouse de Miami antes del <b>lunes 14:00</b> sube al vuelo del <b>martes</b> y llega a Argentina el <b>jueves ~23:00</b>; después del corte, pasa a la semana siguiente.<br>
-  Los chips punteados de cada producto son clickeables: marcá ahí lo que llegó, se empaquetó o se despachó, y con los botones de la barra verde mandás el cambio a GitHub.
-</footer>
-
+<footer id="foot"></footer>
 </div>
 
 <script>
-(function(){
-"use strict";
+const HOY = new Date('2026-09-12T12:00:00');
+const FMT = d => { const x = new Date(d); return String(x.getDate()).padStart(2,'0')+'/'+String(x.getMonth()+1).padStart(2,'0'); };
 
-// ---- compras_manual.csv tal como está hoy en el repo (incluye las marcas de Nico del 11/09) ----
-var HEADER = "id,comprador,producto,llego_argentina,empaquetado,envio_argentina,enviado,observaciones";
-var BASE = [
- ["watchmaxx-643423","","Mido Ocean Star 200 M026.430.11.041.00","SI","SI","","SI",""],
- ["jomashop-M40EMB18","","Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00","SI","SI","","SI",""],
- ["jomashop-M40DUK89","","Tissot Lovely Summer Quartz Silver Dial Ladies Watch T058.109.36.031.01","SI","NO","","NO",""],
- ["jomashop-M40EGKT4__item1","","Seiko Chronograph Quartz Blue Dial SSB477P1","NO","NO","","NO",""],
- ["jomashop-M40EGKT4__item2","","Orient Classic Automatic Green Dial RA-AC0023E30B","NO","NO","","NO",""],
- ["watchmaxx-640112","","Hamilton Khaki Field Expedition Auto H70225540","NO","NO","","NO",""],
- ["venba-V228739__item1","","Maison Martin Margiela Replica Jazz Club EDT 100ml","SI","SI","","NO",""],
- ["venba-V228739__item2","","Maison Crivelli Musc Nurasana Extrait (sample)","SI","SI","","NO",""],
- ["ebay-16-15011-58343","","The Artist No.2 EDP by Maison Alhambra 100ml","SI","SI","","SI",""],
- ["ebay-21-14945-32487","","Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6","NO","SI","","NO",""],
- ["beautyhouse-BH100197291","","Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml","SI","SI","","NO",""],
- ["ups-teddybaldassarre-483742","","Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap (reloj)","SI","SI","","NO",""],
- ["ups-olfactoryfactory-321532396__item1","","Maison Crivelli Hibiscus Mahajad Extrait (sample 1.5ml)","SI","SI","","SI",""],
- ["ups-olfactoryfactory-321532396__item2","","Maison Crivelli Oud Maracuja 100ml","SI","NO","","NO",""],
- ["ups-olfactoryfactory-338382535","","Maison Crivelli Oud Maracuja 100ml","NO","NO","","NO",""],
- ["jomashop-M40EMTHS__item1","","Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00","SI","SI","","SI",""],
- ["jomashop-M40EMTHS__item2","","Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00","SI","SI","","SI",""],
- ["ebay-12-14966-74088","","Seiko Men's Chronograph Quartz Champagne Dial Watch SSB383P1","SI","SI","","NO",""],
- ["ebay-06-14972-13513","","Seiko Prospex Automatic SRPF03 Black Date Dial Silver Steel Bracelet Watch","SI","SI","","SI",""],
- ["jomashop-M40ER5PK","","Nishane Hacivat Extrait de Parfum 3.4oz","NO","NO","","NO",""],
- ["perfumeempire-PE272746","","My Way (Rechargeable) by Giorgio Armani for her EDP 3.0oz","SI","SI","","NO",""],
- ["ebay-23-15050-77882","","Tom Ford Oud Minerale for Unisex Eau de Parfum Spray 1.7oz/50ml","SI","SI","","NO",""],
- ["venba-V234930","","Parfums De Marly Layton EDP 125ml + Mystery Samples Set","NO","NO","","NO",""],
- ["jomashop-M40EUBHY","","Xerjoff V Erba Pura EDP 3.4oz (100ml) - QTY 2","SI","SI","","NO",""],
- ["xtraitperfumery-2613","","Amouage Decision 100mL","SI","SI","","NO",""],
- ["jomashop-M40EVRF4","","Tissot Le Locle Powermatic 80 Automatic Men's Watch T006.407.16.033.00","SI","SI","NO","NO",""],
- ["maxaroma-OR1016658__item1","","Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (1 de 2)","SI","SI","","NO",""],
- ["maxaroma-OR1016658__item2","","Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (2 de 2)","SI","SI","","NO",""],
- ["ebay-23-15086-02249","","Seiko 5 Sports 38mm Black Dial Stainless Steel Watch SRPK29","NO","NO","","NO",""],
- ["ebay-08-15139-51108","","Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic Watch","NO","NO","","NO",""],
- ["jomashop-M40F1U2K","","Tissot Gentleman Powermatic 80 Silicium Automatic Green Dial T127.407.11.091.01","NO","NO","","NO",""],
- ["ebay-03-15161-82309","","Maison Alhambra Exclusif Tabac EDP 100ml","NO","NO","","NO",""],
- ["ebay-23-15120-76756","","Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm","NO","NO","","NO",""],
- ["watchmaxx-647905","","Longines Master Collection Automatic 38.5mm L2.628.4.51.6","NO","NO","","NO",""],
- ["venba-V240228__item1","","Montale Arabians Tonka EDP 100ml","NO","NO","","NO",""],
- ["venba-V240228__item2","","Ella K Musc K EDP 3.4oz 100ml","NO","NO","","NO",""],
- ["venba-V240228__item3","","Mystery Samples Set (5 samples)","NO","NO","","NO",""],
- ["belmontwatches-3113","","Nivada Grenchen F77 MK2 SST Beige Lume Black With Date Dial 69010A77","NO","NO","","NO",""]
+/* ---------- compras_auto (estado al 12/09/2026) ---------- */
+const ENVIOS = [
+{id:"jomashop-M40F1U2K",proveedor:"Jomashop",orden:"M40F1U2K",tracking:"1Z7R3F940390163546 (UPS)",fecha_compra:"2026-09-10",
+ pagado:true,enviado_warehouse:"2026-09-10",arribo_warehouse:null,eta_proveedor:null,estado_auto:"enviado_warehouse",
+ vuelo_salida_estimado:null,vuelo_llegada_estimada:null,mail_link:"https://mail.google.com/mail/u/0/#all/1a08d17d932feca8",
+ nota:"10/9: order confirmed (10:13 AM) y shipped el mismo día con UPS.",
+ items:[{item_id:"jomashop-M40F1U2K",producto:"Tissot Gentleman Powermatic 80 Silicium Automatic Green Dial T127.407.11.091.01",
+   venta:{nro_interno:"#306",cliente:"Maximiliano Sendra",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-09-10"}}]},
+
+{id:"ebay-03-15161-82309",proveedor:"eBay",orden:"03-15161-82309",tracking:null,fecha_compra:"2026-09-10",
+ pagado:true,enviado_warehouse:null,arribo_warehouse:null,eta_proveedor:"2026-09-14",estado_auto:"pagado",
+ vuelo_salida_estimado:null,vuelo_llegada_estimada:null,mail_link:"https://mail.google.com/mail/u/0/#all/1a08ba289b58de84",
+ nota:"10/9: pedido confirmado, ETA 14-17/9. El mail '🚚 Actualización del pedido' de eBay NO es despacho: todavía no hay confirmación de entrega al transportista.",
+ items:[{item_id:"ebay-03-15161-82309",producto:"Maison Alhambra Exclusif Tabac EDP 100ml",
+   venta:{nro_interno:"#305",cliente:"Leandro Ruiz",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-09-10"}}]},
+
+{id:"watchmaxx-647905",proveedor:"WatchMaxx",orden:"#647905",tracking:"1Z76E25RA893206730 (UPS)",fecha_compra:"2026-09-09",
+ pagado:true,enviado_warehouse:"2026-09-09",arribo_warehouse:null,eta_proveedor:"2026-09-10 a 2026-09-18",estado_auto:"enviado_warehouse",
+ vuelo_salida_estimado:null,vuelo_llegada_estimada:null,mail_link:"https://mail.google.com/mail/u/0/#all/1a08782611647af5",
+ nota:"9/9: comprado USD1.224 y despachado el mismo día a Miami. ETA proveedor 10-18/9.",
+ items:[{item_id:"watchmaxx-647905",producto:"Longines Master Collection Automatic 38.5mm L2.628.4.51.6",
+   venta:{nro_interno:"#304",cliente:"Ignacio",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-09-09"}}]},
+
+{id:"ebay-23-15120-76756",proveedor:"eBay (dilcham43)",orden:"23-15120-76756",tracking:"UPS",fecha_compra:"2026-09-09",
+ pagado:true,enviado_warehouse:"2026-09-11",arribo_warehouse:null,eta_proveedor:"2026-09-14",estado_auto:"enviado_warehouse",
+ vuelo_salida_estimado:null,vuelo_llegada_estimada:null,mail_link:"https://mail.google.com/mail/u/0/#all/1a08e9715d348e5a",
+ nota:"11/9: la empresa de transporte (UPS) ya recibió el paquete. Entrega prevista al warehouse: lun 14/9.",
+ items:[{item_id:"ebay-23-15120-76756",producto:"Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm",
+   venta:{nro_interno:"#301",cliente:"Juan Sebastian Melara Longo",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-09-09"}}]},
+
+{id:"venba-V240228",proveedor:"Venba",orden:"#V240228",tracking:"FedEx",fecha_compra:"2026-09-08",
+ pagado:true,enviado_warehouse:"2026-09-10",arribo_warehouse:null,eta_proveedor:"2026-09-15 a 2026-09-18",estado_auto:"enviado_warehouse",
+ vuelo_salida_estimado:null,vuelo_llegada_estimada:null,mail_link:"https://mail.google.com/mail/u/0/#all/1a08ccf2405dde45",
+ nota:"8/9: orden confirmada. 10/9: despachada con FedEx, entrega estimada 15-18/9.",
+ items:[
+  {item_id:"venba-V240228__item1",producto:"Montale Arabians Tonka EDP 100ml",
+   venta:{nro_interno:"#299",cliente:"Gabriel Ferrer",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-09-08"}},
+  {item_id:"venba-V240228__item2",producto:"Ella K Musc K EDP 3.4oz 100ml",
+   venta:{nro_interno:"#300",cliente:"Erika Ilgner",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-09-08"}},
+  {item_id:"venba-V240228__item3",producto:"Mystery Samples Set (5 samples)",
+   venta:{nro_interno:"#299",cliente:"Gabriel Ferrer",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-09-08",
+     nota:"La venta #299 incluye Mystery Box: se cubre con el set de samples de este mismo pedido."}}]},
+
+{id:"ebay-08-15139-51108",proveedor:"eBay (addicted2shades)",orden:"08-15139-51108",tracking:null,fecha_compra:"2026-09-07",
+ pagado:true,enviado_warehouse:null,arribo_warehouse:null,eta_proveedor:"2026-09-10",estado_auto:"pagado",
+ vuelo_salida_estimado:null,vuelo_llegada_estimada:null,mail_link:"https://mail.google.com/mail/u/0/#all/1a07d0b6966e23a4",
+ nota:"7/9: pedido confirmado y cobrado USD701,87 (Westchester Watch Co.), ETA 10-12/9. Todavía sin mail de despacho al transportista — hoy vence la ventana de entrega.",
+ items:[{item_id:"ebay-08-15139-51108",producto:"Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic Watch",
+   venta:{nro_interno:"#298",cliente:"Alejandro Arcana",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-09-07"}}]},
+
+{id:"belmontwatches-3113",proveedor:"Belmont Watches",orden:"#3113",tracking:"876716925838 (FedEx)",fecha_compra:"2026-09-03",
+ pagado:true,enviado_warehouse:"2026-09-03",arribo_warehouse:"2026-09-08T14:36",eta_proveedor:"2026-09-08",estado_auto:"arribado_warehouse",
+ vuelo_salida_estimado:"2026-09-15",vuelo_llegada_estimada:"2026-09-17T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a0824ec95d9e373",
+ nota:"3/9: orden confirmada y despachada con FedEx. 8/9: entregada en el warehouse de Miami. Llegó después del lunes 14:00, así que sube al vuelo del martes 15/9 (llega a AR el jueves 17/9).",
+ items:[{item_id:"belmontwatches-3113",producto:"Nivada Grenchen F77 MK2 SST Beige Lume Black With Date Dial 69010A77",
+   venta:{nro_interno:"#302",cliente:"Jorge Sanchez",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-09-02"}}]},
+
+{id:"ebay-23-15086-02249",proveedor:"eBay (watchowner / EDJ LUXE)",orden:"23-15086-02249",tracking:"FedEx",fecha_compra:"2026-09-01",
+ pagado:true,enviado_warehouse:"2026-09-01",arribo_warehouse:"2026-09-03T16:06",eta_proveedor:"2026-09-03",estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-09-08",vuelo_llegada_estimada:"2026-09-10T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a05f088aa1eee85",
+ nota:"1/9: comprado USD374,50 y despachado el mismo día. 3/9: entregado en Miami. Voló el 8/9 y debería estar en Argentina desde el jueves 10/9 a la noche.",
+ items:[{item_id:"ebay-23-15086-02249",producto:"Seiko 5 Sports 38mm Black Dial Stainless Steel Watch SRPK29",
+   venta:{nro_interno:"#294",cliente:"Mariano Fittipaldi",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-08-29"}}]},
+
+{id:"watchmaxx-640112",proveedor:"WatchMaxx",orden:"#646631 (reemplazo de #640112)",tracking:"1Z76E25RA896513447 (UPS)",fecha_compra:"2026-09-01",
+ pagado:true,enviado_warehouse:"2026-09-02T17:01",arribo_warehouse:"2026-09-05T19:01",eta_proveedor:"2026-09-03 a 2026-09-14",estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-09-08",vuelo_llegada_estimada:"2026-09-10T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a06317a3a0f3cee",
+ nota:"La orden original #640112 expiró sin cobrar; se recompró como #646631 ($848 vs $765). WatchMaxx acordó devolver la diferencia ($83 vía Takenos) — verificar que el reembolso haya entrado. 5/9: entregado en Miami. Voló el 8/9 y debería estar en Argentina desde el jueves 10/9 a la noche.",
+ items:[{item_id:"watchmaxx-640112",producto:"Hamilton Khaki Field Expedition Auto H70225540",
+   venta:{nro_interno:"#268",cliente:"Francesco Delli",estado_venta:"Pedido/Comprado",confianza:"confirmado",fecha_venta:"2026-07-27",
+     nota:"Venta marcada 'Va a tardar' por Nico."}}]},
+
+/* ---- archivados (venta ya Enviada o item cerrado a mano) ---- */
+{id:"jomashop-M40ER5PK",proveedor:"Jomashop",orden:"M40ER5PK",tracking:"9436250206079010426761 (USPS)",fecha_compra:"2026-08-19",
+ pagado:true,enviado_warehouse:"2026-08-20",arribo_warehouse:null,eta_proveedor:null,estado_auto:"enviado_warehouse",
+ vuelo_salida_estimado:null,vuelo_llegada_estimada:null,mail_link:"https://mail.google.com/mail/u/0/#all/1a01fc606bac393f",
+ perdido:true, search_id:"#MRC 26 2674 3578",
+ nota:"⚠ PAQUETE PERDIDO. Sin ningún evento de tracking desde el despacho del 20/8. 9/9: Nico abrió un reclamo de búsqueda en USPS (Search ID #MRC 26 2674 3578). La venta #288 ya figura Enviada (se resolvió con stock), pero la plata del paquete sigue en juego: hay que reclamarle el reembolso a Jomashop.",
+ items:[{item_id:"jomashop-M40ER5PK",producto:"Nishane Hacivat Extrait de Parfum 3.4oz",
+   venta:{nro_interno:"#288",cliente:"Lucas Vallejos",ganancia:62569,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"jomashop-M40EVRF4",proveedor:"Jomashop",orden:"M40EVRF4",tracking:"1Z7R3F940396025372",fecha_compra:"2026-08-29",
+ pagado:true,enviado_warehouse:"2026-08-31",arribo_warehouse:"2026-09-03T16:56",eta_proveedor:"2026-09-03",estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-09-08",vuelo_llegada_estimada:"2026-09-10T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a04e97213cd6a5a",
+ nota:"Match corregido en esta corrida: ya no es reposición de stock, corresponde a la venta #303 (Fausto José Gorosito, 29/8), hoy Enviada.",
+ items:[{item_id:"jomashop-M40EVRF4",producto:"Tissot Le Locle Powermatic 80 Automatic Men's Watch T006.407.16.033.00",
+   venta:{nro_interno:"#303",cliente:"Fausto José Gorosito",estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"maxaroma-OR1016658",proveedor:"MaxAroma",orden:"OR1016658",tracking:"1ZW2D5012937645321",fecha_compra:"2026-08-31",
+ pagado:true,enviado_warehouse:"2026-08-31",arribo_warehouse:"2026-09-01T15:27",eta_proveedor:"2026-09-01",estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-09-08",vuelo_llegada_estimada:"2026-09-10T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a05898a6cc026f5",
+ nota:"Reemplaza el pedido Jomashop M40ER2SU (cancelado por Jomashop el 31/8).",
+ items:[
+  {item_id:"maxaroma-OR1016658__item1",producto:"Amouage Reflection Men 100ml EDP (1 de 2)",
+   venta:{nro_interno:"#286",cliente:"Martin Arrieta",ganancia:79656,estado_venta:"Enviado",confianza:"confirmado"}},
+  {item_id:"maxaroma-OR1016658__item2",producto:"Amouage Reflection Men 100ml EDP (2 de 2)",
+   venta:{nro_interno:"#287",cliente:"Ilze Krievina",ganancia:79656,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"xtraitperfumery-2613",proveedor:"Xtrait Perfumery",orden:"#2613",tracking:"1Z2C86680312047511",fecha_compra:"2026-08-25",
+ pagado:true,enviado_warehouse:"2026-08-25",arribo_warehouse:"2026-08-29T16:02",eta_proveedor:"2026-08-31",estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-09-01",vuelo_llegada_estimada:"2026-09-03T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a04f1edbd507e34",nota:"",
+ items:[{item_id:"xtraitperfumery-2613",producto:"Amouage Decision 100mL",
+   venta:{nro_interno:"#293",cliente:"Jorge Zuniga",ganancia:276019.75,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"jomashop-M40EUBHY",proveedor:"Jomashop",orden:"M40EUBHY",tracking:"9436250206079010758626",fecha_compra:"2026-08-26",
+ pagado:true,enviado_warehouse:"2026-08-26",arribo_warehouse:"2026-08-31T16:16",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-09-08",vuelo_llegada_estimada:"2026-09-10T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a03e6902bcbce24",nota:"",
+ items:[{item_id:"jomashop-M40EUBHY",producto:"Xerjoff V Erba Pura EDP 100ml — QTY 2",
+   venta:{nro_interno:"#292",cliente:"Hernán Rossi",ganancia:97788.54,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"venba-V234930",proveedor:"Venba",orden:"#V234930",tracking:"876311644030",fecha_compra:"2026-08-25",
+ pagado:true,enviado_warehouse:"2026-08-26",arribo_warehouse:"2026-09-01T04:59",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-09-08",vuelo_llegada_estimada:"2026-09-10T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a03a18704548823",nota:"",
+ items:[{item_id:"venba-V234930",producto:"Parfums De Marly Layton EDP 125ml + Mystery Samples Set",
+   venta:{nro_interno:"#290",cliente:"Luis Contreras",ganancia:67466.58,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"perfumeempire-PE272746",proveedor:"Perfume Empire",orden:"PE272746",tracking:"1LSDCR10017TCWM",fecha_compra:"2026-08-20",
+ pagado:true,enviado_warehouse:"2026-08-20",arribo_warehouse:"2026-08-23T21:24",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-25",vuelo_llegada_estimada:"2026-08-27T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a0206fc7b283fb8",nota:"",
+ items:[{item_id:"perfumeempire-PE272746",producto:"My Way (Rechargeable) Giorgio Armani EDP 3.0oz",
+   venta:{nro_interno:"#289",cliente:"Maria Lujan Llargues",ganancia:20423.7,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"ebay-23-15050-77882",proveedor:"eBay (abetterworldstore)",orden:"23-15050-77882",tracking:null,fecha_compra:"2026-08-24",
+ pagado:true,enviado_warehouse:"2026-08-27",arribo_warehouse:"2026-08-28T11:01",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-09-01",vuelo_llegada_estimada:"2026-09-03T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a048e53b05f48ca",nota:"",
+ items:[{item_id:"ebay-23-15050-77882",producto:"Tom Ford Oud Minerale EDP 50ml",
+   venta:{nro_interno:"#291",cliente:"Juanjo Jayat",ganancia:236462.1,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"jomashop-M40EMTHS",proveedor:"Jomashop",orden:"M40EMTHS",tracking:"1Z7R3F940392993226",fecha_compra:"2026-08-14",
+ pagado:true,enviado_warehouse:"2026-08-17",arribo_warehouse:"2026-08-20T17:44",eta_proveedor:"2026-08-20",estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-25",vuelo_llegada_estimada:"2026-08-27T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a0204661101b4ff",nota:"",
+ items:[
+  {item_id:"jomashop-M40EMTHS__item1",producto:"Mido Ocean Star 39 Automatic Grey Gradient M026.907.11.061.00",
+   venta:{nro_interno:"#285",cliente:"Leonardo Smachetti",ganancia:403776.22,estado_venta:"Enviado",confianza:"confirmado"}},
+  {item_id:"jomashop-M40EMTHS__item2",producto:"Tissot PRX Powermatic 80 Black Dial T137.207.11.051.00",
+   venta:{nro_interno:"#285",cliente:"Leonardo Smachetti",ganancia:403776.22,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"watchmaxx-643423",proveedor:"WatchMaxx",orden:"#643423",tracking:"1Z76E25RA892066296",fecha_compra:"2026-08-13",
+ pagado:true,enviado_warehouse:"2026-08-14",arribo_warehouse:"2026-08-18T14:01",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-25",vuelo_llegada_estimada:"2026-08-27T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a016095678fbb93",nota:"",
+ items:[{item_id:"watchmaxx-643423",producto:"Mido Ocean Star 200 M026.430.11.041.00",
+   venta:{nro_interno:"#284",cliente:"Jorge Sanchez",ganancia:375756.24,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"jomashop-M40EMB18",proveedor:"Jomashop",orden:"M40EMB18",tracking:"1Z7R3F940392638708",fecha_compra:"2026-08-13",
+ pagado:true,enviado_warehouse:"2026-08-14",arribo_warehouse:"2026-08-17T18:51",eta_proveedor:"2026-08-19",estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-25",vuelo_llegada_estimada:"2026-08-27T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a011ec1249d1c16",nota:"",
+ items:[{item_id:"jomashop-M40EMB18",producto:"Tissot PRX Powermatic 80 Black Dial T137.407.11.051.00",
+   venta:{nro_interno:"#284",cliente:"Jorge Sanchez",ganancia:375756.24,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"jomashop-M40DUK89",proveedor:"Jomashop",orden:"M40DUK89",tracking:"9400150206079005465506",fecha_compra:"2026-06-29",
+ pagado:true,enviado_warehouse:"2026-08-11",arribo_warehouse:"2026-08-15T09:58",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-18",vuelo_llegada_estimada:"2026-08-20T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/1a005b74ca56c306",
+ nota:"La venta #232 pedía Tissot Lovely Summer + Strap Blue; hoy figura Enviada.",
+ items:[{item_id:"jomashop-M40DUK89",producto:"Tissot Lovely Summer Quartz Silver Dial T058.109.36.031.01",
+   venta:{nro_interno:"#232",cliente:"Maria Viscay",ganancia:86384,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"jomashop-M40EGKT4",proveedor:"Jomashop",orden:"M40EGKT4",tracking:"9434650206079004079911",fecha_compra:"2026-08-01",
+ pagado:true,enviado_warehouse:"2026-08-06",arribo_warehouse:"2026-08-10T12:13",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-11",vuelo_llegada_estimada:"2026-08-13T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19fec7327942f689",nota:"",
+ items:[
+  {item_id:"jomashop-M40EGKT4__item1",producto:"Seiko Chronograph Quartz Blue Dial SSB477P1",
+   venta:{nro_interno:"#279",cliente:"Ignacio Arevalo",ganancia:160476.33,estado_venta:"Enviado",confianza:"confirmado"}},
+  {item_id:"jomashop-M40EGKT4__item2",producto:"Orient Classic Automatic Green Dial RA-AC0023E30B",
+   venta:{nro_interno:"#278",cliente:"Luis Rafael Cassin",ganancia:166992.06,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"venba-V228739",proveedor:"Venba",orden:"#V228739",tracking:"875377633030",fecha_compra:"2026-08-04",
+ pagado:true,enviado_warehouse:"2026-08-05",arribo_warehouse:"2026-08-08T20:00",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-11",vuelo_llegada_estimada:"2026-08-13T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19fe476175ac5b23",nota:"",
+ items:[
+  {item_id:"venba-V228739__item1",producto:"Maison Margiela Replica Jazz Club EDT 100ml",
+   venta:{nro_interno:"#283",cliente:"Ignacio Maestu",ganancia:130458.12,estado_venta:"Enviado",confianza:"confirmado"}},
+  {item_id:"venba-V228739__item2",producto:"Maison Crivelli Musc Nurasana Extrait (sample)",
+   venta:{nro_interno:"#276",cliente:"Maria Silvia Diaz",ganancia:203554,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"ebay-16-15011-58343",proveedor:"eBay (georgymelly)",orden:"#16-15011-58343",tracking:null,fecha_compra:"2026-08-05",
+ pagado:true,enviado_warehouse:"2026-08-06",arribo_warehouse:"2026-08-13T10:40",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-18",vuelo_llegada_estimada:"2026-08-20T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19ffb93cb145770f",
+ nota:"La venta #281 pedía The Artist No.2 + French Avenue NICHE THE NIGHT; hoy figura Enviada.",
+ items:[{item_id:"ebay-16-15011-58343",producto:"The Artist No.2 EDP by Maison Alhambra 100ml",
+   venta:{nro_interno:"#281",cliente:"Leonardo Sonaglia",ganancia:111031.1,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"ebay-21-14945-32487",proveedor:"eBay (hardjapan)",orden:"#21-14945-32487",tracking:null,fecha_compra:"2026-08-01",
+ pagado:true,enviado_warehouse:"2026-08-03",arribo_warehouse:"2026-08-10T12:12",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-11",vuelo_llegada_estimada:"2026-08-13T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19fec770399d8e51",nota:"",
+ items:[{item_id:"ebay-21-14945-32487",producto:"Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6",
+   venta:{nro_interno:"#273",cliente:"Santiago Bonicatto",ganancia:137360,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"beautyhouse-BH100197291",proveedor:"Beauty House",orden:"BH100197291",tracking:"1ZY77V780300139913",fecha_compra:"2026-08-01",
+ pagado:false,enviado_warehouse:"2026-08-05",arribo_warehouse:"2026-08-11T11:09",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-18",vuelo_llegada_estimada:"2026-08-20T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19ff16106742ef47",
+ nota:"⚠ Reembolsado por la tienda el 6/8 pero igual llegó al warehouse el 11/8. El 19/8 la tienda pidió un pago adicional por Zelle: pinta a doble cobro — NO pagar.",
+ items:[{item_id:"beautyhouse-BH100197291",producto:"Clive Christian XXI Art Deco Amberwood Parfum 50ml",
+   venta:{nro_interno:"#270",cliente:"Roberto Andres Noriega",ganancia:194477.79,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"ups-teddybaldassarre-483742",proveedor:"Teddy Baldassarre",orden:"#110415",tracking:"1ZR58F114293483742",fecha_compra:"2026-08-05",
+ pagado:true,enviado_warehouse:"2026-08-06",arribo_warehouse:"2026-08-08T11:46",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-11",vuelo_llegada_estimada:"2026-08-13T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19fe210a0f5cccaa",nota:"",
+ items:[{item_id:"ups-teddybaldassarre-483742",producto:"Tissot Heritage 1938 COSC Anthracite 39mm",
+   venta:{nro_interno:"#280",cliente:"Martin Duranona",ganancia:397636.44,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"ups-olfactoryfactory-321532396",proveedor:"Olfactory Factory",orden:"OLF220344",tracking:"1ZH914Y70321532396",fecha_compra:"2026-08-01",
+ pagado:true,enviado_warehouse:"2026-08-03",arribo_warehouse:"2026-08-06T15:50",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-11",vuelo_llegada_estimada:"2026-08-13T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19fd8a206963ec79",nota:"",
+ items:[
+  {item_id:"ups-olfactoryfactory-321532396__item1",producto:"Maison Crivelli Hibiscus Mahajad Extrait (sample 1.5ml)",
+   venta:{nro_interno:"#276",cliente:"Maria Silvia Diaz",ganancia:203554,estado_venta:"Enviado",confianza:"confirmado"}},
+  {item_id:"ups-olfactoryfactory-321532396__item2",producto:"Maison Crivelli Oud Maracuja 100ml",
+   venta:{nro_interno:"#276",cliente:"Maria Silvia Diaz",ganancia:203554,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"ups-olfactoryfactory-338382535",proveedor:"Olfactory Factory",orden:"OLF222524",tracking:"1ZH914Y70338382535",fecha_compra:"2026-08-05",
+ pagado:true,enviado_warehouse:"2026-08-07",arribo_warehouse:"2026-08-11T11:09",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-18",vuelo_llegada_estimada:"2026-08-20T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19ff16196ecc75d2",nota:"",
+ items:[{item_id:"ups-olfactoryfactory-338382535",producto:"Maison Crivelli Oud Maracuja 100ml",
+   venta:{nro_interno:"#280",cliente:"Martin Duranona",ganancia:397636.44,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"ebay-12-14966-74088",proveedor:"eBay (Dexclusive.com)",orden:"#12-14966-74088",tracking:"1Z2K41V2YN03334499",fecha_compra:"2026-07-31",
+ pagado:true,enviado_warehouse:"2026-08-03",arribo_warehouse:"2026-08-04T13:15",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-11",vuelo_llegada_estimada:"2026-08-13T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19fcddb5e193ce94",nota:"",
+ items:[{item_id:"ebay-12-14966-74088",producto:"Seiko Chronograph Quartz Champagne Dial SSB383P1",
+   venta:{nro_interno:"#277",cliente:"Nicolas Ambrosini",ganancia:191659,estado_venta:"Enviado",confianza:"confirmado"}}]},
+
+{id:"ebay-06-14972-13513",proveedor:"eBay (sasy420)",orden:"#06-14972-13513",tracking:"9400150206217799492456",fecha_compra:"2026-07-30",
+ pagado:true,enviado_warehouse:"2026-07-30",arribo_warehouse:"2026-08-03T12:21",eta_proveedor:null,estado_auto:"deberia_haber_llegado_ar",
+ vuelo_salida_estimado:"2026-08-04",vuelo_llegada_estimada:"2026-08-06T23:00:00",mail_link:"https://mail.google.com/mail/u/0/#all/19fc8711d7e98479",
+ nota:"Reposición de stock: no matchea ninguna venta #225+ pendiente.",
+ items:[{item_id:"ebay-06-14972-13513",producto:"Seiko Prospex Automatic SRPF03 Black Date Dial",venta:null}]}
 ];
-var COL = [3,4,6];   // llego_argentina, empaquetado, enviado
-var KEY = "neve_manual_v1";
-var GH_EDIT = "https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv";
 
-var baseByIdx = {}, i;
-for(i=0;i<BASE.length;i++) baseByIdx[BASE[i][0]] = i;
+/* ---------- compras_manual.csv (embebido completo) ---------- */
+const CSV_HEADER = "id,comprador,producto,llego_argentina,empaquetado,envio_argentina,enviado,observaciones";
+const CSV_ROWS = [
+["watchmaxx-643423","","Mido Ocean Star 200 M026.430.11.041.00","SI","SI","","SI",""],
+["jomashop-M40EMB18","","Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00","SI","SI","","SI",""],
+["jomashop-M40DUK89","","Tissot Lovely Summer Quartz Silver Dial Ladies Watch T058.109.36.031.01","SI","NO","","NO",""],
+["jomashop-M40EGKT4__item1","","Seiko Chronograph Quartz Blue Dial SSB477P1","NO","NO","","NO",""],
+["jomashop-M40EGKT4__item2","","Orient Classic Automatic Green Dial RA-AC0023E30B","NO","NO","","NO",""],
+["watchmaxx-640112","","Hamilton Khaki Field Expedition Auto H70225540","NO","NO","","NO",""],
+["venba-V228739__item1","","Maison Martin Margiela Replica Jazz Club EDT 100ml","SI","SI","","NO",""],
+["venba-V228739__item2","","Maison Crivelli Musc Nurasana Extrait (sample)","SI","SI","","NO",""],
+["ebay-16-15011-58343","","The Artist No.2 EDP by Maison Alhambra 100ml","SI","SI","","SI",""],
+["ebay-21-14945-32487","","Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6","NO","SI","","NO",""],
+["beautyhouse-BH100197291","","Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml","SI","SI","","NO",""],
+["ups-teddybaldassarre-483742","","Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap (reloj)","SI","SI","","NO",""],
+["ups-olfactoryfactory-321532396__item1","","Maison Crivelli Hibiscus Mahajad Extrait (sample 1.5ml)","SI","SI","","SI",""],
+["ups-olfactoryfactory-321532396__item2","","Maison Crivelli Oud Maracuja 100ml","SI","NO","","NO",""],
+["ups-olfactoryfactory-338382535","","Maison Crivelli Oud Maracuja 100ml","NO","NO","","NO",""],
+["jomashop-M40EMTHS__item1","","Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00","SI","SI","","SI",""],
+["jomashop-M40EMTHS__item2","","Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00","SI","SI","","SI",""],
+["ebay-12-14966-74088","","Seiko Men's Chronograph Quartz Champagne Dial Watch SSB383P1","SI","SI","","NO",""],
+["ebay-06-14972-13513","","Seiko Prospex Automatic SRPF03 Black Date Dial Silver Steel Bracelet Watch","SI","SI","","SI",""],
+["jomashop-M40ER5PK","","Nishane Hacivat Extrait de Parfum 3.4oz","NO","NO","","NO",""],
+["perfumeempire-PE272746","","My Way (Rechargeable) by Giorgio Armani for her EDP 3.0oz","SI","SI","","NO",""],
+["ebay-23-15050-77882","","Tom Ford Oud Minerale for Unisex Eau de Parfum Spray 1.7oz/50ml","SI","SI","","NO",""],
+["venba-V234930","","Parfums De Marly Layton EDP 125ml + Mystery Samples Set","NO","NO","","NO",""],
+["jomashop-M40EUBHY","","Xerjoff V Erba Pura EDP 3.4oz (100ml) - QTY 2","SI","SI","","NO",""],
+["xtraitperfumery-2613","","Amouage Decision 100mL","SI","SI","","NO",""],
+["jomashop-M40EVRF4","","Tissot Le Locle Powermatic 80 Automatic Men's Watch T006.407.16.033.00","SI","SI","NO","NO",""],
+["maxaroma-OR1016658__item1","","Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (1 de 2)","SI","SI","","NO",""],
+["maxaroma-OR1016658__item2","","Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (2 de 2)","SI","SI","","NO",""],
+["ebay-23-15086-02249","","Seiko 5 Sports 38mm Black Dial Stainless Steel Watch SRPK29","NO","NO","","NO",""],
+["ebay-08-15139-51108","","Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic Watch","NO","NO","","NO",""],
+["jomashop-M40F1U2K","","Tissot Gentleman Powermatic 80 Silicium Automatic Green Dial T127.407.11.091.01","NO","NO","","NO",""],
+["ebay-03-15161-82309","","Maison Alhambra Exclusif Tabac EDP 100ml","NO","NO","","NO",""],
+["ebay-23-15120-76756","","Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm","NO","NO","","NO",""],
+["watchmaxx-647905","","Longines Master Collection Automatic 38.5mm L2.628.4.51.6","NO","NO","","NO",""],
+["venba-V240228__item1","","Montale Arabians Tonka EDP 100ml","NO","NO","","NO",""],
+["venba-V240228__item2","","Ella K Musc K EDP 3.4oz 100ml","NO","NO","","NO",""],
+["venba-V240228__item3","","Mystery Samples Set (5 samples)","NO","NO","","NO",""],
+["belmontwatches-3113","","Nivada Grenchen F77 MK2 SST Beige Lume Black With Date Dial 69010A77","NO","NO","","NO",""]
+];
 
-function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; } }
-function save(o){ try{ localStorage.setItem(KEY, JSON.stringify(o)); }catch(e){} }
-var ov = load();
+/* ---------- ventas_compra_externa.csv ---------- */
+const EXTERNAS = [
+ {nro_interno:"#295",cliente:"Adrian Espinola",producto:"Louis Vuitton Imagination 100ml",fecha_venta:"2026-08-30",via:"Meli (trae en mano)",comprado:"SI",recibido:"NO",observaciones:""},
+ {nro_interno:"#297",cliente:"Matias Lumbreras",producto:"Louis Vuitton Imagination 100ml + Mystery Box 5x1ml",fecha_venta:"2026-09-05",via:"Meli (trae en mano)",comprado:"SI",recibido:"NO",observaciones:""}
+];
 
-function baseLevel(id){
-  var r = BASE[baseByIdx[id]]; if(!r) return 0;
-  if(r[6]==="SI") return 3;
-  if(r[4]==="SI") return 2;
-  if(r[3]==="SI") return 1;
-  return 0;
+/* ---------- ventas_sin_compra.json ---------- */
+const SIN_COMPRA = [];
+
+/* ---------- avisos ---------- */
+const AVISOS = [
+ "<b>Nishane Hacivat (Jomashop M40ER5PK)</b> — reclamo de búsqueda abierto en USPS el 9/9, Search ID #MRC 26 2674 3578. La venta #288 ya se despachó con stock: lo que queda es reclamarle el reembolso a Jomashop.",
+ "<b>Hilo abierto con Jomashop (cancel.orders)</b> — el 9/9 Mikaela T. pidió el número de orden para poder procesar la cancelación que Nico inició el 8/9. Sigue sin responder: si el pedido a cancelar todavía importa, hay que contestarle con el número M.",
+ "<b>WatchMaxx — reembolso de USD83</b> — diferencia acordada por la recompra de la orden #646631 (Hamilton, venta #268), a devolver vía Takenos. Verificar que haya entrado.",
+ "<b>Beauty House (BH100197291)</b> — la tienda reembolsó el pedido el 6/8 y después pidió un pago adicional por Zelle. No pagar sin verificar; el paquete igual llegó al warehouse.",
+ "<b>Sandbox Linux caído</b> — esta corrida se hizo sin el entorno Bash. El dashboard está completo e incluye los overrides manuales de <code>compras_manual.csv</code>, pero los archivos de datos del repo privado (<code>compras_auto.json</code>, <code>ventas_sin_compra.json</code>) no se regeneraron: los mergea la próxima corrida con Bash sano.",
+ "<b>Lista de Ventas</b> — leída por el fallback sin Bash (grep sobre el volcado de Drive) en vez de openpyxl. Los datos de las ventas #225 a #306 se reconstruyeron completos, pero conviene releerla bien en la próxima corrida.",
+ "<b>Remitentes</b> — no apareció ningún proveedor internacional nuevo fuera de la lista de la skill en esta ventana de 10 días."
+];
+
+/* ================= lógica ================= */
+const MANKEY = 'neve_manual_v1';
+let overrides = {};
+try { overrides = JSON.parse(localStorage.getItem(MANKEY) || '{}'); } catch(e){ overrides = {}; }
+
+const csvMap = {}; CSV_ROWS.forEach(r => csvMap[r[0]] = r);
+const baseLevel = id => { const r = csvMap[id]; if(!r) return 0;
+  if(r[6]==='SI') return 3; if(r[4]==='SI') return 2; if(r[3]==='SI') return 1; return 0; };
+const level = id => (id in overrides) ? overrides[id] : baseLevel(id);
+
+const ESTADO_RANK = {pedido_confirmado:0,pagado:1,enviado_warehouse:2,arribado_warehouse:3,en_vuelo:4,deberia_haber_llegado_ar:5};
+
+function itemArchivado(env,it){
+  if(it.venta && it.venta.estado_venta === 'Enviado') return true;
+  return level(it.item_id) >= 3;
 }
-function level(id){ return (id in ov) ? ov[id] : baseLevel(id); }
+const dias = (a,b) => Math.floor((new Date(b) - new Date(a)) / 86400000);
 
-// Reconciliacion: cuando la corrida regenera el dashboard, el CSV ya trae los cambios
-// commiteados. Si el pendiente guardado coincide con lo que ahora dice el CSV, ya no es
-// pendiente -> se borra solo y la barra desaparece.
-(function(){
-  var limpio = false, k;
-  for(k in ov){
-    if(!(k in baseByIdx) || ov[k] === baseLevel(k)){ delete ov[k]; limpio = true; }
-  }
-  if(limpio) save(ov);
-})();
-
-var items = [].slice.call(document.querySelectorAll(".item[data-item]"));
-
-items.forEach(function(it){
-  var pipe = it.querySelector(".pipe"); if(!pipe) return;
-  var chips = [].slice.call(pipe.querySelectorAll(".st"));
-  if(chips.length < 4) return;
-  chips.forEach(function(c){ c.setAttribute("data-orig", c.className); c.setAttribute("data-origtext", c.textContent); });
-  var start = chips.length - 3;
-  for(var k=0;k<3;k++){
-    (function(kk){
-      chips[start+kk].classList.add("clk");
-      chips[start+kk].title = "Clic para marcar / desmarcar";
-      chips[start+kk].addEventListener("click", function(){
-        var id = it.getAttribute("data-item");
-        var want = kk + 1, cur = level(id);
-        var next = (cur === want) ? want - 1 : want;
-        if(next === baseLevel(id)) delete ov[id]; else ov[id] = next;
-        save(ov); paintItem(it); paintBar();
-      });
-    })(k);
-  }
-  paintItem(it);
-});
-
-function paintItem(it){
-  var id = it.getAttribute("data-item");
-  var pipe = it.querySelector(".pipe"); if(!pipe) return;
-  var chips = [].slice.call(pipe.querySelectorAll(".st"));
-  var start = chips.length - 3, lv = level(id), changed = (id in ov);
-  chips[start].textContent = (lv >= 1) ? "Llegó a Argentina" : chips[start].getAttribute("data-origtext");
-  if(lv === 0){
-    chips.forEach(function(c){ c.className = c.getAttribute("data-orig"); });
-    for(var k=0;k<3;k++) chips[start+k].classList.add("clk");
-  } else {
-    var curIdx = start + lv - 1;
-    chips.forEach(function(c,idx){
-      c.className = "st" + (idx < curIdx ? " on" : (idx === curIdx ? " cur done" : ""));
-      if(idx >= start) c.classList.add("clk");
-    });
-  }
-  if(changed) chips[start + Math.max(lv,1) - 1].classList.add("edited");
-}
-
-function pending(){ return Object.keys(ov); }
-
-function buildCSV(){
-  var out = [HEADER];
-  for(var i=0;i<BASE.length;i++){
-    var r = BASE[i].slice(), id = r[0];
-    if(id in ov){
-      var lv = ov[id];
-      r[COL[0]] = lv >= 1 ? "SI" : "NO";
-      r[COL[1]] = lv >= 2 ? "SI" : "NO";
-      r[COL[2]] = lv >= 3 ? "SI" : "NO";
+/* ---------- DEMORADOS ---------- */
+function calcDemorados(){
+  const out = [];
+  ENVIOS.forEach(env => env.items.forEach(it => {
+    const arch = itemArchivado(env,it);
+    if(env.perdido){
+      const esp = new Date(env.enviado_warehouse); esp.setDate(esp.getDate()+5);
+      out.push({d:dias(esp,HOY),prod:it.producto,
+        who: it.venta ? (it.venta.cliente+' · venta '+it.venta.nro_interno) : 'Reposición de stock',
+        src: env.proveedor+' · orden '+env.orden,
+        why:'<b>Paquete perdido.</b> Sin ningún evento de tracking desde el despacho del 20/8. Reclamo USPS abierto el 9/9 ('+env.search_id+'). La venta ya se resolvió con stock, pero hay que <b>reclamarle el reembolso a Jomashop</b> con el Search ID.'});
+      return;
     }
-    out.push(r.map(function(v){
-      return (v.indexOf(",")>=0 || v.indexOf('"')>=0) ? '"'+v.replace(/"/g,'""')+'"' : v;
-    }).join(","));
-  }
-  return out.join("\n") + "\n";
+    if(arch) return;
+    const st = env.estado_auto; let esp = null, why = '';
+    if(st==='pedido_confirmado' || st==='pagado'){
+      esp = env.eta_proveedor ? new Date(env.eta_proveedor.split(' ')[0]) : (()=>{const x=new Date(env.fecha_compra);x.setDate(x.getDate()+5);return x;})();
+      why = 'Pagado pero el proveedor todavía no lo despachó. <b>Escribirle al vendedor</b> y pedir tracking.';
+    } else if(st==='enviado_warehouse' && !env.arribo_warehouse){
+      esp = new Date(env.enviado_warehouse); esp.setDate(esp.getDate()+5);
+      why = 'Despachado hace más de 5 días y todavía sin confirmación de entrega en el warehouse. <b>Revisar el tracking</b> y, si sigue frenado, abrir reclamo al courier.';
+    } else if(st==='deberia_haber_llegado_ar' && level(it.item_id) < 1){
+      esp = new Date(env.vuelo_llegada_estimada);
+      why = 'Ya pasó la fecha estimada de llegada a Argentina y no está marcado como recibido. <b>Chequear con el consolidador</b> o marcarlo llegado con el chip de abajo.';
+    } else return;
+    const d = dias(esp,HOY);
+    if(d >= 5) out.push({d,prod:it.producto,
+      who: it.venta ? (it.venta.cliente+' · venta '+it.venta.nro_interno) : 'Reposición de stock',
+      src: env.proveedor+' · orden '+env.orden, why});
+  }));
+
+  EXTERNAS.filter(e => e.recibido !== 'SI').forEach(e => {
+    const d = dias(e.fecha_venta,HOY); if(d < 5) return;
+    const quien = e.via.split(' ')[0];
+    const why = e.comprado === 'NO'
+      ? 'Venta fuera de Gmail: <b>todavía no se lo encargó a '+quien+'</b>.'
+      : (d >= 10 ? '<b>Preguntarle a '+quien+'</b> cómo viene — ya pasaron '+d+' días desde la venta.'
+                 : 'Encargado a '+quien+', todavía sin recibir. Conviene ir preguntando.');
+    out.push({d,prod:e.producto,who:e.cliente+' · venta '+e.nro_interno,src:'Compra en mano · '+e.via,why,ext:e.producto});
+  });
+
+  SIN_COMPRA.forEach(v => { const d = dias(v.fecha_venta,HOY); if(d < 5) return;
+    out.push({d,prod:v.producto,who:v.cliente+' · venta '+v.nro_interno,src:'Sin compra identificada',
+      why:'Venta cobrada hace '+d+' días y <b>todavía no se compró</b>. Comprarla o marcarla como compra externa.'}); });
+
+  // agrupar productos repetidos de Meli
+  const porProd = {};
+  out.forEach(o => { if(o.ext){ porProd[o.ext] = (porProd[o.ext]||0)+1; } });
+  out.forEach(o => { if(o.ext && porProd[o.ext] > 1) o.why += ' Hay <b>'+porProd[o.ext]+' ventas del mismo producto</b> pendientes — preguntale por todas juntas.'; });
+
+  return out.sort((a,b) => b.d - a.d);
 }
 
-var bar = document.getElementById("bar"), msg = bar.querySelector(".msg");
-var box = document.getElementById("csvbox"), howto = document.getElementById("howto");
-
-function paintBar(){
-  var n = pending().length;
-  if(n === 0){ bar.classList.remove("show"); box.classList.remove("show"); howto.innerHTML=""; return; }
-  bar.classList.add("show");
-  msg.innerHTML = "<b>" + n + (n===1 ? " cambio" : " cambios") + " sin guardar.</b> " +
-    "Se ven solo en este navegador hasta que los mandes a GitHub.";
+/* ---------- render ---------- */
+function chips(env,it){
+  const st = env.estado_auto, rank = ESTADO_RANK[st] ?? 0, lv = level(it.item_id);
+  const forzado = it.venta && it.venta.estado_venta === 'Enviado';
+  const auto = [
+    ['Pedido confirmado',0],['Pagado',1],['Enviado a warehouse',2],
+    ['Arribado a Miami',3],['En vuelo',4]
+  ];
+  let h = '';
+  auto.forEach(([txt,r]) => {
+    let c = 'chip';
+    if(forzado || rank > r) c += ' done'; else if(rank === r) c += ' now';
+    h += '<span class="'+c+'">'+txt+'</span>';
+  });
+  const llegoTxt = (rank >= 5 && lv < 1 && !forzado)
+    ? 'Debería haber llegado a AR ('+FMT(env.vuelo_llegada_estimada)+')'
+    : 'Llegó a Argentina';
+  const man = [[llegoTxt,1],['Empaquetado',2],['Enviado al cliente',3]];
+  man.forEach(([txt,l]) => {
+    let c = 'chip man';
+    const efec = forzado ? 3 : lv;
+    if(efec >= l) c += ' done';
+    else if(l === 1 && rank >= 5) c += ' late';
+    if((it.item_id in overrides)) c += ' dirty';
+    h += '<span class="'+c+'" data-lv="'+l+'" data-origtext="'+txt.replace(/"/g,'&quot;')+'" onclick="clickChip(\''+it.item_id+'\','+l+')">'+txt+'</span>';
+  });
+  return '<div class="pipe">'+h+'</div>';
 }
 
-document.getElementById("b-csv").addEventListener("click", function(){
-  var csv = buildCSV();
-  box.value = csv; box.classList.add("show"); box.focus(); box.select();
-  var ok = false;
-  try{ ok = document.execCommand("copy"); }catch(e){}
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(csv).then(function(){}, function(){}); ok = true;
-  }
-  howto.innerHTML = (ok ? "<b>Copiado.</b> " : "<b>Copialo del recuadro de arriba</b> (Ctrl+A, Ctrl+C). ") +
-    'Ahora: <b>1)</b> tocá "Abrir en GitHub" · <b>2)</b> Ctrl+A y pegá encima (Ctrl+V) · ' +
-    '<b>3)</b> botón verde "Commit changes".';
-});
+function clickChip(itemId, lv){
+  const cur = level(itemId);
+  const nuevo = (cur === lv) ? lv - 1 : lv;
+  if(nuevo === baseLevel(itemId)) delete overrides[itemId]; else overrides[itemId] = nuevo;
+  localStorage.setItem(MANKEY, JSON.stringify(overrides));
+  render();
+}
 
-document.getElementById("b-gh").addEventListener("click", function(){
-  window.open(GH_EDIT, "_blank", "noopener");
-});
+function buildCsv(){
+  const lines = [CSV_HEADER];
+  CSV_ROWS.forEach(r => {
+    const row = r.slice();
+    const lv = level(r[0]);
+    row[3] = lv >= 1 ? 'SI' : 'NO';
+    row[4] = lv >= 2 ? 'SI' : 'NO';
+    row[6] = lv >= 3 ? 'SI' : 'NO';
+    lines.push(row.map(c => /[",\n]/.test(c) ? '"'+c.replace(/"/g,'""')+'"' : c).join(','));
+  });
+  return lines.join('\n');
+}
+function copyCsv(){
+  const csv = buildCsv();
+  const ta = document.getElementById('csvout');
+  ta.style.display = 'block'; ta.value = csv; ta.select();
+  if(navigator.clipboard) navigator.clipboard.writeText(csv).catch(()=>{});
+  else { try{ document.execCommand('copy'); }catch(e){} }
+}
+function discard(){ overrides = {}; localStorage.removeItem(MANKEY); document.getElementById('csvout').style.display='none'; render(); }
 
-document.getElementById("b-reset").addEventListener("click", function(){
-  if(!confirm("¿Descartar los cambios sin guardar y volver a como está en GitHub?")) return;
-  ov = {}; save(ov); items.forEach(paintItem); paintBar();
-});
+function grupos(archivados){
+  const g = {};
+  ENVIOS.forEach(env => env.items.forEach(it => {
+    if(itemArchivado(env,it) !== archivados) return;
+    const man = csvMap[it.item_id];
+    const key = (man && man[1]) ? man[1] : (it.venta ? it.venta.cliente : 'Reposición de stock');
+    (g[key] = g[key] || {cliente:key,items:[],fecha:'0000-00-00',nro:it.venta?it.venta.nro_interno:null}).items.push({env,it});
+    if(env.fecha_compra > g[key].fecha) g[key].fecha = env.fecha_compra;
+  }));
+  return Object.values(g).sort((a,b) => b.fecha.localeCompare(a.fecha));
+}
 
-paintBar();
-})();
+function itemHtml(env,it){
+  let h = '<div class="item" data-item="'+it.item_id+'">';
+  h += '<div class="prod">'+it.producto+'</div>';
+  h += '<div class="prov">'+env.proveedor+' · orden '+env.orden+(env.tracking?' · '+env.tracking:'')
+     + ' · comprado '+(env.fecha_compra?FMT(env.fecha_compra):'—')
+     + ' · <a href="'+env.mail_link+'" target="_blank">ver mail</a></div>';
+  h += chips(env,it);
+  const notas = [env.nota, it.venta && it.venta.nota].filter(Boolean);
+  if(notas.length) h += '<div class="nota">'+notas.join('<br>')+'</div>';
+  return h + '</div>';
+}
+
+function render(){
+  try { overrides = JSON.parse(localStorage.getItem(MANKEY) || '{}'); } catch(e){}
+
+  document.getElementById('stamp').textContent =
+    'Actualizado el sábado 12/09/2026 · ventas NEVE #225 en adelante · publicado sin el entorno Linux (Paso 7-bis)';
+
+  const dem = calcDemorados();
+  const act = grupos(false), arch = grupos(true);
+  const nItems = act.reduce((s,g)=>s+g.items.length,0);
+  const enVuelo = ENVIOS.filter(e => e.items.some(i=>!itemArchivado(e,i)) && ['arribado_warehouse','en_vuelo'].includes(e.estado_auto)).length;
+  const enAR = ENVIOS.filter(e => e.items.some(i=>!itemArchivado(e,i)) && e.estado_auto==='deberia_haber_llegado_ar').length;
+
+  document.getElementById('stats').innerHTML = [
+    '<div class="stat '+(dem.length?'alert':'clean')+'"><div class="n">'+dem.length+'</div><div class="l">Demorados</div></div>',
+    '<div class="stat"><div class="n">'+nItems+'</div><div class="l">Items en curso</div></div>',
+    '<div class="stat"><div class="n">'+enAR+'</div><div class="l">Ya en Argentina</div></div>',
+    '<div class="stat"><div class="n">'+enVuelo+'</div><div class="l">En Miami / vuelo</div></div>',
+    '<div class="stat"><div class="n">'+EXTERNAS.filter(e=>e.recibido!=='SI').length+'</div><div class="l">Compras en mano</div></div>',
+    '<div class="stat"><div class="n">'+SIN_COMPRA.length+'</div><div class="l">Sin comprar</div></div>'
+  ].join('');
+
+  document.getElementById('demorados').innerHTML = dem.length
+    ? dem.map(d => '<div class="dem '+(d.d>=10?'rojo':'amar')+'">'
+        + '<div class="top"><span class="days">'+d.d+' días de atraso</span><span class="prod">'+d.prod+'</span>'
+        + '<span class="who">'+d.who+'</span></div>'
+        + '<div class="who">'+d.src+'</div><div class="why">'+d.why+'</div></div>').join('')
+    : '<div class="dem verde">✓ Nada demorado. Chequeado el 12/09/2026 contra tránsito internacional, compras en mano y ventas sin comprar.</div>';
+
+  document.getElementById('cnt-curso').textContent = nItems+' items';
+  document.getElementById('curso').innerHTML = act.map(g => {
+    const multi = g.items.length > 1;
+    const head = '<span class="cli">'+g.cliente+'</span>'
+      + (g.items[0].it.venta ? '<span class="nro">venta '+g.items[0].it.venta.nro_interno+'</span>' : '<span class="nro none">sin venta</span>')
+      + '<span class="meta">'+g.items.length+' producto'+(multi?'s':'')+' · '+FMT(g.fecha)+'</span>';
+    const body = g.items.map(x => itemHtml(x.env,x.it)).join('');
+    return multi
+      ? '<details class="grp" open><summary>'+head+'</summary>'+body+'</details>'
+      : '<div class="grp"><div class="head">'+head+'</div>'+body+'</div>';
+  }).join('');
+
+  document.getElementById('cnt-sin').textContent = SIN_COMPRA.length;
+  document.getElementById('sincompra').innerHTML = SIN_COMPRA.length
+    ? '<div class="grp"><div class="inner"><table><thead><tr><th>Venta</th><th>Cliente</th><th>Producto</th><th>Fecha</th></tr></thead><tbody>'
+      + SIN_COMPRA.map(v=>'<tr><td>'+v.nro_interno+'</td><td>'+v.cliente+'</td><td>'+v.producto+'</td><td>'+FMT(v.fecha_venta)+'</td></tr>').join('')
+      + '</tbody></table></div></div>'
+    : '<div class="empty">✓ Todas las ventas #225+ que figuran Pedido/Comprado tienen su compra identificada en Gmail o su fila en compras en mano.</div>';
+
+  const ext = EXTERNAS.filter(e=>e.recibido!=='SI');
+  document.getElementById('cnt-ext').textContent = ext.length;
+  document.getElementById('externas').innerHTML =
+    '<div class="grp"><div class="inner"><table><thead><tr><th>Venta</th><th>Cliente</th><th>Producto</th><th>Vendida</th><th>Vía</th><th>Encargado</th><th>Recibido</th></tr></thead><tbody>'
+    + EXTERNAS.map(e=>'<tr><td>'+e.nro_interno+'</td><td>'+e.cliente+'</td><td>'+e.producto+'</td><td>'+FMT(e.fecha_venta)+'</td><td>'+e.via+'</td><td>'+e.comprado+'</td><td>'+e.recibido+'</td></tr>').join('')
+    + '</tbody></table></div></div>';
+
+  document.getElementById('avisos').innerHTML = AVISOS.map(a=>'<li>'+a+'</li>').join('');
+
+  const archItems = arch.reduce((s,g)=>s+g.items.length,0);
+  document.getElementById('cnt-arch').textContent = archItems+' items';
+  const tb = document.querySelector('#archtable tbody');
+  tb.innerHTML = arch.flatMap(g => g.items.map(x =>
+    '<tr><td>'+g.cliente+'</td><td>'+(x.it.venta?x.it.venta.nro_interno:'—')+'</td><td>'+x.it.producto+'</td>'
+    +'<td>'+x.env.proveedor+'</td><td>'+(x.env.fecha_compra?FMT(x.env.fecha_compra):'—')+'</td>'
+    +'<td>'+(x.it.venta && x.it.venta.estado_venta==='Enviado' ? 'Enviado al cliente' : 'Cerrado a mano')+'</td></tr>')).join('');
+
+  const n = Object.keys(overrides).length;
+  const bar = document.getElementById('savebar');
+  if(n){ bar.classList.add('on');
+    document.getElementById('savemsg').innerHTML = '<b>'+n+'</b> cambio'+(n>1?'s':'')+' sin guardar. Copiá el CSV y pegalo en GitHub para que la próxima corrida los tome.'; }
+  else { bar.classList.remove('on'); document.getElementById('csvout').style.display='none'; }
+
+  document.getElementById('foot').textContent =
+    'Regla de consolidación: lo que llega al warehouse de Miami (1340 NW 114th St, FL 33167) antes del lunes 14:00 sube al vuelo del martes y aterriza en Argentina el jueves ~23:00. '
+    + 'Umbral de demora: ≥5 días amarillo, ≥10 días rojo. Fuente: Gmail + NEVE_Lista_de_Ventas.xlsx.';
+}
+render();
 </script>
 </body>
 </html>
