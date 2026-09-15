@@ -1,437 +1,812 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Compras internacionales — Stock NEVE</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#0f1115;color:#e8eaed;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.45}
-.wrap{max-width:1180px;margin:0 auto;padding:18px 16px 80px}
-h1{font-size:22px;margin:0 0 4px}
-.sub{color:#9aa0a6;font-size:13px;margin-bottom:18px}
-h2{font-size:16px;margin:28px 0 12px;padding-bottom:6px;border-bottom:1px solid #272b33}
-h2 .cnt{color:#9aa0a6;font-weight:400;font-size:13px}
-.stats{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 22px}
-.stat{background:#171a21;border:1px solid #272b33;border-radius:10px;padding:10px 14px;min-width:110px}
-.stat .n{font-size:22px;font-weight:700}
-.stat .l{color:#9aa0a6;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
-.stat.red{border-color:#5c2b2b;background:#1d1416}
-.stat.red .n{color:#ff6b6b}
-.card{background:#171a21;border:1px solid #272b33;border-radius:10px;margin-bottom:10px;overflow:hidden}
-.card>summary{cursor:pointer;list-style:none;padding:11px 14px}
-.card>summary::-webkit-details-marker{display:none}
-.chead{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.cliente{font-weight:600;font-size:15px}
-.nro{color:#8ab4f8;font-size:12px;font-weight:600}
-.meta{color:#9aa0a6;font-size:12px}
-.item{padding:11px 14px;border-top:1px solid #23262e}
-.card>.item:first-child{border-top:none}
-.prod{font-weight:600;margin-bottom:2px}
-.prov{color:#9aa0a6;font-size:12px;margin-bottom:9px}
-.prov a{color:#8ab4f8;text-decoration:none}
-.pipe{display:flex;gap:5px;flex-wrap:wrap}
-.chip{font-size:11px;padding:3px 9px;border-radius:20px;border:1px solid #2f333c;color:#6f757e;background:#12141a;white-space:nowrap}
-.chip.on{background:#10331f;border-color:#1f6b3d;color:#7ee2a8}
-.chip.warn{background:#3a2a0c;border-color:#8a6516;color:#ffd36b}
-.chip.man{cursor:pointer;user-select:none}
-.chip.man:hover{border-color:#5a616e;color:#c7ccd4}
-.chip.man.on:hover{border-color:#2f9c5c}
-.nota{margin-top:8px;font-size:12px;color:#a8aeb6;background:#12141a;border-left:2px solid #3a3f49;padding:6px 10px;border-radius:0 6px 6px 0}
-.nota.warnn{border-left-color:#8a6516;color:#ffd36b}
-.dem{border-radius:10px;padding:12px 14px;margin-bottom:9px;border:1px solid}
-.dem.rojo{background:#1d1416;border-color:#5c2b2b}
-.dem.amar{background:#1e1a10;border-color:#6b551f}
-.dem .dias{font-weight:700;font-size:13px}
-.dem.rojo .dias{color:#ff6b6b}
-.dem.amar .dias{color:#ffd36b}
-.dem .t{font-weight:600;margin:3px 0 2px}
-.dem .d{color:#b9bec6;font-size:12.5px}
-.dem .acc{margin-top:7px;font-size:12.5px;color:#e8eaed;background:rgba(255,255,255,.04);padding:6px 10px;border-radius:6px}
-.ok{background:#10251a;border:1px solid #1f6b3d;border-radius:10px;padding:12px 14px;color:#7ee2a8}
-.empty{color:#9aa0a6;font-style:italic;padding:8px 2px}
-#savebar{display:none;position:sticky;top:0;z-index:50;background:#1b2333;border:1px solid #2f4a7a;border-radius:10px;padding:11px 14px;margin-bottom:16px}
-#savebar b{color:#8ab4f8}
-.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
-button{font:inherit;font-size:13px;padding:6px 13px;border-radius:7px;border:1px solid #39404d;cursor:pointer}
-.b1{background:#2f6fd0;border:1px solid #2f6fd0;color:#fff}
-.b2{background:#232833;border:1px solid #39404d;color:#e8eaed}
-.b3{background:transparent;border:1px solid #39404d;color:#9aa0a6}
-#csvout{display:none;width:100%;height:150px;margin-top:9px;background:#0f1115;color:#c7ccd4;border:1px solid #39404d;border-radius:7px;padding:8px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px}
-details.arch>summary{cursor:pointer;color:#9aa0a6;font-size:13px;padding:9px 0}
-.banner{background:#1e1a10;border:1px solid #6b551f;border-radius:10px;padding:11px 14px;color:#ffd36b;font-size:13px;margin-bottom:16px}
-.foot{color:#6f757e;font-size:11.5px;margin-top:30px;border-top:1px solid #23262e;padding-top:12px}
+  :root { --bg:#0f172a; --card:#1e293b; --text:#e2e8f0; --muted:#94a3b8; --border:#334155; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+         background:var(--bg); color:var(--text); padding:24px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  h2 { font-size:15px; margin:28px 0 10px; color:#fca5a5; }
+  .updated { color:var(--muted); font-size:13px; margin-bottom:16px; }
+  .updated a { color:#60a5fa; }
+  .stats { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
+  .stat { background:var(--card); border:1px solid var(--border); border-radius:10px;
+           padding:10px 16px; min-width:110px; }
+  .stat .n { font-size:22px; font-weight:700; }
+  .stat .l { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
+  .stat.alerta { border-color:#ef4444; }
+  .stat.alerta .n { color:#f87171; }
+  .demorados { margin-bottom:26px; }
+  .dem-title { color:#f87171; font-size:16px; margin:0 0 10px; }
+  .dem-ok { background:#052e1a; border:1px solid #14532d; color:#86efac;
+             border-radius:10px; padding:14px 16px; font-size:14px; }
+  .dem-item { display:flex; gap:14px; background:var(--card); border-left:4px solid var(--border);
+               border-radius:10px; padding:12px 16px; margin-bottom:8px; }
+  .dem-item.rojo { border-left-color:#ef4444; background:#2a1414; }
+  .dem-item.amarillo { border-left-color:#f59e0b; background:#2a2312; }
+  .dem-dias { font-size:26px; font-weight:700; line-height:1; min-width:58px; text-align:center; }
+  .dem-item.rojo .dem-dias { color:#f87171; }
+  .dem-item.amarillo .dem-dias { color:#fbbf24; }
+  .dem-dias span { display:block; font-size:10px; font-weight:600; color:var(--muted);
+                    text-transform:uppercase; margin-top:2px; }
+  .dem-prod { font-weight:600; font-size:14px; }
+  .dem-meta { color:var(--muted); font-size:11px; margin-top:2px; }
+  .dem-motivo { font-size:12px; margin-top:6px; }
+  .dem-hacer { font-size:12px; margin-top:4px; color:#7dd3fc; }
+  .savebar { position:sticky; top:0; z-index:50; display:none; gap:10px; align-items:center;
+              background:#1d4ed8; border-radius:10px; padding:10px 14px; margin-bottom:16px; flex-wrap:wrap; }
+  .savebar button { background:#fff; color:#1d4ed8; border:0; border-radius:8px;
+                     padding:7px 14px; font-size:13px; font-weight:600; cursor:pointer; }
+  .savebar button.ghost { background:transparent; color:#dbeafe; border:1px solid #93c5fd; }
+  .savebar .msg { font-size:13px; flex:1; min-width:180px; }
+  #csvout { display:none; width:100%; height:150px; margin-top:10px; font-family:monospace;
+             font-size:11px; background:#0b1220; color:#e2e8f0; border:1px solid var(--border);
+             border-radius:8px; padding:8px; }
+  .toolbar { display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; }
+  .toolbar input, .toolbar select { background:var(--card); color:var(--text);
+      border:1px solid var(--border); border-radius:8px; padding:8px 12px; font-size:14px; }
+  .toolbar input { flex:1; min-width:200px; }
+  table { width:100%; border-collapse:collapse; background:var(--card); border-radius:10px; overflow:hidden; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--border); font-size:13px; vertical-align:top; }
+  th { background:#16213a; color:var(--muted); font-weight:600; text-transform:uppercase; font-size:11px; letter-spacing:.04em; }
+  tr:hover td { background:#223047; }
+  tr.alert-row td { background:#2a1414; }
+  .badge { display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px;
+            color:#0b1220; font-weight:600; white-space:nowrap; }
+  .pipeline { display:flex; flex-wrap:wrap; gap:3px; margin-top:7px; max-width:280px; }
+  .chip { font-size:9.5px; padding:2px 6px; border-radius:999px; background:#0b1220;
+           color:#64748b; border:1px solid var(--border); white-space:nowrap; }
+  .chip.done { background:#14532d; color:#86efac; border-color:#166534; }
+  .chip.warn { background:#422006; color:#fbbf24; border-color:#854d0e; }
+  .chip-manual { cursor:pointer; }
+  .chip-manual:hover { outline:1px solid #60a5fa; }
+  .venta { display:inline-block; padding:2px 8px; border-radius:6px; font-size:11px; }
+  .venta.confirmado { background:#14532d; color:#86efac; }
+  .venta.posible { background:#713f12; color:#fde68a; }
+  .venta.sinmatch { background:#334155; color:var(--muted); }
+  .sub { color:var(--muted); font-size:11px; margin-top:4px; }
+  .nota { color:#fbbf24; font-size:11px; margin-top:4px; }
+  .obs { color:#7dd3fc; font-size:11px; margin-top:4px; }
+  .tracking { color:var(--muted); font-size:11px; }
+  a { color:#60a5fa; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  .empty { text-align:center; color:var(--muted); padding:30px; }
+  .fila-grupo { cursor:pointer; }
+  .toggle { display:inline-block; color:var(--muted); font-size:11px; }
+  details { margin-top:24px; }
+  summary { cursor:pointer; color:var(--muted); font-size:15px; padding:6px 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<div id="savebar">
-  <b>Tenés cambios sin guardar.</b> Copiá el CSV actualizado y pegalo en GitHub para que la próxima corrida los lea.
-  <div class="btns">
-    <button class="b1" onclick="copiar()">Copiar CSV actualizado</button>
-    <button class="b2" onclick="window.open('https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv','_blank')">Abrir en GitHub</button>
-    <button class="b3" onclick="descartar()">Descartar</button>
+  <div class="savebar" id="savebar">
+    <span class="msg" id="savemsg">Tenes cambios sin guardar.</span>
+    <button onclick="copiarCSV()">Copiar CSV actualizado</button>
+    <button onclick="abrirGitHub()">Abrir en GitHub</button>
+    <button class="ghost" onclick="descartar()">Descartar</button>
+    <textarea id="csvout" readonly></textarea>
   </div>
-  <textarea id="csvout" spellcheck="false"></textarea>
-</div>
 
-<h1>Compras internacionales — Stock NEVE</h1>
-<div class="sub">Actualizado lunes 14/09/2026 · Lista de Ventas leída del xlsx del 11/09 · consolidación Miami→AR: martes vuela, jueves ~23:00 llega</div>
+  <h1>📦 Compras internacionales — Stock NEVE</h1>
+  <div class="updated">Actualizado 15/09/2026 11:17 · Toca los ultimos 3 chips (llego / empaquetado / enviado) para marcar avances · <a href="https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv" target="_blank">planilla en GitHub</a></div>
 
-<div class="stats">
-  <div class="stat red"><div class="n">3</div><div class="l">Demorados</div></div>
-  <div class="stat"><div class="n">12</div><div class="l">En curso</div></div>
-  <div class="stat"><div class="n">0</div><div class="l">Ventas sin compra</div></div>
-  <div class="stat"><div class="n">2</div><div class="l">En mano (Meli)</div></div>
-  <div class="stat"><div class="n">25</div><div class="l">Archivados</div></div>
-</div>
-
-<h2>🔴 Demorados <span class="cnt">— lo que no está saliendo</span></h2>
-
-<div class="dem rojo">
-  <div class="dias">20 días de atraso</div>
-  <div class="t">Nishane Hacivat Extrait de Parfum 100ml — PAQUETE PERDIDO</div>
-  <div class="d">Lucas Vallejos · venta #288 · Jomashop orden M40ER5PK · USPS 9436250206079010426761</div>
-  <div class="acc">Despachado el 20/8 y nunca llegó al warehouse. El 09/09 abriste el reclamo de búsqueda en USPS (<b>Search ID #MRC 26 2674 3578</b>) y sigue sin novedades. La venta ya figura <b>Enviado</b> (la resolviste con stock), pero la plata del perfume sigue en juego: <b>reclamale el reembolso a Jomashop</b> citando el Search ID.</div>
-</div>
-
-<div class="dem rojo">
-  <div class="dias">15 días de atraso</div>
-  <div class="t">Louis Vuitton Imagination 100ml</div>
-  <div class="d">Adrian Espinola · venta #295 (30/08) · viene por Meli (en mano) · ya encargado, todavía no recibido</div>
-  <div class="acc"><b>Preguntarle a Meli.</b> Tenés dos ventas del mismo perfume esperando (#295 Adrian Espinola y #297 Matias Lumbreras) — <b>preguntale por los dos juntos</b>.</div>
-</div>
-
-<div class="dem amar">
-  <div class="dias">9 días de atraso</div>
-  <div class="t">Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</div>
-  <div class="d">Matias Lumbreras · venta #297 (05/09) · viene por Meli (en mano) · ya encargado, todavía no recibido</div>
-  <div class="acc">Va junto con el #295 de Adrian Espinola: una sola consulta a Meli cubre los dos.</div>
-</div>
-
-<h2>En curso <span class="cnt">— 12 items</span></h2>
-
-<div class="card">
-  <div class="item" data-item="jomashop-M40F1U2K">
-    <div class="chead"><span class="cliente">Maximiliano Sendra</span><span class="nro">#306</span><span class="meta">comprado 10/09</span></div>
-    <div class="prod">Tissot Gentleman Powermatic 80 Silicium Automatic Green Dial T127.407.11.091.01</div>
-    <div class="prov">Jomashop · orden M40F1U2K · UPS 1Z7R3F940390163546 · US$710,48 · <a href="https://mail.google.com/mail/u/0/#all/1a08d17d932feca8" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip">Arribado al warehouse</span><span class="chip">En vuelo</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota">Comprado y despachado el mismo día (10/09). Debería tocar Miami esta semana.</div>
+  <div class="stats">
+    <div class="stat alerta"><div class="n">4</div><div class="l">Demorados</div></div>
+    <div class="stat"><div class="n">11</div><div class="l">En curso</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">En vuelo / por llegar</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Ya en Argentina</div></div>
+    <div class="stat"><div class="n">0</div><div class="l">Sin comprar</div></div>
   </div>
-</div>
 
-<div class="card">
-  <div class="item" data-item="ebay-03-15161-82309">
-    <div class="chead"><span class="cliente">Leandro Ruiz</span><span class="nro">#305</span><span class="meta">comprado 10/09</span></div>
-    <div class="prod">Maison Alhambra Exclusif Tabac EDP 100ml</div>
-    <div class="prov">eBay (elitesneaks901) · orden 03-15161-82309 · US$151,93 · ETA proveedor 14–17/09 · <a href="https://mail.google.com/mail/u/0/#all/1a08ba289b58de84" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip">Enviado a warehouse</span><span class="chip">Arribado al warehouse</span><span class="chip">En vuelo</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota">Solo llegó el “🚚 Actualización del pedido” de eBay, que no es el despacho real. Todavía sin confirmación de envío del vendedor.</div>
-  </div>
-</div>
+  
+  <section class="demorados">
+    <h2 class="dem-title">🚨 Demorados (4) — lo que no esta saliendo</h2>
+    
+      <div class="dem-item rojo">
+        <div class="dem-dias">21<span>dias</span></div>
+        <div class="dem-body">
+          <div class="dem-prod">Nishane Hacivat Extrait de Parfum 3.4oz</div>
+          <div class="dem-meta">#288 Lucas Vallejos · Jomashop · M40ER5PK · <a href="https://mail.google.com/mail/u/0/#all/1a01fc606bac393f" target="_blank">ver mail</a></div>
+          <div class="dem-motivo">Paquete perdido: sin eventos de tracking y con reclamo de busqueda abierto (Search ID #MRC 26 2674 3578). La venta ya figura Enviada (se resolvio con stock), pero la plata del paquete sigue en juego.</div>
+          <div class="dem-hacer">→ Reclamarle el reembolso al proveedor y seguir el reclamo del courier.</div>
+        </div>
+      </div>
+      <div class="dem-item rojo">
+        <div class="dem-dias">16<span>dias</span></div>
+        <div class="dem-body">
+          <div class="dem-prod">Louis Vuitton Imagination 100ml</div>
+          <div class="dem-meta">#295 Adrian Espinola + #297 Matias Lumbreras · Compra en mano · Meli (trae en mano)</div>
+          <div class="dem-motivo">Encargado a Meli (trae en mano) y todavia sin recibir (venta del 30/08).</div>
+          <div class="dem-hacer">→ Preguntarle a Meli — son 2 unidades, preguntale por todas juntas.</div>
+        </div>
+      </div>
+      <div class="dem-item amarillo">
+        <div class="dem-dias">5<span>dias</span></div>
+        <div class="dem-body">
+          <div class="dem-prod">Hamilton Khaki Field Expedition Auto H70225540</div>
+          <div class="dem-meta">#268 Francesco Delli · WatchMaxx · #646631 (reemplazo de #640112) · <a href="https://mail.google.com/mail/u/0/#all/1a06317a3a0f3cee" target="_blank">ver mail</a></div>
+          <div class="dem-motivo">El vuelo estimado llegaba a Argentina el 10/09 y todavia no se marco como recibido.</div>
+          <div class="dem-hacer">→ Confirmar con el courier si ya esta en Argentina y marcarlo en el dashboard.</div>
+        </div>
+      </div>
+      <div class="dem-item amarillo">
+        <div class="dem-dias">5<span>dias</span></div>
+        <div class="dem-body">
+          <div class="dem-prod">Seiko 5 Sports 38mm Black Dial Stainless Steel Watch SRPK29</div>
+          <div class="dem-meta">#294 Mariano Fittipaldi · eBay · 23-15086-02249 · <a href="https://mail.google.com/mail/u/0/#all/1a05f088aa1eee85" target="_blank">ver mail</a></div>
+          <div class="dem-motivo">El vuelo estimado llegaba a Argentina el 10/09 y todavia no se marco como recibido.</div>
+          <div class="dem-hacer">→ Confirmar con el courier si ya esta en Argentina y marcarlo en el dashboard.</div>
+        </div>
+      </div>
+  </section>
+  
 
-<details class="card" open>
-  <summary>
-    <div class="chead"><span class="cliente">Gabriel Ferrer</span><span class="nro">#299</span><span class="meta">comprado 08/09 · 2 productos</span></div>
-  </summary>
-  <div class="item" data-item="venba-V240228__item1">
-    <div class="prod">Montale Arabians Tonka EDP 100ml</div>
-    <div class="prov">Venba · orden #V240228 · FedEx 877035625615 · ETA proveedor 15–18/09 · <a href="https://mail.google.com/mail/u/0/#all/1a08ccf2405dde45" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip">Arribado al warehouse</span><span class="chip">En vuelo</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
+  <h2 style="color:var(--muted)">Compras en curso (agrupadas por cliente, mas recientes primero)</h2>
+  <div class="toolbar">
+    <input id="search" type="text" placeholder="Buscar por producto, comprador, proveedor, orden, tracking...">
+    <select id="filtroProveedor"><option value="">Todos los proveedores</option><option value="Beauty House">Beauty House</option>
+<option value="Belmont Watches">Belmont Watches</option>
+<option value="Jomashop">Jomashop</option>
+<option value="MaxAroma">MaxAroma</option>
+<option value="Olfactory Factory">Olfactory Factory</option>
+<option value="Perfume Empire">Perfume Empire</option>
+<option value="Teddy Baldassarre">Teddy Baldassarre</option>
+<option value="Venba">Venba</option>
+<option value="WatchMaxx">WatchMaxx</option>
+<option value="Xtrait Perfumery">Xtrait Perfumery</option>
+<option value="eBay">eBay</option>
+<option value="eBay (Dexclusive.com)">eBay (Dexclusive.com)</option>
+<option value="eBay (abetterworldstore)">eBay (abetterworldstore)</option>
+<option value="eBay (addicted2shades)">eBay (addicted2shades)</option>
+<option value="eBay (dilcham43)">eBay (dilcham43)</option>
+<option value="eBay (elitesneaks901)">eBay (elitesneaks901)</option>
+<option value="eBay (georgymelly)">eBay (georgymelly)</option>
+<option value="eBay (hardjapan)">eBay (hardjapan)</option>
+<option value="eBay (sasy420)">eBay (sasy420)</option></select>
+    <select id="filtroEstado"><option value="">Todos los estados</option><option value="pedido_confirmado">Pedido confirmado</option>
+<option value="pagado">Pagado</option>
+<option value="enviado_warehouse">Enviado a warehouse</option>
+<option value="arribado_warehouse">Arribo al warehouse</option>
+<option value="en_vuelo">En vuelo</option>
+<option value="deberia_haber_llegado_ar">Deberia haber llegado a AR</option>
+<option value="llegado_argentina">Llego a Argentina</option>
+<option value="empaquetado">Empaquetado</option>
+<option value="enviado_final">Enviado al cliente</option></select>
   </div>
-  <div class="item" data-item="venba-V240228__item3">
-    <div class="prod">Mystery Samples Set (5 samples)</div>
-    <div class="prov">Venba · orden #V240228 · viaja en el mismo envío</div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip">Arribado al warehouse</span><span class="chip">En vuelo</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota">La venta #299 pide “Montale Arabians Tonka 100ml + Mystery Box”: los dos items salen de este pedido de Venba.</div>
-  </div>
-</details>
+  <table id="tabla">
+    <thead><tr><th>Comprador</th><th>Producto</th><th>Proveedor</th><th>Ganancia</th>
+      <th>Estado</th><th>Orden / Tracking</th><th>Venta NEVE</th><th>Mail</th></tr></thead>
+    <tbody>
+    <tr data-item="jomashop-M40F1U2K" data-proveedor="Jomashop" data-estado="enviado_warehouse" data-comprador="Maximiliano Sendra" data-search="maximiliano sendra tissot gentleman powermatic 80 silicium automatic green dial men&#x27;s watch t127.407.11.091.01 jomashop m40f1u2k 1z7r3f940390163546">
+      <td>Maximiliano Sendra</td>
+      <td>Tissot Gentleman Powermatic 80 Silicium Automatic Green Dial Men&#x27;s Watch T127.407.11.091.01<div class="sub">Comprado: 10/09/2026</div><div class="nota">⚠ 10/9: order confirmed y cobrado $710.48 a Visa -3139 (cupon GOOGLE20). Mismo dia shipped con UPS 1Z7R3F940390163546. Todavia sin confirmacion de entrega en Miami.</div></td>
+      <td>Jomashop</td>
+      <td>$ 158.563</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip">Arribo al warehouse</span><span class="chip">En vuelo</span><span class="chip chip-manual" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40F1U2K<br><span class="tracking">1Z7R3F940390163546</span></td>
+      <td><span class="venta confirmado">Confirmado · #306 Maximiliano Sendra</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a08d17d932feca8" target="_blank">Ver mail</a></td>
+    </tr>
 
-<div class="card">
-  <div class="item" data-item="venba-V240228__item2">
-    <div class="chead"><span class="cliente">Erika Ilgner</span><span class="nro">#300</span><span class="meta">comprado 08/09</span></div>
-    <div class="prod">Ella K Musc K EDP 100ml</div>
-    <div class="prov">Venba · orden #V240228 · FedEx 877035625615 · ETA proveedor 15–18/09 · <a href="https://mail.google.com/mail/u/0/#all/1a08ccf2405dde45" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip">Arribado al warehouse</span><span class="chip">En vuelo</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota">La Lista de Ventas la escribe “Elle K Musk K 100ml” — es el mismo perfume (Ella K · Musc K).</div>
-  </div>
-</div>
+    <tr data-item="ebay-03-15161-82309" data-proveedor="eBay (elitesneaks901)" data-estado="pagado" data-comprador="Leandro Ruiz" data-search="leandro ruiz maison alhambra exclusif tabac eau de parfum 3.4oz 100ml ebay (elitesneaks901) 03-15161-82309 -">
+      <td>Leandro Ruiz</td>
+      <td>Maison Alhambra Exclusif Tabac Eau De Parfum 3.4oz 100ml<div class="sub">Comprado: 10/09/2026</div><div class="sub">ETA proveedor: 2026-09-14/2026-09-17</div><div class="nota">⚠ 10/9: pedido confirmado y cobrado USD151.93 (tarjeta -0154), entrega estimada 14-17/9. El aviso de eBay del 10/9 es solo &#x27;Actualizacion del pedido&#x27;, todavia no hay despacho real.</div><div class="nota">⚠ Ganancia negativa en la planilla (-$38.467) - revisar el precio de lista de esta venta.</div></td>
+      <td>eBay (elitesneaks901)</td>
+      <td>$ -38.467</td>
+      <td><span class="badge" style="background:#60a5fa">Pagado</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip">Enviado a warehouse</span><span class="chip">Arribo al warehouse</span><span class="chip">En vuelo</span><span class="chip chip-manual" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>03-15161-82309<br><span class="tracking">-</span></td>
+      <td><span class="venta confirmado">Confirmado · #305 Leandro Ruiz</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a08ba289b58de84" target="_blank">Ver mail</a></td>
+    </tr>
 
-<div class="card">
-  <div class="item" data-item="watchmaxx-647905">
-    <div class="chead"><span class="cliente">Ignacio</span><span class="nro">#304</span><span class="meta">comprado 09/09</span></div>
-    <div class="prod">Longines Master Collection Automatic 38.5mm L2.628.4.51.6</div>
-    <div class="prov">WatchMaxx · orden #647905 · UPS 1Z76E25RA893206730 · US$1.224 · <a href="https://mail.google.com/mail/u/0/#all/1a08782611647af5" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip on">Arribado al warehouse 12/09</span><span class="chip">En vuelo (sale 15/09)</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota">Récord de velocidad: comprado, despachado y entregado en Miami en 3 días. Sube al vuelo del martes 15/09, llega a AR el jueves 17/09 ~23:00.</div>
-  </div>
-</div>
+    <tr data-item="ebay-23-15120-76756" data-proveedor="eBay (dilcham43)" data-estado="en_vuelo" data-comprador="Juan Sebastian Melara Longo" data-search="juan sebastian melara longo bulova surveyor men&#x27;s 97b234 automatic watch purple dial rose gold tone 39mm ebay (dilcham43) 23-15120-76756 ups">
+      <td>Juan Sebastian Melara Longo</td>
+      <td>Bulova Surveyor Men&#x27;s 97B234 Automatic Watch Purple Dial Rose Gold Tone 39mm<div class="sub">Comprado: 09/09/2026</div><div class="sub">ETA proveedor: 2026-09-14/2026-09-16</div><div class="sub">Vuelo: sale 15/09 · llega AR Jueves 17/09 23:00 (estimado)</div><div class="nota">⚠ 9/9: pedido confirmado y cobrado USD318.86 (Visa -3139). | 11/9: despachado con UPS. | 12/9: entregado 14:13 hora local, adelantado a la ETA.</div></td>
+      <td>eBay (dilcham43)</td>
+      <td>$ 456.414</td>
+      <td><span class="badge" style="background:#a78bfa">En vuelo</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>23-15120-76756<br><span class="tracking">UPS</span></td>
+      <td><span class="venta confirmado">Confirmado · #301 Juan Sebastian Melara Longo</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a096e8e00ae3f6f" target="_blank">Ver mail</a></td>
+    </tr>
 
-<div class="card">
-  <div class="item" data-item="ebay-23-15120-76756">
-    <div class="chead"><span class="cliente">Juan Sebastian Melara Longo</span><span class="nro">#301</span><span class="meta">comprado 09/09</span></div>
-    <div class="prod">Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm</div>
-    <div class="prov">eBay (dilcham43) · orden 23-15120-76756 · UPS · US$318,86 · <a href="https://mail.google.com/mail/u/0/#all/1a096e8e00ae3f6f" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip on">Arribado al warehouse 12/09 14:13</span><span class="chip">En vuelo (sale 15/09)</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota">Llega a AR el jueves 17/09 ~23:00.</div>
-  </div>
-</div>
+    <tr data-item="watchmaxx-647905" data-proveedor="WatchMaxx" data-estado="en_vuelo" data-comprador="Ignacio" data-search="ignacio longines master collection automatic 38.5mm l2.628.4.51.6 watchmaxx #647905 1z76e25ra893206730">
+      <td>Ignacio</td>
+      <td>Longines Master Collection Automatic 38.5mm L2.628.4.51.6<div class="sub">Comprado: 09/09/2026</div><div class="sub">ETA proveedor: 2026-09-10/2026-09-18</div><div class="sub">Vuelo: sale 15/09 · llega AR Jueves 17/09 23:00 (estimado)</div><div class="nota">⚠ 9/9: orden confirmada USD1.224 (lista 1.244 menos 20 de descuento) y despachada el mismo dia con UPS. | 12/9: WatchMaxx confirma entregado.</div><div class="nota">⚠ La planilla solo dice &#x27;Ignacio&#x27; como cliente y deja la venta neta en &#x27;-&#x27; - falta completarla.</div></td>
+      <td>WatchMaxx</td>
+      <td>$ 164.840</td>
+      <td><span class="badge" style="background:#a78bfa">En vuelo</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#647905<br><span class="tracking">1Z76E25RA893206730</span></td>
+      <td><span class="venta confirmado">Confirmado · #304 Ignacio</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a096ff5b6a03442" target="_blank">Ver mail</a></td>
+    </tr>
 
-<div class="card">
-  <div class="item" data-item="ebay-08-15139-51108">
-    <div class="chead"><span class="cliente">Alejandro Arcana</span><span class="nro">#298</span><span class="meta">comprado 07/09</span></div>
-    <div class="prod">Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic</div>
-    <div class="prov">eBay (addicted2shades) · orden 08-15139-51108 · USPS · US$701,87 · <a href="https://mail.google.com/mail/u/0/#all/1a097938c316a1f9" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip on">Arribado al warehouse 12/09 17:39</span><span class="chip">En vuelo (sale 15/09)</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota">Llega a AR el jueves 17/09 ~23:00.</div>
-  </div>
-</div>
+    <tr class="fila-grupo" data-proveedor="Venba" data-estado="enviado_warehouse" data-comprador="Gabriel Ferrer" data-search="gabriel ferrer montale arabians tonka edp 100ml mystery samples set (5 samples) venba" onclick="toggleGrupo('g29', this)">
+      <td>Gabriel Ferrer</td>
+      <td><span class="toggle" id="toggle-g29">▾</span> Montale Arabians Tonka EDP 100ml + Mystery Samples Set <span class="sub">(2 productos)</span></td>
+      <td>Venba</td>
+      <td>$ 93.712</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span></td>
+      <td>-</td><td>-</td><td>-</td>
+    </tr>
+    <tr class="detalle-item" data-group="g29" style="display:none" data-item="venba-V240228__item1" data-proveedor="Venba" data-estado="enviado_warehouse" data-comprador="Gabriel Ferrer" data-search="gabriel ferrer montale arabians tonka edp 100ml venba #v240228 fedex ground">
+      <td>Gabriel Ferrer</td>
+      <td>↳ Montale Arabians Tonka EDP 100ml<div class="sub">Comprado: 08/09/2026</div><div class="sub">ETA proveedor: 2026-09-15/2026-09-18</div><div class="nota">⚠ 8/9: orden confirmada USD282.96. | 10/9: despachada con FedEx Ground, entrega estimada 15-18/9.</div><div class="nota">⚠ La venta #299 pide Arabians Tonka + Mystery Box: los dos viajan en este mismo pedido de Venba.</div></td>
+      <td>Venba</td>
+      <td>$ 46.856</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip">Arribo al warehouse</span><span class="chip">En vuelo</span><span class="chip chip-manual" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#V240228<br><span class="tracking">FedEx Ground</span></td>
+      <td><span class="venta confirmado">Confirmado · #299 Gabriel Ferrer</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a08ccf2405dde45" target="_blank">Ver mail</a></td>
+    </tr>
+    <tr class="detalle-item" data-group="g29" style="display:none" data-item="venba-V240228__item3" data-proveedor="Venba" data-estado="enviado_warehouse" data-comprador="Gabriel Ferrer" data-search="gabriel ferrer mystery samples set (5 samples) venba #v240228 fedex ground">
+      <td>Gabriel Ferrer</td>
+      <td>↳ Mystery Samples Set (5 samples)<div class="sub">Comprado: 08/09/2026</div><div class="sub">ETA proveedor: 2026-09-15/2026-09-18</div><div class="nota">⚠ 8/9: orden confirmada USD282.96. | 10/9: despachada con FedEx Ground, entrega estimada 15-18/9.</div></td>
+      <td>Venba</td>
+      <td>$ 46.856</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip">Arribo al warehouse</span><span class="chip">En vuelo</span><span class="chip chip-manual" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#V240228<br><span class="tracking">FedEx Ground</span></td>
+      <td><span class="venta confirmado">Confirmado · #299 Gabriel Ferrer</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a08ccf2405dde45" target="_blank">Ver mail</a></td>
+    </tr>
 
-<div class="card">
-  <div class="item" data-item="belmontwatches-3113">
-    <div class="chead"><span class="cliente">Jorge Sanchez</span><span class="nro">#302</span><span class="meta">comprado 03/09</span></div>
-    <div class="prod">Nivada Grenchen F77 MK2 SST Beige Lume Black With Date Dial 69010A77</div>
-    <div class="prov">Belmont Watches · orden #3113 · FedEx 876716925838 · <a href="https://mail.google.com/mail/u/0/#all/1a0824ec95d9e373" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip on">Arribado al warehouse 08/09</span><span class="chip">En vuelo (sale 15/09)</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota">Llegó a Miami el martes 08/09, justo después del cierre del lunes, así que le tocó esperar toda la semana. Sube al vuelo del martes 15/09 y llega a AR el jueves 17/09 ~23:00.</div>
-  </div>
-</div>
+    <tr data-item="venba-V240228__item2" data-proveedor="Venba" data-estado="enviado_warehouse" data-comprador="Erika Ilgner" data-search="erika ilgner ella k musc k edp 3.4oz 100ml venba #v240228 fedex ground">
+      <td>Erika Ilgner</td>
+      <td>Ella K Musc K EDP 3.4oz 100ml<div class="sub">Comprado: 08/09/2026</div><div class="sub">ETA proveedor: 2026-09-15/2026-09-18</div><div class="nota">⚠ 8/9: orden confirmada USD282.96. | 10/9: despachada con FedEx Ground, entrega estimada 15-18/9.</div><div class="nota">⚠ En la planilla figura como &#x27;Elle K Musk K 100ml&#x27; (Nico lo escribe fonetico).</div></td>
+      <td>Venba</td>
+      <td>$ 173.740</td>
+      <td><span class="badge" style="background:#38bdf8">Enviado a warehouse</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip">Arribo al warehouse</span><span class="chip">En vuelo</span><span class="chip chip-manual" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#V240228<br><span class="tracking">FedEx Ground</span></td>
+      <td><span class="venta confirmado">Confirmado · #300 Erika Ilgner</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a08ccf2405dde45" target="_blank">Ver mail</a></td>
+    </tr>
 
-<div class="card">
-  <div class="item" data-item="ebay-23-15086-02249">
-    <div class="chead"><span class="cliente">Mariano Fittipaldi</span><span class="nro">#294</span><span class="meta">comprado 01/09</span></div>
-    <div class="prod">Seiko 5 Sports 38mm Black Dial Stainless Steel Watch SRPK29</div>
-    <div class="prov">eBay (watchowner / EDJ LUXE INC) · orden 23-15086-02249 · FedEx · US$374,50 · <a href="https://mail.google.com/mail/u/0/#all/1a05f088aa1eee85" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip on">Arribado al warehouse 03/09</span><span class="chip on">En vuelo (salió 08/09)</span><span class="chip man warn" data-lvl="1" data-origtext="Debería haber llegado a AR (10/09)">Debería haber llegado a AR (10/09)</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota">Llegó a AR el jueves 10/09 según la estimación. Si ya lo tenés en mano, marcá el chip para que la próxima corrida lo tome.</div>
-  </div>
-</div>
+    <tr data-item="ebay-08-15139-51108" data-proveedor="eBay (addicted2shades)" data-estado="en_vuelo" data-comprador="Alejandro Arcana" data-search="alejandro arcana seiko prospex spb117 luxe alpinist black dial automatic watch ebay (addicted2shades) 08-15139-51108 usps (sin nro explicito en el mail)">
+      <td>Alejandro Arcana</td>
+      <td>Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic Watch<div class="sub">Comprado: 07/09/2026</div><div class="sub">ETA proveedor: 2026-09-10</div><div class="sub">Vuelo: sale 15/09 · llega AR Jueves 17/09 23:00 (estimado)</div><div class="nota">⚠ 7/9: pedido confirmado y cobrado USD701.87 (vendedor addicted2shades / Westchester Watch Co.), entrega estimada 10-12/9. Match correcto: venta #298 (Alejandro Arcana, Pedido/Comprado), cargada a la Lista de Ventas el mismo dia de la compra. (Se habia matcheado antes por error con la venta #265 -Uber Forgione- que ya estaba Enviada; se corrigio al detectar la venta #298 en una version mas nueva de la planilla.) | 8/9: eBay confirma despacho via USPS a la direccion de Miami. | 12/9: entregado 17:39 hora local.</div></td>
+      <td>eBay (addicted2shades)</td>
+      <td>$ 154.658</td>
+      <td><span class="badge" style="background:#a78bfa">En vuelo</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>08-15139-51108<br><span class="tracking">USPS (sin nro explicito en el mail)</span></td>
+      <td><span class="venta confirmado">Confirmado · #298 Alejandro Arcana</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a07d0b6966e23a4" target="_blank">Ver mail</a></td>
+    </tr>
 
-<div class="card">
-  <div class="item" data-item="watchmaxx-640112">
-    <div class="chead"><span class="cliente">Francesco Delli</span><span class="nro">#268</span><span class="meta">venta del 27/07 · recomprado 01/09</span></div>
-    <div class="prod">Hamilton Khaki Field Expedition Auto H70225540</div>
-    <div class="prov">WatchMaxx · orden #646631 (reemplazo de #640112) · UPS 1Z76E25RA896513447 · <a href="https://mail.google.com/mail/u/0/#all/1a072f25dc996b4d" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse</span><span class="chip on">Arribado al warehouse 05/09</span><span class="chip on">En vuelo (salió 08/09)</span><span class="chip man warn" data-lvl="1" data-origtext="Debería haber llegado a AR (10/09)">Debería haber llegado a AR (10/09)</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota warnn">Es la venta pendiente más vieja del tablero (27/07, 49 días). La orden original #640112 venció sin cobrarse y hubo que recomprarlo más caro; WatchMaxx quedó en devolver los US$83 de diferencia vía Takenos — <b>chequeá que el reembolso haya entrado</b>.</div>
-  </div>
-</div>
+    <tr class="fila-grupo" data-proveedor="Belmont Watches|Jomashop|WatchMaxx" data-estado="en_vuelo" data-comprador="Jorge Sanchez" data-search="jorge sanchez mido ocean star 200 m026.430.11.041.00 tissot prx powermatic 80 automatic black dial t137.407.11.051.00 nivada grenchen f77 mk2 sst beige lume black with date dial 69010a77 belmont watches jomashop watchmaxx" onclick="toggleGrupo('g8', this)">
+      <td>Jorge Sanchez</td>
+      <td><span class="toggle" id="toggle-g8">▾</span> Mido Ocean Star 200 M026.430.11.041.00 + Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00 + Nivada Grenchen F77 MK2 SST Beige Lume Black With Date Dial 69010A77 <span class="sub">(3 productos)</span></td>
+      <td>Belmont Watches, Jomashop, WatchMaxx</td>
+      <td>$ 957.343</td>
+      <td><span class="badge" style="background:#a78bfa">En vuelo (mixto)</span></td>
+      <td>-</td><td>-</td><td>-</td>
+    </tr>
+    <tr class="detalle-item" data-group="g8" style="display:none" data-item="watchmaxx-643423" data-proveedor="WatchMaxx" data-estado="enviado_final" data-comprador="Jorge Sanchez" data-search="jorge sanchez mido ocean star 200 m026.430.11.041.00 watchmaxx #643423 1z76e25ra892066296">
+      <td>Jorge Sanchez</td>
+      <td>↳ Mido Ocean Star 200 M026.430.11.041.00<div class="sub">Comprado: 13/08/2026</div><div class="sub">ETA proveedor: 2026-08-17 a 2026-08-24</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
+      <td>WatchMaxx</td>
+      <td>$ 375.756</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#643423<br><span class="tracking">1Z76E25RA892066296</span></td>
+      <td><span class="venta confirmado">Confirmado · #284 Jorge Sanchez</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a016095678fbb93" target="_blank">Ver mail</a></td>
+    </tr>
+    <tr class="detalle-item" data-group="g8" style="display:none" data-item="jomashop-M40EMB18" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Jorge Sanchez" data-search="jorge sanchez tissot prx powermatic 80 automatic black dial t137.407.11.051.00 jomashop m40emb18 1z7r3f940392638708">
+      <td>Jorge Sanchez</td>
+      <td>↳ Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00<div class="sub">Comprado: 13/08/2026</div><div class="sub">ETA proveedor: 2026-08-19</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
+      <td>Jomashop</td>
+      <td>$ 375.756</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40EMB18<br><span class="tracking">1Z7R3F940392638708</span></td>
+      <td><span class="venta confirmado">Confirmado · #284 Jorge Sanchez</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a011ec1249d1c16" target="_blank">Ver mail</a></td>
+    </tr>
+    <tr class="detalle-item" data-group="g8" style="display:none" data-item="belmontwatches-3113" data-proveedor="Belmont Watches" data-estado="en_vuelo" data-comprador="Jorge Sanchez" data-search="jorge sanchez nivada grenchen f77 mk2 sst beige lume black with date dial 69010a77 belmont watches #3113 876716925838">
+      <td>Jorge Sanchez</td>
+      <td>↳ Nivada Grenchen F77 MK2 SST Beige Lume Black With Date Dial 69010A77<div class="sub">Comprado: 03/09/2026</div><div class="sub">ETA proveedor: 2026-09-07</div><div class="sub">Vuelo: sale 15/09 · llega AR Jueves 17/09 23:00 (estimado)</div><div class="nota">⚠ 3/9: orden confirmada USD1.360 y despachada el mismo dia con FedEx. | 8/9: out for delivery y entregado. Ojo: la entrega quedo justo despues del corte (14:32 del lunes vs corte 14:00), asi que se lo asigno al vuelo del martes 15/9; si en realidad entro al del 8/9 ya tendria que estar en Argentina desde el 10/9.</div></td>
+      <td>Belmont Watches</td>
+      <td>$ 205.831</td>
+      <td><span class="badge" style="background:#a78bfa">En vuelo</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#3113<br><span class="tracking">876716925838</span></td>
+      <td><span class="venta confirmado">Confirmado · #302 Jorge Sanchez</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a0824ec95d9e373" target="_blank">Ver mail</a></td>
+    </tr>
 
-<div class="card">
-  <div class="item" data-item="jomashop-M40ER5PK">
-    <div class="chead"><span class="cliente">Lucas Vallejos</span><span class="nro">#288</span><span class="meta">comprado 19/08 · venta ya Enviada</span></div>
-    <div class="prod">Nishane Hacivat Extrait de Parfum 100ml</div>
-    <div class="prov">Jomashop · orden M40ER5PK · USPS 9436250206079010426761 · <a href="https://mail.google.com/mail/u/0/#all/1a01fc606bac393f" target="_blank">ver mail</a></div>
-    <div class="pipe">
-      <span class="chip on">Pedido confirmado</span><span class="chip on">Pagado</span><span class="chip on">Enviado a warehouse 20/08</span><span class="chip warn">Nunca arribó</span><span class="chip">En vuelo</span><span class="chip man" data-lvl="1" data-origtext="Llegó a Argentina">Llegó a Argentina</span><span class="chip man" data-lvl="2">Empaquetado</span><span class="chip man" data-lvl="3">Enviado al cliente</span>
-    </div>
-    <div class="nota warnn">🔴 <b>Paquete perdido.</b> 25 días sin un solo evento de tracking. Reclamo de búsqueda abierto en USPS el 09/09 — Search ID <b>#MRC 26 2674 3578</b>. La venta se resolvió con stock, pero hay que recuperar la plata del proveedor.</div>
-  </div>
-</div>
+    <tr data-item="watchmaxx-640112" data-proveedor="WatchMaxx" data-estado="deberia_haber_llegado_ar" data-comprador="Francesco Delli" data-search="francesco delli hamilton khaki field expedition auto h70225540 watchmaxx #646631 (reemplazo de #640112) 1z76e25ra896513447">
+      <td>Francesco Delli</td>
+      <td>Hamilton Khaki Field Expedition Auto H70225540<div class="sub">Comprado: 01/09/2026</div><div class="sub">ETA proveedor: 2026-09-03 a 2026-09-14</div><div class="sub">Vuelo: sale 08/09 · llega AR Jueves 10/09 23:00 (estimado)</div><div class="nota">⚠ Sin novedades del proveedor desde la confirmacion del 27/7 (28 dias); ETA original 13/8 a 4/9 - revisar con WatchMaxx | 25/8: WatchMaxx livechat le confirmo a Nico que el envio esta &#x27;incoming next week&#x27; (llegaria la semana del 31/8), todavia sin tracking. | 1/9: Orden original #640112 expiro sin cobrar (&gt;30 dias); Nico volvio a comprar el mismo Hamilton H70225540 en la orden #646631 ($848, vs $765 original). Pago aceptado tras varios rechazos de tarjeta ($856.48 debitados); WatchMaxx acordo devolver la diferencia (reembolso de $83 en proceso via Takenos al 2/9). Sin tracking de envio todavia. | 2/9: WatchMaxx envio la orden de reemplazo #646631 (tracking UPS 1Z76E25RA896513447), delivery estimado 3/9 al 14/9 a la direccion de Miami. | 5/9: WatchMaxx confirma delivered (orden #646631) a la direccion de Miami.</div><div class="nota">⚠ Venta marcada &#x27;Va a tardar&#x27; por Nico</div></td>
+      <td>WatchMaxx</td>
+      <td>$ 20.121</td>
+      <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual warn" data-lvl="1" data-origtext="Deberia haber llegado a AR (10/09)">Deberia haber llegado a AR (10/09)</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#646631 (reemplazo de #640112)<br><span class="tracking">1Z76E25RA896513447</span></td>
+      <td><span class="venta confirmado">Confirmado · #268 Francesco Delli</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a06317a3a0f3cee" target="_blank">Ver mail</a></td>
+    </tr>
 
-<h2>Ventas sin compra identificada <span class="cnt">— 0</span></h2>
-<div class="ok">✓ Ninguna. Todas las ventas #225+ en “Pedido/Comprado” tienen su compra localizada en Gmail o su fila en compras en mano.</div>
+    <tr data-item="ebay-23-15086-02249" data-proveedor="eBay" data-estado="deberia_haber_llegado_ar" data-comprador="Mariano Fittipaldi" data-search="mariano fittipaldi seiko 5 sports 38mm black dial stainless steel watch srpk29 ebay 23-15086-02249 -">
+      <td>Mariano Fittipaldi</td>
+      <td>Seiko 5 Sports 38mm Black Dial Stainless Steel Watch SRPK29<div class="sub">Comprado: 01/09/2026</div><div class="sub">ETA proveedor: 2026-09-03</div><div class="sub">Vuelo: sale 08/09 · llega AR Jueves 10/09 23:00 (estimado)</div><div class="nota">⚠ 1/9: pedido confirmado y cobrado $374.50 (vendedor watchowner/EDJ LUXE INC). Mismo dia enviado con FedEx, entrega estimada 3/9. Sin match en Lista de Ventas #225+ -&gt; reposicion de stock. | 3/9: eBay confirma entregado (16:06 hora local).</div></td>
+      <td>eBay</td>
+      <td>$ 551.546</td>
+      <td><span class="badge" style="background:#f59e0b">Deberia haber llegado a AR</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual warn" data-lvl="1" data-origtext="Deberia haber llegado a AR (10/09)">Deberia haber llegado a AR (10/09)</span><span class="chip chip-manual" data-lvl="2">Empaquetado</span><span class="chip chip-manual" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>23-15086-02249<br><span class="tracking">-</span></td>
+      <td><span class="venta confirmado">Confirmado · #294 Mariano Fittipaldi</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a05f088aa1eee85" target="_blank">Ver mail</a></td>
+    </tr></tbody>
+  </table>
+  <div id="empty" class="empty" style="display:none">Sin resultados</div>
 
-<h2>Compras en mano / fuera de Gmail <span class="cnt">— 2</span></h2>
-<div class="card">
-  <div class="item">
-    <div class="chead"><span class="cliente">Adrian Espinola</span><span class="nro">#295</span><span class="meta">venta 30/08 · vía Meli</span></div>
-    <div class="prod">Louis Vuitton Imagination 100ml</div>
-    <div class="prov">Encargado: SÍ · Recibido: NO · 15 días</div>
-  </div>
-  <div class="item">
-    <div class="chead"><span class="cliente">Matias Lumbreras</span><span class="nro">#297</span><span class="meta">venta 05/09 · vía Meli</span></div>
-    <div class="prod">Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</div>
-    <div class="prov">Encargado: SÍ · Recibido: NO · 9 días</div>
-  </div>
-</div>
+  
+  <h2 style="color:var(--muted)">🤝 Compras en mano (no pasan por Gmail)</h2>
+  <table>
+    <thead><tr><th>Cliente</th><th>Producto</th><th>Via</th><th>Fecha venta</th><th>Estado</th><th>Venta</th></tr></thead>
+    <tbody>
+    <tr>
+      <td>Adrian Espinola</td>
+      <td>Louis Vuitton Imagination 100ml</td>
+      <td>Meli (trae en mano)</td>
+      <td>2026-08-30</td>
+      <td><span class="badge" style="background:#f59e0b">Encargado, sin recibir</span></td>
+      <td>#295</td>
+    </tr>
+    <tr>
+      <td>Matias Lumbreras</td>
+      <td>Louis Vuitton Imagination 100ml + Mystery Box 5x1ml</td>
+      <td>Meli (trae en mano)</td>
+      <td>2026-09-05</td>
+      <td><span class="badge" style="background:#f59e0b">Encargado, sin recibir</span></td>
+      <td>#297</td>
+    </tr></tbody>
+  </table>
 
-<h2>Avisos y pendientes</h2>
-<div class="card">
-  <div class="item">
-    <div class="prod">Hilo de cancelación abierto en Jomashop</div>
-    <div class="nota warnn">El 08/09 mandaste un pedido de cancelación a Jomashop <b>sin número de orden</b>; el 09/09 Mikaela T te pidió el número que empieza con “M” y el hilo quedó ahí. Si todavía querés cancelar algo, hay que responder con el número. (No pude determinar a qué orden se refiere.)</div>
-  </div>
-  <div class="item">
-    <div class="prod">Reembolso de WatchMaxx pendiente</div>
-    <div class="nota">US$83 de diferencia por la recompra del Hamilton (#646631 vs #640112), acordado vía Takenos el 02/09. Verificar que haya entrado.</div>
-  </div>
-  <div class="item">
-    <div class="prod">Beauty House — presunto doble cobro</div>
-    <div class="nota warnn">Sigue sin resolverse: la tienda reembolsó la orden BH100197291 el 06/08 y después pidió pago adicional por Zelle. <b>No pagar.</b></div>
-  </div>
-  <div class="item">
-    <div class="prod">Nota de la corrida</div>
-    <div class="nota">El entorno Linux del sandbox está caído (bug de Windows del 08/09), así que este dashboard se generó y subió por el navegador. Los datos del repo privado (compras_auto.json, ventas_sin_compra.json) <b>no</b> se regeneraron: los va a mergear la próxima corrida con Bash sano. Los overrides manuales de compras_manual.csv sí están respetados. La Lista de Ventas leída es la del 11/09 18:24 — si cargaste ventas después, no figuran acá.</div>
-  </div>
-</div>
+  <details>
+    <summary>📁 Archivados - Finalizados (ya enviados al cliente)</summary>
+    <table id="tabla-archivados">
+      <thead><tr><th>Comprador</th><th>Producto</th><th>Proveedor</th><th>Ganancia</th>
+        <th>Estado</th><th>Orden / Tracking</th><th>Venta NEVE</th><th>Mail</th></tr></thead>
+      <tbody>
+    <tr data-item="maxaroma-OR1016658__item1" data-proveedor="MaxAroma" data-estado="enviado_final" data-comprador="Martin Arrieta" data-search="martin arrieta amouage reflection men (new packaging) 3.4oz - 100ml edp (1 de 2) maxaroma or1016658 -">
+      <td>Martin Arrieta</td>
+      <td>Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (1 de 2)<div class="sub">Comprado: 31/08/2026</div><div class="sub">ETA proveedor: 2026-09-01</div><div class="sub">Vuelo: sale 08/09 · llega AR Jueves 10/09 23:00 (estimado)</div><div class="nota">⚠ Reemplaza el pedido Jomashop M40ER2SU (cancelado por Jomashop el 31/8, &#x27;customer change mind&#x27;). Recomprado en MaxAroma el mismo dia, cobrado $586.21 completo (tarjeta cargada segun el mail). Envio a warehouse Miami FL 33167. | 1/9: UPS confirma delivered a Miami FL 33167 15:27 (tracking 1ZW2D5012937645321).</div></td>
+      <td>MaxAroma</td>
+      <td>$ 79.656</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>OR1016658<br><span class="tracking">-</span></td>
+      <td><span class="venta confirmado">Confirmado · #286 Martin Arrieta</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a05898a6cc026f5" target="_blank">Ver mail</a></td>
+    </tr>
 
-<h2>Archivados — Finalizados <span class="cnt">— 25</span></h2>
-<details class="arch">
-<summary>Mostrar / ocultar</summary>
-<div class="card">
-  <div class="item"><div class="prod">Xerjoff V Erba Pura EDP 100ml x2</div><div class="prov">Hernán Rossi · #292 · Jomashop M40EUBHY · venta Enviada</div></div>
-  <div class="item"><div class="prod">Parfums De Marly Layton EDP 125ml + samples</div><div class="prov">Luis Contreras · #290 · Venba #V234930 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Amouage Decision 100ml</div><div class="prov">Jorge Zuniga · #293 · Xtrait Perfumery #2613 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Giorgio Armani My Way (Rechargeable) EDP 3.0oz</div><div class="prov">Maria Lujan Llargues · #289 · Perfume Empire PE272746 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Tom Ford Oud Minerale EDP 50ml</div><div class="prov">Juanjo Jayat · #291 · eBay 23-15050-77882 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Amouage Reflection Men 100ml (1 de 2)</div><div class="prov">Martin Arrieta · #286 · MaxAroma OR1016658 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Amouage Reflection Men 100ml (2 de 2)</div><div class="prov">Ilze Krievina · #287 · MaxAroma OR1016658 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Tissot Le Locle Powermatic 80 T006.407.16.033.00</div><div class="prov">Fausto José Gorosito · #303 · Jomashop M40EVRF4 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Tissot Lovely Summer T058.109.36.031.01</div><div class="prov">Maria Viscay · #232 · Jomashop M40DUK89 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Mido Ocean Star 39 M026.907.11.061.00</div><div class="prov">Leonardo Smachetti · #285 · Jomashop M40EMTHS · enviado al cliente</div></div>
-  <div class="item"><div class="prod">Tissot PRX Powermatic 80 T137.207.11.051.00</div><div class="prov">Leonardo Smachetti · #285 · Jomashop M40EMTHS · enviado al cliente</div></div>
-  <div class="item"><div class="prod">Mido Ocean Star 200 M026.430.11.041.00</div><div class="prov">Jorge Sanchez · #284 · WatchMaxx #643423 · enviado al cliente</div></div>
-  <div class="item"><div class="prod">Tissot PRX Powermatic 80 T137.407.11.051.00</div><div class="prov">Jorge Sanchez · #284 · Jomashop M40EMB18 · enviado al cliente</div></div>
-  <div class="item"><div class="prod">Seiko Chronograph Quartz Blue Dial SSB477P1</div><div class="prov">Ignacio Arevalo · #279 · Jomashop M40EGKT4 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Orient Classic Automatic Green Dial RA-AC0023E30B</div><div class="prov">Luis Rafael Cassin · #278 · Jomashop M40EGKT4 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Maison Margiela Replica Jazz Club EDT 100ml</div><div class="prov">Ignacio Maestu · #283 · Venba #V228739 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Maison Crivelli Musc Nurasana Extrait (sample)</div><div class="prov">Maria Silvia Diaz · #276 · Venba #V228739 · venta Enviada</div></div>
-  <div class="item"><div class="prod">The Artist No.2 EDP by Maison Alhambra 100ml</div><div class="prov">Leonardo Sonaglia · #281 · eBay 16-15011-58343 · enviado al cliente</div></div>
-  <div class="item"><div class="prod">Casio Lineage LCW-M300D-1AJF</div><div class="prov">Santiago Bonicatto · #273 · eBay 21-14945-32487 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Clive Christian XXI Art Deco Amberwood 50ml</div><div class="prov">Roberto Andres Noriega · #270 · Beauty House BH100197291 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Heritage 1938 COSC Anthracite 39mm</div><div class="prov">Martin Duranona · #280 · Teddy Baldassarre #110415 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Maison Crivelli Hibiscus Mahajad Extrait (sample)</div><div class="prov">Maria Silvia Diaz · #276 · Olfactory Factory OLF220344 · enviado al cliente</div></div>
-  <div class="item"><div class="prod">Maison Crivelli Oud Maracuja 100ml</div><div class="prov">Maria Silvia Diaz · #276 · Olfactory Factory OLF220344 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Maison Crivelli Oud Maracuja 100ml</div><div class="prov">Martin Duranona · #280 · Olfactory Factory OLF222524 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Seiko Chronograph Quartz Champagne Dial SSB383P1</div><div class="prov">Nicolas Ambrosini · #277 · eBay 12-14966-74088 · venta Enviada</div></div>
-  <div class="item"><div class="prod">Seiko Prospex Automatic SRPF03</div><div class="prov">Reposición de stock · eBay 06-14972-13513 · enviado</div></div>
-</div>
-</details>
+    <tr data-item="maxaroma-OR1016658__item2" data-proveedor="MaxAroma" data-estado="enviado_final" data-comprador="Ilze Krievina" data-search="ilze krievina amouage reflection men (new packaging) 3.4oz - 100ml edp (2 de 2) maxaroma or1016658 -">
+      <td>Ilze Krievina</td>
+      <td>Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (2 de 2)<div class="sub">Comprado: 31/08/2026</div><div class="sub">ETA proveedor: 2026-09-01</div><div class="sub">Vuelo: sale 08/09 · llega AR Jueves 10/09 23:00 (estimado)</div><div class="nota">⚠ Reemplaza el pedido Jomashop M40ER2SU (cancelado por Jomashop el 31/8, &#x27;customer change mind&#x27;). Recomprado en MaxAroma el mismo dia, cobrado $586.21 completo (tarjeta cargada segun el mail). Envio a warehouse Miami FL 33167. | 1/9: UPS confirma delivered a Miami FL 33167 15:27 (tracking 1ZW2D5012937645321).</div></td>
+      <td>MaxAroma</td>
+      <td>$ 79.656</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>OR1016658<br><span class="tracking">-</span></td>
+      <td><span class="venta confirmado">Confirmado · #287 Ilze Krievina</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a05898a6cc026f5" target="_blank">Ver mail</a></td>
+    </tr>
 
-<div class="foot">Generado el 14/09/2026 por la skill neve-compras-dashboard · publicado vía navegador (sandbox Linux caído) · nsoukia-hash/neve-track-ventas</div>
+    <tr data-item="jomashop-M40EVRF4" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Fausto Jose Gorosito" data-search="fausto jose gorosito tissot le locle powermatic 80 automatic men&#x27;s watch t006.407.16.033.00 jomashop m40evrf4 1z7r3f940396025372">
+      <td>Fausto Jose Gorosito</td>
+      <td>Tissot Le Locle Powermatic 80 Automatic Men&#x27;s Watch T006.407.16.033.00<div class="sub">Comprado: 29/08/2026</div><div class="sub">ETA proveedor: 2026-09-03</div><div class="sub">Vuelo: sale 08/09 · llega AR Jueves 10/09 23:00 (estimado)</div><div class="nota">⚠ 29/8: Order confirmed, cobrado $544.63 a Visa -3139 (pago confirmado en el mismo mail). 31/8-1/9: shipped, picked up, en camino, entrega estimada Jomashop 9/3. | 3/9: Jomashop confirma delivered a Miami FL 33167 16:56. | 15/9: dejo de ser reposicion, se cruzo con la venta #303 (Fausto Jose Gorosito, 29/8, Enviado).</div><div class="nota">⚠ Detectado en la 2da pasada: la planilla del 11/09 sumo la venta #303 con la referencia exacta T006.407.16.033.00. Ganancia en CUENTASGANANCIA da #VALUE! - revisar la formula.</div><div class="sub">Envio AR: NO</div></td>
+      <td>Jomashop</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40EVRF4<br><span class="tracking">1Z7R3F940396025372</span></td>
+      <td><span class="venta confirmado">Confirmado · #303 Fausto Jose Gorosito</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a04e97213cd6a5a" target="_blank">Ver mail</a></td>
+    </tr>
 
-</div>
+    <tr data-item="jomashop-M40EUBHY" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Hernán Rossi" data-search="hernán rossi xerjoff v erba pura edp 3.4oz (100ml) - qty 2 jomashop m40eubhy 9436250206079010758626">
+      <td>Hernán Rossi</td>
+      <td>Xerjoff V Erba Pura EDP 3.4oz (100ml) - QTY 2<div class="sub">Comprado: 26/08/2026</div><div class="sub">Vuelo: sale 08/09 · llega AR Jueves 10/09 23:00 (estimado)</div><div class="nota">⚠ 31/8: Jomashop confirma delivered a Miami FL 33167 16:16.</div></td>
+      <td>Jomashop</td>
+      <td>$ 97.789</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40EUBHY<br><span class="tracking">9436250206079010758626</span></td>
+      <td><span class="venta confirmado">Confirmado · #292 Hernán Rossi</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a03fba3b99a53ac" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="xtraitperfumery-2613" data-proveedor="Xtrait Perfumery" data-estado="enviado_final" data-comprador="Jorge Zuniga" data-search="jorge zuniga amouage decision 100ml xtrait perfumery #2613 1z2c86680312047511">
+      <td>Jorge Zuniga</td>
+      <td>Amouage Decision 100mL<div class="sub">Comprado: 25/08/2026</div><div class="sub">ETA proveedor: 2026-08-31</div><div class="sub">Vuelo: sale 01/09 · llega AR Jueves 03/09 23:00 (estimado)</div><div class="nota">⚠ 26/8: UPS shipped, tracking 1Z2C86680312047511, entrega estimada iso iginal 28/8, reprogramada a 29/8. | 29/8: UPS confirma entrega (delivered) 4:02pm.</div></td>
+      <td>Xtrait Perfumery</td>
+      <td>$ 276.020</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#2613<br><span class="tracking">1Z2C86680312047511</span></td>
+      <td><span class="venta confirmado">Confirmado · #293 Jorge Zuniga</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a04f1edbd507e34" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="venba-V234930" data-proveedor="Venba" data-estado="enviado_final" data-comprador="Luis Contreras" data-search="luis contreras parfums de marly layton edp 125ml + mystery samples set venba #v234930 876311644030">
+      <td>Luis Contreras</td>
+      <td>Parfums De Marly Layton EDP 125ml + Mystery Samples Set<div class="sub">Comprado: 25/08/2026</div><div class="sub">ETA proveedor: 2026-09-01/2026-09-04</div><div class="sub">Vuelo: sale 08/09 · llega AR Jueves 10/09 23:00 (estimado)</div><div class="nota">⚠ 1/9: Venba confirma delivered (FedEx) 04:59.</div></td>
+      <td>Venba</td>
+      <td>$ 67.467</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#V234930<br><span class="tracking">876311644030</span></td>
+      <td><span class="venta confirmado">Confirmado · #290 Luis Contreras</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a041877d6c8bb4e" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="ebay-23-15050-77882" data-proveedor="eBay (abetterworldstore)" data-estado="enviado_final" data-comprador="Juanjo Jayat" data-search="juanjo jayat tom ford oud minerale for unisex eau de parfum spray 1.7oz/50ml ebay (abetterworldstore) 23-15050-77882 -">
+      <td>Juanjo Jayat</td>
+      <td>Tom Ford Oud Minerale for Unisex Eau de Parfum Spray 1.7oz/50ml<div class="sub">Comprado: 24/08/2026</div><div class="sub">ETA proveedor: 2026-08-27/2026-09-01</div><div class="sub">Vuelo: sale 01/09 · llega AR Jueves 03/09 23:00 (estimado)</div><div class="nota">⚠ 27/8: eBay confirma envio via USPS a la direccion de Miami; entrega estimada 28/8 (hoy). Sin numero de tracking explicito en el mail. | 28/8: eBay confirma entrega (delivered) 11:01am.</div></td>
+      <td>eBay (abetterworldstore)</td>
+      <td>$ 236.462</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>23-15050-77882<br><span class="tracking">-</span></td>
+      <td><span class="venta confirmado">Confirmado · #291 Juanjo Jayat</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a048e53b05f48ca" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="perfumeempire-PE272746" data-proveedor="Perfume Empire" data-estado="enviado_final" data-comprador="Maria Lujan Llargues" data-search="maria lujan llargues my way (rechargeable) by giorgio armani for her edp 3.0oz perfume empire pe272746 1lsdcr10017tcwm">
+      <td>Maria Lujan Llargues</td>
+      <td>My Way (Rechargeable) by Giorgio Armani for her EDP 3.0oz<div class="sub">Comprado: 20/08/2026</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
+      <td>Perfume Empire</td>
+      <td>$ 20.424</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>PE272746<br><span class="tracking">1LSDCR10017TCWM</span></td>
+      <td><span class="venta confirmado">Confirmado · #289 Maria Lujan Llargues</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a0206fc7b283fb8" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="jomashop-M40ER5PK" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Lucas Vallejos" data-search="lucas vallejos nishane hacivat extrait de parfum 3.4oz jomashop m40er5pk 9436250206079010426761">
+      <td>Lucas Vallejos</td>
+      <td>Nishane Hacivat Extrait de Parfum 3.4oz<div class="sub">Comprado: 19/08/2026</div><div class="nota">⚠  | 6/9: Sin novedades desde el shipping del 20/8 (17 dias); tracking USPS 9436250206079010426761 sin update de entrega - revisar. | 9/9: Nico abrio reclamo de busqueda en USPS (Search ID #MRC 26 2674 3578) por el tracking 9436250206079010426761. La venta #288 ya figura Enviada (resuelta con stock), pero el paquete sigue perdido: reclamar el reembolso a Jomashop.</div></td>
+      <td>Jomashop</td>
+      <td>$ 62.569</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip">Arribo al warehouse</span><span class="chip">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40ER5PK<br><span class="tracking">9436250206079010426761</span></td>
+      <td><span class="venta confirmado">Confirmado · #288 Lucas Vallejos</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a01fc606bac393f" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr class="fila-grupo" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Leonardo Smachetti" data-search="leonardo smachetti mido ocean star 39 automatic grey gradient dial watch m026.907.11.061.00 tissot prx powermatic 80 automatic black dial unisex watch t137.207.11.051.00 jomashop" onclick="toggleGrupo('g7', this)">
+      <td>Leonardo Smachetti</td>
+      <td><span class="toggle" id="toggle-g7">▾</span> Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00 + Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00 <span class="sub">(2 productos)</span></td>
+      <td>Jomashop</td>
+      <td>$ 807.552</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span></td>
+      <td>-</td><td>-</td><td>-</td>
+    </tr>
+    <tr class="detalle-item" data-group="g7" style="display:none" data-item="jomashop-M40EMTHS__item1" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Leonardo Smachetti" data-search="leonardo smachetti mido ocean star 39 automatic grey gradient dial watch m026.907.11.061.00 jomashop m40emths 1z7r3f940392993226">
+      <td>Leonardo Smachetti</td>
+      <td>↳ Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00<div class="sub">Comprado: 14/08/2026</div><div class="sub">ETA proveedor: 2026-08-20</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
+      <td>Jomashop</td>
+      <td>$ 403.776</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40EMTHS<br><span class="tracking">1Z7R3F940392993226</span></td>
+      <td><span class="venta confirmado">Confirmado · #285 Leonardo Smachetti</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a0204661101b4ff" target="_blank">Ver mail</a></td>
+    </tr>
+    <tr class="detalle-item" data-group="g7" style="display:none" data-item="jomashop-M40EMTHS__item2" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Leonardo Smachetti" data-search="leonardo smachetti tissot prx powermatic 80 automatic black dial unisex watch t137.207.11.051.00 jomashop m40emths 1z7r3f940392993226">
+      <td>Leonardo Smachetti</td>
+      <td>↳ Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00<div class="sub">Comprado: 14/08/2026</div><div class="sub">ETA proveedor: 2026-08-20</div><div class="sub">Vuelo: sale 25/08 · llega AR Jueves 27/08 23:00 (estimado)</div></td>
+      <td>Jomashop</td>
+      <td>$ 403.776</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40EMTHS<br><span class="tracking">1Z7R3F940392993226</span></td>
+      <td><span class="venta confirmado">Confirmado · #285 Leonardo Smachetti</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a0204661101b4ff" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="ebay-16-15011-58343" data-proveedor="eBay (georgymelly)" data-estado="enviado_final" data-comprador="Leonardo Sonagl" data-search="leonardo sonagl the artist no.2 edp by maison alhambra 100ml ebay (georgymelly) #16-15011-58343 -">
+      <td>Leonardo Sonagl</td>
+      <td>The Artist No.2 EDP by Maison Alhambra 100ml<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Venta pide 2 productos (&quot;The Artist No.2&quot; + &quot;French Avenue NICHE THE NIGHT&quot;); todavia falta comprar French Avenue NICHE THE NIGHT</div></td>
+      <td>eBay (georgymelly)</td>
+      <td>$ 111.031</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#16-15011-58343<br><span class="tracking">-</span></td>
+      <td><span class="venta confirmado">Confirmado · #281 Leonardo Sonagl</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ffb93cb145770f" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="beautyhouse-BH100197291" data-proveedor="Beauty House" data-estado="enviado_final" data-comprador="Roberto Andres Noriega" data-search="roberto andres noriega clive christian xxi art deco amberwood parfum for everyone 50ml beauty house bh100197291 1zy77v780300139913">
+      <td>Roberto Andres Noriega</td>
+      <td>Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Reembolsado por la tienda el 6/8 pero igual llego al warehouse el 11/8 - revisar | 19/8: la tienda mandó un mail pidiendo pago adicional por Zelle alegando que UPS igual entregó el paquete pese al reembolso — pinta a intento de doble cobro/estafa, NO pagar sin confirmar con Nico.</div><div class="nota">⚠ Venta marcada &#x27;Tarda proveedor&#x27; por Nico</div></td>
+      <td>Beauty House</td>
+      <td>$ 194.478</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>BH100197291<br><span class="tracking">1ZY77V780300139913</span></td>
+      <td><span class="venta confirmado">Confirmado · #270 Roberto Andres Noriega</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16106742ef47" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="ebay-21-14945-32487" data-proveedor="eBay (hardjapan)" data-estado="enviado_final" data-comprador="Santiago Bonicatto" data-search="santiago bonicatto casio lineage lcw-m300d-1ajf tough solar multiband 6 ebay (hardjapan) #21-14945-32487 -">
+      <td>Santiago Bonicatto</td>
+      <td>Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>eBay (hardjapan)</td>
+      <td>$ 137.360</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#21-14945-32487<br><span class="tracking">-</span></td>
+      <td><span class="venta confirmado">Confirmado · #273 Santiago Bonicatto</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fec770399d8e51" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr class="fila-grupo" data-proveedor="Olfactory Factory|Venba" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) maison crivelli hibiscus mahajad extrait (sample 1.5ml) maison crivelli oud maracuja 100ml olfactory factory venba" onclick="toggleGrupo('g14', this)">
+      <td>Maria Silvia Diaz</td>
+      <td><span class="toggle" id="toggle-g14">▾</span> Maison Crivelli Musc Nurasana Extrait + Maison Crivelli Hibiscus Mahajad Extrait + Maison Crivelli Oud Maracuja 100ml <span class="sub">(3 productos)</span></td>
+      <td>Olfactory Factory, Venba</td>
+      <td>$ 610.662</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span></td>
+      <td>-</td><td>-</td><td>-</td>
+    </tr>
+    <tr class="detalle-item" data-group="g14" style="display:none" data-item="venba-V228739__item2" data-proveedor="Venba" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli musc nurasana extrait (sample) venba #v228739 875377633030">
+      <td>Maria Silvia Diaz</td>
+      <td>↳ Maison Crivelli Musc Nurasana Extrait (sample)<div class="sub">Comprado: 04/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div><div class="nota">⚠ Sample incluido en la venta #276 (viaja en el pedido de Venba junto al Jazz Club de #283)</div></td>
+      <td>Venba</td>
+      <td>$ 203.554</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#V228739<br><span class="tracking">875377633030</span></td>
+      <td><span class="venta confirmado">Confirmado · #276 Maria Silvia Diaz</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fe476175ac5b23" target="_blank">Ver mail</a></td>
+    </tr>
+    <tr class="detalle-item" data-group="g14" style="display:none" data-item="ups-olfactoryfactory-321532396__item1" data-proveedor="Olfactory Factory" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli hibiscus mahajad extrait (sample 1.5ml) olfactory factory olf220344 1zh914y70321532396">
+      <td>Maria Silvia Diaz</td>
+      <td>↳ Maison Crivelli Hibiscus Mahajad Extrait (sample 1.5ml)<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Olfactory Factory</td>
+      <td>$ 203.554</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>OLF220344<br><span class="tracking">1ZH914Y70321532396</span></td>
+      <td><span class="venta confirmado">Confirmado · #276 Maria Silvia Diaz</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fd8a206963ec79" target="_blank">Ver mail</a></td>
+    </tr>
+    <tr class="detalle-item" data-group="g14" style="display:none" data-item="ups-olfactoryfactory-321532396__item2" data-proveedor="Olfactory Factory" data-estado="enviado_final" data-comprador="Maria Silvia Diaz" data-search="maria silvia diaz maison crivelli oud maracuja 100ml olfactory factory olf220344 1zh914y70321532396">
+      <td>Maria Silvia Diaz</td>
+      <td>↳ Maison Crivelli Oud Maracuja 100ml<div class="sub">Comprado: -</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div><div class="nota">⚠ Hay 2 compras de Oud Maracuja: esta (OLF220344, arribo 6/8) va a #276; la posterior (OLF222524, arribo 11/8) va a #280 Martin Duranona</div></td>
+      <td>Olfactory Factory</td>
+      <td>$ 203.554</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>OLF220344<br><span class="tracking">1ZH914Y70321532396</span></td>
+      <td><span class="venta confirmado">Confirmado · #276 Maria Silvia Diaz</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fd8a206963ec79" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr class="fila-grupo" data-proveedor="Olfactory Factory|Teddy Baldassarre" data-estado="enviado_final" data-comprador="Martin Duranona" data-search="martin duranona heritage 1938 cosc anthracite 39mm - anthracite on leather strap (reloj) maison crivelli oud maracuja 100ml olfactory factory teddy baldassarre" onclick="toggleGrupo('g18', this)">
+      <td>Martin Duranona</td>
+      <td><span class="toggle" id="toggle-g18">▾</span> Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap + Maison Crivelli Oud Maracuja 100ml <span class="sub">(2 productos)</span></td>
+      <td>Olfactory Factory, Teddy Baldassarre</td>
+      <td>$ 795.273</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span></td>
+      <td>-</td><td>-</td><td>-</td>
+    </tr>
+    <tr class="detalle-item" data-group="g18" style="display:none" data-item="ups-teddybaldassarre-483742" data-proveedor="Teddy Baldassarre" data-estado="enviado_final" data-comprador="Martin Duranona" data-search="martin duranona heritage 1938 cosc anthracite 39mm - anthracite on leather strap (reloj) teddy baldassarre #110415 1zr58f114293483742">
+      <td>Martin Duranona</td>
+      <td>↳ Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap (reloj)<div class="sub">Comprado: 05/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div><div class="nota">⚠ Venta dividida en 2 compras: este reloj Heritage + Maison Crivelli Oud Maracuja (Olfactory Factory, ver ups-olfactoryfactory-338382535)</div></td>
+      <td>Teddy Baldassarre</td>
+      <td>$ 397.636</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#110415<br><span class="tracking">1ZR58F114293483742</span></td>
+      <td><span class="venta confirmado">Confirmado · #280 Martin Duranona</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fe210a0f5cccaa" target="_blank">Ver mail</a></td>
+    </tr>
+    <tr class="detalle-item" data-group="g18" style="display:none" data-item="ups-olfactoryfactory-338382535" data-proveedor="Olfactory Factory" data-estado="enviado_final" data-comprador="Martin Duranona" data-search="martin duranona maison crivelli oud maracuja 100ml olfactory factory olf222524 1zh914y70338382535">
+      <td>Martin Duranona</td>
+      <td>↳ Maison Crivelli Oud Maracuja 100ml<div class="sub">Comprado: 05/08/2026</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Venta dividida en 2 compras: este Maison Crivelli Oud Maracuja + reloj Heritage (Teddy Baldassarre, ver ups-teddybaldassarre-483742)</div></td>
+      <td>Olfactory Factory</td>
+      <td>$ 397.636</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>OLF222524<br><span class="tracking">1ZH914Y70338382535</span></td>
+      <td><span class="venta confirmado">Confirmado · #280 Martin Duranona</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19ff16196ecc75d2" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="venba-V228739__item1" data-proveedor="Venba" data-estado="enviado_final" data-comprador="Ignacio Maestu" data-search="ignacio maestu maison martin margiela replica jazz club edt 100ml venba #v228739 875377633030">
+      <td>Ignacio Maestu</td>
+      <td>Maison Martin Margiela Replica Jazz Club EDT 100ml<div class="sub">Comprado: 04/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Venba</td>
+      <td>$ 130.458</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#V228739<br><span class="tracking">875377633030</span></td>
+      <td><span class="venta confirmado">Confirmado · #283 Ignacio Maestu</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fe476175ac5b23" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="jomashop-M40EGKT4__item1" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Ignacio Arevalo" data-search="ignacio arevalo seiko chronograph quartz blue dial ssb477p1 jomashop m40egkt4 9434650206079004079911">
+      <td>Ignacio Arevalo</td>
+      <td>Seiko Chronograph Quartz Blue Dial SSB477P1<div class="sub">Comprado: 01/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Jomashop</td>
+      <td>$ 160.476</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40EGKT4<br><span class="tracking">9434650206079004079911</span></td>
+      <td><span class="venta confirmado">Confirmado · #279 Ignacio Arevalo</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fec7327942f689" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="jomashop-M40EGKT4__item2" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Luis Rafael Cassin" data-search="luis rafael cassin orient classic automatic green dial ra-ac0023e30b jomashop m40egkt4 9434650206079004079911">
+      <td>Luis Rafael Cassin</td>
+      <td>Orient Classic Automatic Green Dial RA-AC0023E30B<div class="sub">Comprado: 01/08/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div></td>
+      <td>Jomashop</td>
+      <td>$ 166.992</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40EGKT4<br><span class="tracking">9434650206079004079911</span></td>
+      <td><span class="venta confirmado">Confirmado · #278 Luis Rafael Cassin</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fec7327942f689" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="ebay-12-14966-74088" data-proveedor="eBay (Dexclusive.com)" data-estado="enviado_final" data-comprador="Nicolas Ambrosini" data-search="nicolas ambrosini seiko men&#x27;s chronograph quartz champagne dial watch ssb383p1 ebay (dexclusive.com) #12-14966-74088 1z2k41v2yn03334499">
+      <td>Nicolas Ambrosini</td>
+      <td>Seiko Men&#x27;s Chronograph Quartz Champagne Dial Watch SSB383P1<div class="sub">Comprado: 31/07/2026</div><div class="sub">Vuelo: sale 11/08 · llega AR Jueves 13/08 23:00 (estimado)</div><div class="nota">⚠ Hay otra venta con producto identico (#228 Sebastian Barros, 25/6, ya Enviada); se asocio a #277 por cercania de fecha (venta 31/7, compra pedida 31/7 y entregada 4/8).</div></td>
+      <td>eBay (Dexclusive.com)</td>
+      <td>$ 191.659</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#12-14966-74088<br><span class="tracking">1Z2K41V2YN03334499</span></td>
+      <td><span class="venta confirmado">Confirmado · #277 Nicolas Ambrosini</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fcddb5e193ce94" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="ebay-06-14972-13513" data-proveedor="eBay (sasy420)" data-estado="enviado_final" data-comprador="Reposicion de stock" data-search="reposicion de stock seiko prospex automatic srpf03 black date dial silver steel bracelet watch ebay (sasy420) #06-14972-13513 9400150206217799492456">
+      <td>Reposicion de stock</td>
+      <td>Seiko Prospex Automatic SRPF03 Black Date Dial Silver Steel Bracelet Watch<div class="sub">Comprado: 30/07/2026</div><div class="sub">Vuelo: sale 04/08 · llega AR Jueves 06/08 23:00 (estimado)</div><div class="nota">⚠ Reposicion de stock: no matchea ninguna venta #225+ pendiente (revisado en 2da pasada).</div></td>
+      <td>eBay (sasy420)</td>
+      <td>-</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>#06-14972-13513<br><span class="tracking">9400150206217799492456</span></td>
+      <td><span class="venta sinmatch">Sin match / reposicion</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/19fc8711d7e98479" target="_blank">Ver mail</a></td>
+    </tr>
+
+    <tr data-item="jomashop-M40DUK89" data-proveedor="Jomashop" data-estado="enviado_final" data-comprador="Maria Viscay" data-search="maria viscay tissot lovely summer quartz silver dial ladies watch t058.109.36.031.01 jomashop m40duk89 9400150206079005465506">
+      <td>Maria Viscay</td>
+      <td>Tissot Lovely Summer Quartz Silver Dial Ladies Watch T058.109.36.031.01<div class="sub">Comprado: 29/06/2026</div><div class="sub">Vuelo: sale 18/08 · llega AR Jueves 20/08 23:00 (estimado)</div><div class="nota">⚠ Venta pide 2 productos (Tissot Lovely Summer + Strap Blue); la orden M40DUK89 de Jomashop solo incluye el reloj, todavia falta comprar el Strap Blue</div></td>
+      <td>Jomashop</td>
+      <td>$ 86.384</td>
+      <td><span class="badge" style="background:#059669">Enviado al cliente</span><div class="pipeline"><span class="chip done">Pedido confirmado</span><span class="chip done">Pagado</span><span class="chip done">Enviado a warehouse</span><span class="chip done">Arribo al warehouse</span><span class="chip done">En vuelo</span><span class="chip chip-manual done" data-lvl="1" data-origtext="Llego a Argentina">Llego a Argentina</span><span class="chip chip-manual done" data-lvl="2">Empaquetado</span><span class="chip chip-manual done" data-lvl="3">Enviado al cliente</span></div></td>
+      <td>M40DUK89<br><span class="tracking">9400150206079005465506</span></td>
+      <td><span class="venta confirmado">Confirmado · #232 Maria Viscay</span></td>
+      <td><a href="https://mail.google.com/mail/u/0/#all/1a005b74ca56c306" target="_blank">Ver mail</a></td>
+    </tr></tbody>
+    </table>
+  </details>
 
 <script>
-var HEADER = "id,comprador,producto,llego_argentina,empaquetado,envio_argentina,enviado,observaciones";
-var ROWS = [
-["watchmaxx-643423","","Mido Ocean Star 200 M026.430.11.041.00","SI","SI","","SI",""],
-["jomashop-M40EMB18","","Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00","SI","SI","","SI",""],
-["jomashop-M40DUK89","","Tissot Lovely Summer Quartz Silver Dial Ladies Watch T058.109.36.031.01","SI","NO","","NO",""],
-["jomashop-M40EGKT4__item1","","Seiko Chronograph Quartz Blue Dial SSB477P1","NO","NO","","NO",""],
-["jomashop-M40EGKT4__item2","","Orient Classic Automatic Green Dial RA-AC0023E30B","NO","NO","","NO",""],
-["watchmaxx-640112","","Hamilton Khaki Field Expedition Auto H70225540","NO","NO","","NO",""],
-["venba-V228739__item1","","Maison Martin Margiela Replica Jazz Club EDT 100ml","SI","SI","","NO",""],
-["venba-V228739__item2","","Maison Crivelli Musc Nurasana Extrait (sample)","SI","SI","","NO",""],
-["ebay-16-15011-58343","","The Artist No.2 EDP by Maison Alhambra 100ml","SI","SI","","SI",""],
-["ebay-21-14945-32487","","Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6","NO","SI","","NO",""],
-["beautyhouse-BH100197291","","Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml","SI","SI","","NO",""],
-["ups-teddybaldassarre-483742","","Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap (reloj)","SI","SI","","NO",""],
-["ups-olfactoryfactory-321532396__item1","","Maison Crivelli Hibiscus Mahajad Extrait (sample 1.5ml)","SI","SI","","SI",""],
-["ups-olfactoryfactory-321532396__item2","","Maison Crivelli Oud Maracuja 100ml","SI","NO","","NO",""],
-["ups-olfactoryfactory-338382535","","Maison Crivelli Oud Maracuja 100ml","NO","NO","","NO",""],
-["jomashop-M40EMTHS__item1","","Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00","SI","SI","","SI",""],
-["jomashop-M40EMTHS__item2","","Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00","SI","SI","","SI",""],
-["ebay-12-14966-74088","","Seiko Men's Chronograph Quartz Champagne Dial Watch SSB383P1","SI","SI","","NO",""],
-["ebay-06-14972-13513","","Seiko Prospex Automatic SRPF03 Black Date Dial Silver Steel Bracelet Watch","SI","SI","","SI",""],
-["jomashop-M40ER5PK","","Nishane Hacivat Extrait de Parfum 3.4oz","NO","NO","","NO",""],
-["perfumeempire-PE272746","","My Way (Rechargeable) by Giorgio Armani for her EDP 3.0oz","SI","SI","","NO",""],
-["ebay-23-15050-77882","","Tom Ford Oud Minerale for Unisex Eau de Parfum Spray 1.7oz/50ml","SI","SI","","NO",""],
-["venba-V234930","","Parfums De Marly Layton EDP 125ml + Mystery Samples Set","NO","NO","","NO",""],
-["jomashop-M40EUBHY","","Xerjoff V Erba Pura EDP 3.4oz (100ml) - QTY 2","SI","SI","","NO",""],
-["xtraitperfumery-2613","","Amouage Decision 100mL","SI","SI","","NO",""],
-["jomashop-M40EVRF4","","Tissot Le Locle Powermatic 80 Automatic Men's Watch T006.407.16.033.00","SI","SI","NO","NO",""],
-["maxaroma-OR1016658__item1","","Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (1 de 2)","SI","SI","","NO",""],
-["maxaroma-OR1016658__item2","","Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (2 de 2)","SI","SI","","NO",""],
-["ebay-23-15086-02249","","Seiko 5 Sports 38mm Black Dial Stainless Steel Watch SRPK29","NO","NO","","NO",""],
-["ebay-08-15139-51108","","Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic Watch","NO","NO","","NO",""],
-["jomashop-M40F1U2K","","Tissot Gentleman Powermatic 80 Silicium Automatic Green Dial T127.407.11.091.01","NO","NO","","NO",""],
-["ebay-03-15161-82309","","Maison Alhambra Exclusif Tabac EDP 100ml","NO","NO","","NO",""],
-["ebay-23-15120-76756","","Bulova Surveyor 97B234 Automatic Purple Dial Rose Gold 39mm","NO","NO","","NO",""],
-["watchmaxx-647905","","Longines Master Collection Automatic 38.5mm L2.628.4.51.6","NO","NO","","NO",""],
-["venba-V240228__item1","","Montale Arabians Tonka EDP 100ml","NO","NO","","NO",""],
-["venba-V240228__item2","","Ella K Musc K EDP 3.4oz 100ml","NO","NO","","NO",""],
-["venba-V240228__item3","","Mystery Samples Set (5 samples)","NO","NO","","NO",""],
-["belmontwatches-3113","","Nivada Grenchen F77 MK2 SST Beige Lume Black With Date Dial 69010A77","NO","NO","","NO",""]
-];
-var KEY = "neve_manual_v1";
-var base = {}, pend = {};
-ROWS.forEach(function(r){
-  var lvl = r[6]==="SI" ? 3 : (r[4]==="SI" ? 2 : (r[3]==="SI" ? 1 : 0));
-  base[r[0]] = lvl;
-});
-try { pend = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){ pend = {}; }
+const CSV_HEADER = ["id", "comprador", "producto", "llego_argentina", "empaquetado", "envio_argentina", "enviado", "observaciones"];
+const CSV_ROWS = [{"id": "watchmaxx-643423", "comprador": "", "producto": "Mido Ocean Star 200 M026.430.11.041.00", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "SI", "observaciones": ""}, {"id": "jomashop-M40EMB18", "comprador": "", "producto": "Tissot PRX Powermatic 80 Automatic Black Dial T137.407.11.051.00", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "SI", "observaciones": ""}, {"id": "jomashop-M40DUK89", "comprador": "", "producto": "Tissot Lovely Summer Quartz Silver Dial Ladies Watch T058.109.36.031.01", "llego_argentina": "SI", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "jomashop-M40EGKT4__item1", "comprador": "", "producto": "Seiko Chronograph Quartz Blue Dial SSB477P1", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "jomashop-M40EGKT4__item2", "comprador": "", "producto": "Orient Classic Automatic Green Dial RA-AC0023E30B", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "watchmaxx-640112", "comprador": "", "producto": "Hamilton Khaki Field Expedition Auto H70225540", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "venba-V228739__item1", "comprador": "", "producto": "Maison Martin Margiela Replica Jazz Club EDT 100ml", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "venba-V228739__item2", "comprador": "", "producto": "Maison Crivelli Musc Nurasana Extrait (sample)", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ebay-16-15011-58343", "comprador": "", "producto": "The Artist No.2 EDP by Maison Alhambra 100ml", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "SI", "observaciones": ""}, {"id": "ebay-21-14945-32487", "comprador": "", "producto": "Casio Lineage LCW-M300D-1AJF Tough Solar Multiband 6", "llego_argentina": "NO", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "beautyhouse-BH100197291", "comprador": "", "producto": "Clive Christian XXI Art Deco Amberwood Parfum for Everyone 50ml", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ups-teddybaldassarre-483742", "comprador": "", "producto": "Heritage 1938 COSC Anthracite 39mm - Anthracite on Leather Strap (reloj)", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ups-olfactoryfactory-321532396__item1", "comprador": "", "producto": "Maison Crivelli Hibiscus Mahajad Extrait (sample 1.5ml)", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "SI", "observaciones": ""}, {"id": "ups-olfactoryfactory-321532396__item2", "comprador": "", "producto": "Maison Crivelli Oud Maracuja 100ml", "llego_argentina": "SI", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ups-olfactoryfactory-338382535", "comprador": "", "producto": "Maison Crivelli Oud Maracuja 100ml", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "jomashop-M40EMTHS__item1", "comprador": "", "producto": "Mido Ocean Star 39 Automatic Grey Gradient Dial Watch M026.907.11.061.00", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "SI", "observaciones": ""}, {"id": "jomashop-M40EMTHS__item2", "comprador": "", "producto": "Tissot PRX Powermatic 80 Automatic Black Dial Unisex Watch T137.207.11.051.00", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "SI", "observaciones": ""}, {"id": "ebay-12-14966-74088", "comprador": "", "producto": "Seiko Men's Chronograph Quartz Champagne Dial Watch SSB383P1", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ebay-06-14972-13513", "comprador": "", "producto": "Seiko Prospex Automatic SRPF03 Black Date Dial Silver Steel Bracelet Watch", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "SI", "observaciones": ""}, {"id": "jomashop-M40ER5PK", "comprador": "", "producto": "Nishane Hacivat Extrait de Parfum 3.4oz", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "perfumeempire-PE272746", "comprador": "", "producto": "My Way (Rechargeable) by Giorgio Armani for her EDP 3.0oz", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ebay-23-15050-77882", "comprador": "", "producto": "Tom Ford Oud Minerale for Unisex Eau de Parfum Spray 1.7oz/50ml", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "venba-V234930", "comprador": "", "producto": "Parfums De Marly Layton EDP 125ml + Mystery Samples Set", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "jomashop-M40EUBHY", "comprador": "", "producto": "Xerjoff V Erba Pura EDP 3.4oz (100ml) - QTY 2", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "xtraitperfumery-2613", "comprador": "", "producto": "Amouage Decision 100mL", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "jomashop-M40EVRF4", "comprador": "", "producto": "Tissot Le Locle Powermatic 80 Automatic Men's Watch T006.407.16.033.00", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "NO", "enviado": "NO", "observaciones": ""}, {"id": "maxaroma-OR1016658__item1", "comprador": "", "producto": "Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (1 de 2)", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "maxaroma-OR1016658__item2", "comprador": "", "producto": "Amouage Reflection Men (New Packaging) 3.4oz - 100ml EDP (2 de 2)", "llego_argentina": "SI", "empaquetado": "SI", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ebay-23-15086-02249", "comprador": "", "producto": "Seiko 5 Sports 38mm Black Dial Stainless Steel Watch SRPK29", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ebay-08-15139-51108", "comprador": "", "producto": "Seiko Prospex SPB117 Luxe Alpinist Black Dial Automatic Watch", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "jomashop-M40F1U2K", "comprador": "", "producto": "Tissot Gentleman Powermatic 80 Silicium Automatic Green Dial Men's Watch T127.407.11.091.01", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ebay-03-15161-82309", "comprador": "", "producto": "Maison Alhambra Exclusif Tabac Eau De Parfum 3.4oz 100ml", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "ebay-23-15120-76756", "comprador": "", "producto": "Bulova Surveyor Men's 97B234 Automatic Watch Purple Dial Rose Gold Tone 39mm", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "watchmaxx-647905", "comprador": "", "producto": "Longines Master Collection Automatic 38.5mm L2.628.4.51.6", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "venba-V240228__item1", "comprador": "", "producto": "Montale Arabians Tonka EDP 100ml", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "venba-V240228__item2", "comprador": "", "producto": "Ella K Musc K EDP 3.4oz 100ml", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "venba-V240228__item3", "comprador": "", "producto": "Mystery Samples Set (5 samples)", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}, {"id": "belmontwatches-3113", "comprador": "", "producto": "Nivada Grenchen F77 MK2 SST Beige Lume Black With Date Dial 69010A77", "llego_argentina": "NO", "empaquetado": "NO", "envio_argentina": "", "enviado": "NO", "observaciones": ""}];
+const LS_KEY = 'neve_manual_v1';
 
-function eff(id){ return pend.hasOwnProperty(id) ? pend[id] : (base[id] || 0); }
+function baseLevel(row) {
+  const up = v => String(v || '').trim().toUpperCase() === 'SI';
+  if (up(row.enviado)) return 3;
+  if (up(row.empaquetado)) return 2;
+  if (up(row.llego_argentina)) return 1;
+  return 0;
+}
+const BASE = {};
+CSV_ROWS.forEach(r => { BASE[r.id] = baseLevel(r); });
 
-function paint(){
-  document.querySelectorAll('.item[data-item]').forEach(function(el){
-    var id = el.getAttribute('data-item'), lv = eff(id);
-    el.querySelectorAll('.chip.man').forEach(function(c){
-      var n = parseInt(c.getAttribute('data-lvl'),10);
-      var orig = c.getAttribute('data-origtext');
-      if (n <= lv) {
-        c.classList.add('on'); c.classList.remove('warn');
-        if (n === 1) c.textContent = "Llegó a Argentina";
-      } else {
-        c.classList.remove('on');
-        if (orig) { c.textContent = orig; if (orig.indexOf('Debería') === 0) c.classList.add('warn'); }
+function loadOverrides() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); } catch (e) { return {}; }
+}
+function saveOverrides(o) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(o)); } catch (e) {}
+}
+function currentLevel(id) {
+  const o = loadOverrides();
+  return (id in o) ? o[id] : (BASE[id] || 0);
+}
+
+function paintRow(tr) {
+  const id = tr.dataset.item;
+  if (!id) return;
+  const lvl = currentLevel(id);
+  const chips = tr.querySelectorAll('.chip-manual');
+  chips.forEach(c => {
+    const n = parseInt(c.dataset.lvl, 10);
+    const orig = c.dataset.origtext;
+    if (lvl >= n) {
+      c.classList.add('done');
+      c.classList.remove('warn');
+      if (orig) c.textContent = 'Llego a Argentina';
+    } else {
+      c.classList.remove('done');
+      if (orig) {
+        c.textContent = orig;
+        if (orig.indexOf('Deberia') === 0) c.classList.add('warn');
       }
+    }
+  });
+}
+
+function refreshBar() {
+  const o = loadOverrides();
+  const n = Object.keys(o).length;
+  const bar = document.getElementById('savebar');
+  bar.style.display = n ? 'flex' : 'none';
+  document.getElementById('savemsg').textContent =
+    n + (n === 1 ? ' cambio sin guardar' : ' cambios sin guardar') +
+    ' — copia el CSV y pegalo en GitHub para que quede firme.';
+  if (!n) document.getElementById('csvout').style.display = 'none';
+}
+
+document.querySelectorAll('tr[data-item]').forEach(tr => {
+  paintRow(tr);
+  tr.querySelectorAll('.chip-manual').forEach(chip => {
+    chip.addEventListener('click', ev => {
+      ev.stopPropagation();
+      const id = tr.dataset.item;
+      const n = parseInt(chip.dataset.lvl, 10);
+      const cur = currentLevel(id);
+      const nuevo = (cur === n) ? n - 1 : n;
+      const o = loadOverrides();
+      if (nuevo === (BASE[id] || 0)) delete o[id]; else o[id] = nuevo;
+      saveOverrides(o);
+      document.querySelectorAll('tr[data-item="' + id.replace(/"/g, '\\"') + '"]').forEach(paintRow);
+      refreshBar();
     });
   });
-  var n = Object.keys(pend).length;
-  document.getElementById('savebar').style.display = n ? 'block' : 'none';
-}
-
-document.addEventListener('click', function(ev){
-  var c = ev.target.closest('.chip.man'); if(!c) return;
-  var el = c.closest('.item[data-item]'); if(!el) return;
-  var id = el.getAttribute('data-item');
-  var n = parseInt(c.getAttribute('data-lvl'),10);
-  var cur = eff(id);
-  var nv = (n === cur) ? n - 1 : n;
-  if (nv === (base[id]||0)) { delete pend[id]; } else { pend[id] = nv; }
-  localStorage.setItem(KEY, JSON.stringify(pend));
-  paint();
 });
+refreshBar();
 
-function buildCSV(){
-  var out = [HEADER];
-  ROWS.forEach(function(r){
-    var lv = eff(r[0]);
-    var c = r.slice();
-    c[3] = lv >= 1 ? "SI" : "NO";
-    c[4] = lv >= 2 ? "SI" : "NO";
-    c[6] = lv >= 3 ? "SI" : "NO";
-    out.push(c.map(function(v){ return (v.indexOf(',')>=0||v.indexOf('"')>=0) ? '"'+v.replace(/"/g,'""')+'"' : v; }).join(','));
+function csvCell(v) {
+  v = String(v == null ? '' : v);
+  return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+}
+function buildCSV() {
+  const o = loadOverrides();
+  const lines = [CSV_HEADER.join(',')];
+  CSV_ROWS.forEach(r => {
+    const lvl = (r.id in o) ? o[r.id] : baseLevel(r);
+    const out = Object.assign({}, r);
+    out.llego_argentina = lvl >= 1 ? 'SI' : 'NO';
+    out.empaquetado     = lvl >= 2 ? 'SI' : 'NO';
+    out.enviado         = lvl >= 3 ? 'SI' : 'NO';
+    lines.push(CSV_HEADER.map(h => csvCell(out[h])).join(','));
   });
-  return out.join("\n");
+  return lines.join('\n') + '\n';
+}
+function copiarCSV() {
+  const txt = buildCSV();
+  const ta = document.getElementById('csvout');
+  ta.value = txt;
+  ta.style.display = 'block';
+  if (navigator.clipboard) navigator.clipboard.writeText(txt).catch(() => {});
+  ta.select();
+}
+function abrirGitHub() { window.open('https://github.com/nsoukia-hash/neve-track-ventas-data/edit/main/compras_manual.csv', '_blank'); }
+function descartar() {
+  localStorage.removeItem(LS_KEY);
+  document.querySelectorAll('tr[data-item]').forEach(paintRow);
+  refreshBar();
 }
 
-function copiar(){
-  var t = buildCSV(), ta = document.getElementById('csvout');
-  ta.value = t; ta.style.display = 'block';
-  if (navigator.clipboard) navigator.clipboard.writeText(t).catch(function(){ ta.select(); });
-  else { ta.select(); document.execCommand('copy'); }
+const search = document.getElementById('search');
+const filtroProveedor = document.getElementById('filtroProveedor');
+const filtroEstado = document.getElementById('filtroEstado');
+const rows = Array.from(document.querySelectorAll('#tabla tbody tr'));
+const empty = document.getElementById('empty');
+function applyFilters() {
+  const q = search.value.toLowerCase();
+  const prov = filtroProveedor.value;
+  const est = filtroEstado.value;
+  let visible = 0;
+  rows.forEach(r => {
+    if (r.classList.contains('detalle-item')) return;
+    const okQ = !q || r.dataset.search.includes(q);
+    const okP = !prov || r.dataset.proveedor.split('|').includes(prov);
+    const okE = !est || r.dataset.estado === est;
+    const show = okQ && okP && okE;
+    r.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  empty.style.display = visible === 0 ? 'block' : 'none';
 }
-function descartar(){ pend = {}; localStorage.removeItem(KEY); document.getElementById('csvout').style.display='none'; paint(); }
+search.addEventListener('input', applyFilters);
+filtroProveedor.addEventListener('change', applyFilters);
+filtroEstado.addEventListener('change', applyFilters);
 
-paint();
+function toggleGrupo(gid, trEl) {
+  const det = document.querySelectorAll('tr.detalle-item[data-group="' + gid + '"]');
+  const tg = document.getElementById('toggle-' + gid);
+  const abierto = det.length && det[0].style.display !== 'none';
+  det.forEach(d => d.style.display = abierto ? 'none' : '');
+  if (tg) tg.textContent = abierto ? '▾' : '▴';
+}
 </script>
 </body>
 </html>
+
